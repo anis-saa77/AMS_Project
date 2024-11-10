@@ -1,2 +1,4 @@
 Env/
 src/main/resources/*
+.vscode/
+.idea/
