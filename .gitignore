@@ -1,4 +1,4 @@
-Env/
-src/main/resources/*
 .vscode/
 .idea/
+Env/
+src/main/python/__pycache__
