@@ -1,5 +1,5 @@
 .vscode/
 .idea/
-src/main/resources/*
+src/main/resources/
 Env/
 src/main/python/__pycache__
