@@ -1,5 +1,4 @@
 .vscode/
 .idea/
-src/main/resources/
 Env/
 src/main/python/__pycache__
