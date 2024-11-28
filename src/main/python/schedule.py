@@ -19,5 +19,4 @@ class ScheduleTool(BaseTool):
             self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None
     ) -> str:
         """Utilise l'outil pour suggérer donner des informations relatives à l'emploi du temps."""
-        # Si aucune aide n'est trouvée
         return "L'outil utilisé est ScheduleTool"

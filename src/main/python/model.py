@@ -1,5 +1,5 @@
 import os
-from functions import getLangchain_API_Key, getFireworks_API_Key
+from functions import getLangchain_API_Key, getFireworks_API_Key, getTavily_API_Key
 from langchain_fireworks import ChatFireworks
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import trim_messages, SystemMessage
@@ -11,7 +11,7 @@ from langchain_core.messages import trim_messages, SystemMessage
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"] = getLangchain_API_Key()
 os.environ["FIREWORKS_API_KEY"] = getFireworks_API_Key()
-os.environ["TAVILY_API_KEY"] = "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"
+os.environ["TAVILY_API_KEY"] = getTavily_API_Key()
 
 
 ####################################################

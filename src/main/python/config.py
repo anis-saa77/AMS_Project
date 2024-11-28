@@ -34,7 +34,6 @@ def sendMessage(message, language, config):
 ####################################################
 # Define some variables
 ####################################################
-
 # Define the graph
 workflow = StateGraph(state_schema=State)
 
@@ -44,13 +43,14 @@ workflow.add_node("model", call_model)
 
 # Add memory
 memory = MemorySaver()
+
+# Create the agent
+agent_executor = create_react_agent(model, tools, checkpointer=memory)
+
 app = workflow.compile(checkpointer=memory)
 
 # Per user
 config = {"configurable": {"thread_id": "abc123"}}
-
-# Create the agent
-agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
 
 ##############################################################

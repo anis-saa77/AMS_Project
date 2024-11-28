@@ -8,11 +8,12 @@ from social_aid import SocialAidTool
 ##############################################################
 
 
-search = TavilySearchResults(max_results=2)
+tavily_search = TavilySearchResults(max_results=2)
 schedule = ScheduleTool()
 dir = DiretionIndicationTool()
-social_aid = SocialAidTool
-tools = [search, schedule, dir, social_aid]
+social_aid = SocialAidTool()
+#search de greg
+tools = [tavily_search, schedule]
 
 
 ##############################################################

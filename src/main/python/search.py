@@ -7,10 +7,8 @@ from langchain.callbacks.manager import (
     CallbackManagerForToolRun,
 )
 
-
 class SearchInput(BaseModel):
     query: str = Field(description="Description du besoin de l'utilisateur pour effectuer une recherche.")
-
 
 class SearchTool(BaseTool):
     """Outil pour effectuer une recherche en fonction de l'utilisateur."""
@@ -22,5 +20,4 @@ class SearchTool(BaseTool):
             self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None
     ) -> str:
         """Utilise l'outil pour suggérer effectuer une recherche et répondre au besoin de l'utilsateur."""
-        # Si aucune aide n'est trouvée
         return "L'outil utilisé est SearchTool"
