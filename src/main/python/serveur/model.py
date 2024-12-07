@@ -1,5 +1,5 @@
 import os
-from functions import getLangchain_API_Key, getFireworks_API_Key, getTavily_API_Key
+from functions_agent import getLangchain_API_Key, getFireworks_API_Key, getTavily_API_Key
 from langchain_fireworks import ChatFireworks
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import trim_messages, SystemMessage
