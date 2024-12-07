@@ -36,7 +36,7 @@ def call_model(state: State):
 
 def sendMessage(message, language, config):
     state = {"messages": [HumanMessage(content=message)], "language": language}
-    output = app.invoke(state, config)
+    output = agent_executor.invoke(state, config)
     response = output['messages'][-1]
     #print("sendMessage : " , response)
 

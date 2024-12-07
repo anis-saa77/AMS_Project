@@ -24,6 +24,5 @@ while True:
 
     if message:
         sendMessage(message, "French", config)
-        print(messages)
 
 ##############################################################
