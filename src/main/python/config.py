@@ -26,6 +26,7 @@ def call_model(state: State):
 
     # Appel de l'agent avec le prompt formaté
     response = agent_executor.invoke({"messages": trimmed_messages, "language": state["language"]})
+    print(response)
     #print(f"AI Message: {response["output"]}")
     return {"messages": response["messages"]}
 
@@ -36,7 +37,8 @@ def call_model(state: State):
 
 def sendMessage(message, language, config):
     state = {"messages": [HumanMessage(content=message)], "language": language}
-    output = agent_executor.invoke(state, config)
+    print("Message envoyé : ", state)
+    output = app.invoke(state, config)
     response = output['messages'][-1]
     #print("sendMessage : " , response)
 
@@ -56,7 +58,7 @@ memory = MemorySaver()
 
 # Create the agent
 agent = create_tool_calling_agent(model, tools, prompt)
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+agent_executor = AgentExecutor(agent=agent, tools=tools) #verbose= True
 
 app = workflow.compile(checkpointer=memory)
 

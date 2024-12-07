@@ -1,6 +1,5 @@
 import speech_recognition as sr
 from config import sendMessage, config
-from model import messages
 
 ##############################################################
                         # Execution #

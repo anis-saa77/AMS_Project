@@ -17,7 +17,7 @@ dir = DiretionIndicationTool()
 #social_aid = SocialAidTool()
 #search de greg
 
-tools = [weather_tool, social_aid_tool]
+tools = [weather_tool, social_aid_tool, schedule, dir]
 
 
 ##############################################################
