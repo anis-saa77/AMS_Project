@@ -1,5 +1,6 @@
 import speech_recognition as sr
 from config import sendMessage, config
+from model import messages
 
 ##############################################################
                         # Execution #
@@ -23,5 +24,6 @@ while True:
 
     if message:
         sendMessage(message, "French", config)
+        print(messages)
 
 ##############################################################

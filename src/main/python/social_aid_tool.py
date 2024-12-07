@@ -2,28 +2,16 @@ import string
 from typing import Optional, Type
 from langchain_core.tools import BaseTool
 from pydantic import Field, BaseModel
-from langchain.callbacks.manager import (
-    AsyncCallbackManagerForToolRun,
-    CallbackManagerForToolRun,
-)
+from langchain.tools import Tool
+from langchain_core.messages import SystemMessage
+
 def remove_punctuation(text):
     translator = str.maketrans('', '', string.punctuation)
     return text.translate(translator)
-class SocialAidInput(BaseModel):
-    query: str = Field(description="Description du besoin de l'utilisateur pour l'aide sociale.")
 
-class SocialAidTool(BaseTool):
-    """Outil pour suggérer des aides sociales et répondre au problème de l'utilisateur."""
-    name: str = "Social Aid Tool"
-    description: str = "Suggère l'aide sociales appropriée."
-    args_schema: Type[BaseModel] = SocialAidInput
-
-    def _run(
-            self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None
-    ) -> str:
-        """Utilise l'outil pour suggérer une aide sociale."""
-
-        # Dictionnaire d'aides sociales avec mots-clés
+def social_aid_suggestion(query):
+        
+    # Dictionnaire d'aides sociales avec mots-clés
         aids = {
             "CAF": {
                 "description": "Caisse d'Allocations Familiales : aide pour les familles, logement, etc.",
@@ -53,12 +41,15 @@ class SocialAidTool(BaseTool):
             query_words = query.split()
             if any(keyword in query_words for keyword in aid_info["keywords"]):
                 return f"Aide suggérée : {aid_name} - {aid_info['description']}"
-
+        messages = [
+            SystemMessage(content="you're a good assistant")
+        ]
         # Si aucune aide n'est trouvée
         return "Désolé, je n'ai pas trouvé d'aide sociale correspondant à votre besoin."
 
-    async def _arun(
-            self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None
-    ) -> str:
-        """Utilise l'outil de manière asynchrone."""
-        raise NotImplementedError("SocialAidTool ne supporte pas l'asynchrone.")
+social_aid_tool = Tool(
+        name="social_aid",
+        func=social_aid_suggestion,
+        description="Suggère une aide sociale pour une personne en difficulté."
+    )
+    

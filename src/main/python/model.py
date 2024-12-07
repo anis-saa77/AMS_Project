@@ -24,11 +24,20 @@ prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are an assistive AI for students in the CERI reception hall. Use the available tools to provide answers, especially for real-time information like the weather. Answer all questions to the best of your ability in {language}.",
+            """
+            Tu es un assistant intelligent pour le CERI. Utilise les outils disponibles pour répondre précisément aux questions. Voici les outils que tu peux utiliser :
+            
+            - **check_weather** : Obtiens la météo actuelle pour une ville donnée.
+            - **social_aid** : Suggère une aide sociale pour répondre aux difficultés.
+
+            Réponds toujours en français.
+            """
         ),
         MessagesPlaceholder(variable_name="messages"),
+        ("system", "Scratchpad pour l'agent: {agent_scratchpad}"),
     ]
 )
+
 
 trimmer = trim_messages(
     max_tokens=65,
