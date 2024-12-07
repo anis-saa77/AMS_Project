@@ -30,6 +30,8 @@ def sendMessage(message, language, config):
     output = app.invoke(state, config)
     response = output['messages'][-1]
     print(f"AI Message: {response.content}")
+    print(f"ToolCalls: {response.tool_calls}")
+
 
 ####################################################
 # Define some variables

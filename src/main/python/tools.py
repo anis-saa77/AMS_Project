@@ -2,6 +2,7 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 from schedule import ScheduleTool
 from direction_indicator import DiretionIndicationTool
 from social_aid import SocialAidTool
+from weather import check_weather
 
 ##############################################################
                         # Tools #
@@ -13,7 +14,7 @@ schedule = ScheduleTool()
 dir = DiretionIndicationTool()
 social_aid = SocialAidTool()
 #search de greg
-tools = [tavily_search, schedule]
+tools = [check_weather]
 
 
 ##############################################################
