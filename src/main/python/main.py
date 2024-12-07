@@ -1,5 +1,7 @@
 import speech_recognition as sr
 from config import sendMessage, config
+from langgraph.checkpoint.memory import MemorySaver
+from config import workflow
 
 ##############################################################
                         # Execution #
@@ -23,5 +25,7 @@ while True:
 
     if message:
         sendMessage(message, "French", config)
+        memory = MemorySaver()
+        app = workflow.compile(checkpointer=memory)
 
 ##############################################################

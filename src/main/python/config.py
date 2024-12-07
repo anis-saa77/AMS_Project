@@ -15,19 +15,18 @@ from langchain.agents import AgentExecutor, create_tool_calling_agent
 ####################################################
 # Define the function that calls the model
 ####################################################
-
+# Ajouter le prompt dans les messages
+    #final_prompt = prompt.format_messages(messages=trimmed_messages)
+    #response = agent_executor.invoke({"messages": final_prompt, "language": state["language"]})
 def call_model(state: State):
     # Trim des messages
     trimmed_messages = trimmer.invoke(state["messages"])
-    
-    # Ajouter le prompt dans les messages
-    #final_prompt = prompt.format_messages(messages=trimmed_messages)
-    #response = agent_executor.invoke({"messages": final_prompt, "language": state["language"]})
 
     # Appel de l'agent avec le prompt formaté
     response = agent_executor.invoke({"messages": trimmed_messages, "language": state["language"]})
-    print(response)
+    #print(response)
     #print(f"AI Message: {response["output"]}")
+    print(response)
     return {"messages": response["messages"]}
 
 
@@ -36,11 +35,12 @@ def call_model(state: State):
 ####################################################
 
 def sendMessage(message, language, config):
-    state = {"messages": [HumanMessage(content=message)], "language": language}
+    state = {"messages": messages + [HumanMessage(content=message)], "language": language}
     print("Message envoyé : ", state)
     output = app.invoke(state, config)
     response = output['messages'][-1]
-    #print("sendMessage : " , response)
+    #memory.clear()
+    
 
 
 ####################################################
@@ -58,7 +58,7 @@ memory = MemorySaver()
 
 # Create the agent
 agent = create_tool_calling_agent(model, tools, prompt)
-agent_executor = AgentExecutor(agent=agent, tools=tools) #verbose= True
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False) #verbose= True
 
 app = workflow.compile(checkpointer=memory)
 
