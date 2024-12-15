@@ -17,6 +17,7 @@ def recognize_speech_from_wav(wav_filename):
     try:
         text = recognizer.recognize_google(audio, language="fr-FR")
         print("Contenu de l'audio :", text)
+        return text
     except sr.UnknownValueError:
         print("Google Speech Recognition n'a pas pu comprendre l'audio")
     except sr.RequestError as e:
@@ -28,7 +29,7 @@ def recognize_speech_sphinx(wav_filename):
         audio = recognizer.record(source)
     try:
         # Utilisation de CMU Sphinx, qui est local
-        text = recognizer.recognize_sphinx(audio)
+        text = recognizer.recognize_sphinx(audio, language="fr-FR")
         print("Contenu de l'audio (Sphinx) :", text)
         return text
     except sr.UnknownValueError:

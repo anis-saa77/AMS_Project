@@ -27,11 +27,11 @@ def call_model(state: State):
 
 def sendMessage(message, language, config):
     print("0")
-    print("language : " + language)
+    print("language :", language)
     print("0.5")
-    print("tools : " + tools)
-    print("HumanMessage : " + [HumanMessage(content=message)])
-    print("messages : " + messages)
+    print("tools :", tools)
+    print("HumanMessage :", [HumanMessage(content=message)])
+    print("messages :", messages)
     state = {"messages": messages + [HumanMessage(content=message)], "language": language}
     print("1")
     output = app.invoke(state, config)
@@ -40,6 +40,7 @@ def sendMessage(message, language, config):
     print("3")
     print(f"AI Message: {response.content}")
     print(f"ToolCalls: {response.tool_calls}")
+    return response.content
 
 
 ####################################################
