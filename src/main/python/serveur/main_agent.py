@@ -1,5 +1,5 @@
 import speech_recognition as sr
-from config import sendMessage, config
+from config_agent import sendMessage, config
 
 ##############################################################
                         # Execution #
