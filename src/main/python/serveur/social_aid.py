@@ -13,9 +13,9 @@ class SocialAidInput(BaseModel):
     query: str = Field(description="Description du besoin de l'utilisateur pour l'aide sociale.")
 
 class SocialAidTool(BaseTool):
-    """Outil pour suggérer des aides sociales en fonction des besoins de l'utilisateur."""
+    """Outil pour suggérer des aides sociales et répondre au problème de l'utilisateur."""
     name: str = "Social Aid Tool"
-    description: str = "Suggère des aides sociales appropriées en fonction du besoin de l'utilisateur."
+    description: str = "Suggère l'aide sociales appropriée."
     args_schema: Type[BaseModel] = SocialAidInput
 
     def _run(
@@ -27,7 +27,7 @@ class SocialAidTool(BaseTool):
         aids = {
             "CAF": {
                 "description": "Caisse d'Allocations Familiales : aide pour les familles, logement, etc.",
-                "keywords": ["famille", "enfant", "logement", "APL", "aide logement", "allocations familiales"]
+                "keywords": ["famille", "enfant", "logement", "aide logement", "allocations familiales"]
             },
             "RSA": {
                 "description": "Revenu de Solidarité Active : aide financière pour les personnes sans revenus suffisants.",

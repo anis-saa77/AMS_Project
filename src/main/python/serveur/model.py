@@ -5,14 +5,13 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import trim_messages, SystemMessage
 
 ##############################################################
-                        # Model #
+# Model #
 ##############################################################
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"] = getLangchain_API_Key()
 os.environ["FIREWORKS_API_KEY"] = getFireworks_API_Key()
 os.environ["TAVILY_API_KEY"] = getTavily_API_Key()
-
 
 ####################################################
 # Define the model
@@ -24,9 +23,17 @@ prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are an assistive AI for students in the CERI reception hall. Use the available tools to provide answers, especially for real-time information like the weather. Answer all questions to the best of your ability in {language}.",
+            """
+            Tu es un assistant intelligent pour le CERI. Utilise les outils disponibles pour répondre précisément aux questions. Voici les outils que tu peux utiliser :
+
+            - **check_weather** : Obtiens la météo actuelle pour une ville donnée.
+            - **social_aid** : Suggère une aide sociale pour répondre aux difficultés.
+
+            Réponds toujours en français.
+            """
         ),
         MessagesPlaceholder(variable_name="messages"),
+        ("system", "Scratchpad pour l'agent: {agent_scratchpad}"),
     ]
 )
 
