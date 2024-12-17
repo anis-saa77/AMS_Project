@@ -25,9 +25,8 @@ def call_model(state: State):
 
     # Appel de l'agent avec le prompt formaté
     response = agent_executor.invoke({"messages": trimmed_messages, "language": state["language"]})
-    # print(response)
-    # print(f"AI Message: {response["output"]}")
-    print(response)
+    print(f"AI Message: {response['output']}")
+    #print(response)
     return {"messages": response["messages"]}
 
 
