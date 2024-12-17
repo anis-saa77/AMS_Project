@@ -15,8 +15,6 @@ tavily_search = TavilySearchResults(max_results=2)
 schedule = ScheduleTool()
 dir = DiretionIndicationTool()
 #social_aid = SocialAidTool()
-#search de greg
-
 tools = [weather_tool, social_aid_tool, schedule, dir]
 
 
