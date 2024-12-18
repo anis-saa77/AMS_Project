@@ -56,9 +56,3 @@ class SocialAidTool(BaseTool):
 
         # Si aucune aide n'est trouvée
         return "Désolé, je n'ai pas trouvé d'aide sociale correspondant à votre besoin."
-
-    async def _arun(
-            self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None
-    ) -> str:
-        """Utilise l'outil de manière asynchrone."""
-        raise NotImplementedError("SocialAidTool ne supporte pas l'asynchrone.")

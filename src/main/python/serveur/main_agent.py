@@ -1,6 +1,6 @@
 import speech_recognition as sr
 from config_agent import sendMessage, config
-
+import random
 ##############################################################
                         # Execution #
 ##############################################################
@@ -22,6 +22,6 @@ if __name__ == '__main__':
             print("Erreur avec le service de reconnaissance vocale.")
 
         if message:
-            sendMessage(message, "French", config)
+            sendMessage(message, "French",config)
 
 ##############################################################

@@ -1,22 +1,17 @@
 import string
-from typing import Optional, Type
-from langchain_core.tools import BaseTool
-from pydantic import Field, BaseModel
 from langchain.tools import Tool
-from langchain_core.messages import SystemMessage
 
 
 def remove_punctuation(text):
     translator = str.maketrans('', '', string.punctuation)
     return text.translate(translator)
 
-
-def social_aid_suggestion(query):
+def social_aid_suggestion(query: str) -> str:
     # Dictionnaire d'aides sociales avec mots-clés
     aids = {
         "CAF": {
             "description": "Caisse d'Allocations Familiales : aide pour les familles, logement, etc.",
-            "keywords": ["famille", "enfant", "logement", "aide logement", "allocations familiales"]
+            "keywords": ["famille", "enfant", "logement", "aide logement", "allocations familiales", "CAF"]
         },
         "RSA": {
             "description": "Revenu de Solidarité Active : aide financière pour les personnes sans revenus suffisants.",
@@ -24,7 +19,7 @@ def social_aid_suggestion(query):
         },
         "ASPA": {
             "description": "Allocation de Solidarité aux Personnes Âgées : aide pour les retraités ayant de faibles revenus.",
-            "keywords": ["retraite", "retraité", "personne âgée", "ASPA", "seniors", "aide financière"]
+            "keywords": ["retraite", "retraité", "retraitée", "personne âgée", "personne retraitée", "ASPA", "seniors", "aide financière"]
         },
         "APL": {
             "description": "Aide Personnalisée au Logement : aide au logement pour les personnes ayant de faibles ressources.",
@@ -42,9 +37,6 @@ def social_aid_suggestion(query):
         query_words = query.split()
         if any(keyword in query_words for keyword in aid_info["keywords"]):
             return f"Aide suggérée : {aid_name} - {aid_info['description']}"
-    messages = [
-        SystemMessage(content="you're a good assistant")
-    ]
     # Si aucune aide n'est trouvée
     return "Désolé, je n'ai pas trouvé d'aide sociale correspondant à votre besoin."
 
@@ -52,5 +44,5 @@ def social_aid_suggestion(query):
 social_aid_tool = Tool(
     name="social_aid",
     func=social_aid_suggestion,
-    description="Suggère une aide sociale pour une personne en difficulté."
+    description="Suggère une aide sociale pour une personne en fonction de la situation."
 )

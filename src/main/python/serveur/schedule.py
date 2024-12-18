@@ -16,7 +16,7 @@ class ScheduleTool(BaseTool):
     args_schema: Type[BaseModel] = ScheduleInput
 
     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-        """Exécute l'outil pour répondre aux demandes relatives à l'emploi du temps."""
+        """Répondre aux demandes relatives à l'emploi du temps."""
         # Ajouter une vérification de la requête pour identifier des informations spécifiques
         if "emploi du temps" in query or "planning" in query:
             # Exemple simple de réponse en fonction de l'entrée

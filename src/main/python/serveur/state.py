@@ -12,6 +12,7 @@ from langgraph.graph.message import add_messages
 class State(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
     language: str
+    tool_call: bool
 
 
 ##############################################################
