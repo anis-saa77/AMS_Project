@@ -3,3 +3,4 @@
 Env/
 src/main/python/__pycache__
 src/resources
+src/main/python/serveur/audio.wav
