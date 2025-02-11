@@ -9,18 +9,19 @@ from langchain.callbacks.manager import (
 
 
 class DirectionInput(BaseModel):
-    query: str = Field(description="Description du besoin de l'utilisateur pour trouver son chemin.")
-
+    query: str = Field(description="Salle ou toilettes dont on veut connaître la direction.")
 
 class DiretionIndicationTool(BaseTool):
     """Outil pour donner la direction vers une salle."""
     name: str = "Direction Indicator Tool"
-    description: str = "Donne la direction en fonction du besoin de l'utilisateur."
+    description: str = "Donne la direction en fonction de la salle voulue."
     args_schema: Type[BaseModel] = DirectionInput
 
     def _run(
             self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None
     ) -> str:
-        """Utilise l'outil pour suggérer donner la dierction vers une salle."""
+        """Utilise l'outil pour donner la dierction vers une salle."""
+        if "toilettes" in query:
+            return "Les toilettes se trouvent à gauche."
         # Si aucune aide n'est trouvée
-        return "L'outil utilisé est DirectionIndicatorInput"
+        return "La salle se trouve au fond du couloir à gauche."

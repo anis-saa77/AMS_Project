@@ -29,10 +29,6 @@ def upload():
         params = base64.b64decode(params_base64)
         params = literal_eval(params.decode("utf-8"))
 
-        #with open("received_audio.mp3", "wb") as audio_file:
-        #    audio_file.write(audio_data)
-        #
-        #mp3_to_wav("received_audio.mp3", "audio.wav")
         with wave.open("audio.wav", "wb") as wav_file:
             wav_file.setparams(params)
             wav_file.writeframes(audio_data)
@@ -47,10 +43,8 @@ def upload():
         return json, 200
     except Exception as e:
         print("error:", str(e))
-        print("ai_response : Je n'ai pas compris, répète batard.")
-        return jsonify({'ai_response' : "Je n'ai pas compris, répète batard."}), 200
-        #return jsonify({"error": str(e)}), 500
-    
+        return jsonify({'ai_response' : "Je n'ai pas compris. Veuillez répéter."}), 200
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     json = {

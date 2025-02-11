@@ -10,8 +10,7 @@ from langchain.callbacks.manager import (
 class SearchInput(BaseModel):
     query: str = Field(description="Description du besoin de l'utilisateur pour effectuer une recherche.")
 
-class SearchTool(BaseTool):
-    """Outil pour effectuer une recherche en fonction de l'utilisateur."""
+class SearchTool(BaseTool):    """Outil pour effectuer une recherche en fonction de l'utilisateur."""
     name: str = "Search Tool"
     description: str = "Effectuer une recherche en fonction du besoin de l'utilisateur."
     args_schema: Type[BaseModel] = SearchInput

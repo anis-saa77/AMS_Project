@@ -14,10 +14,8 @@ from social_aid_tool import social_aid_tool
 tavily_search = TavilySearchResults(max_results=2)
 schedule = ScheduleTool()
 dir = DiretionIndicationTool()
-#social_aid = SocialAidTool()
-#search de greg
 
-tools = [weather_tool, social_aid_tool, schedule, dir]
+tools = [social_aid_tool, schedule, dir]
 
 
 ##############################################################
