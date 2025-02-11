@@ -1,10 +1,12 @@
 import base64
 import wave
-from flask import request, jsonify
+from flask import request, jsonify, send_file
 from app import app
-from functions_server import mp3_to_wav, recognize_speech_from_wav, recognize_speech_sphinx
+from functions_server import *
 from config_agent import sendMessage, config
 from ast import literal_eval
+
+create_qr_code("http://10.126.3.101:5000/download")
 
 @app.route('/')
 def homepage():
@@ -57,3 +59,8 @@ def test():
         'ai_response' : "Ceci est un test, je fonctionne bien."
     }
     return json, 200
+
+@app.route('/download', methods=['GET'])
+def download():
+    file_path = "pdf/conversation"
+    return send_file(file_path, as_attachment=True)
