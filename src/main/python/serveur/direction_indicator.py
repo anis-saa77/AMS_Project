@@ -21,5 +21,7 @@ class DiretionIndicationTool(BaseTool):
             self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None
     ) -> str:
         """Utilise l'outil pour donner la dierction vers une salle."""
+        if "toilettes" in query:
+            return "Les toilettes se trouvent à gauche."
         # Si aucune aide n'est trouvée
         return "La salle se trouve au fond du couloir à gauche."
