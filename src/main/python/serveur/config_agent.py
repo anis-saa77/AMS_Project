@@ -9,7 +9,6 @@ from langchain.agents import AgentExecutor, create_tool_calling_agent
 import json
 from langchain_core.messages import RemoveMessage
 
-
 ##############################################################
 # Config #
 ##############################################################
@@ -32,8 +31,8 @@ def call_model(state: State):
     try:
         json.loads(response['output'])
         print("La réponse est au format json")
-        # updated_messages = state["messages"] + [AIMessage(content="Je n'ai pas compris votre demande. Veuillez répéter.")]
-        # return {"messages": updated_messages, "tool_call": intermediate_steps}
+        updated_messages = state["messages"] + [AIMessage(content="Je n'ai pas compris votre demande. Veuillez répéter.")]
+        return {"messages": updated_messages, "tool_call": intermediate_steps}
     except json.JSONDecodeError:
         pass
     #print(response)

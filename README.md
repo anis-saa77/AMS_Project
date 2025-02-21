@@ -7,3 +7,10 @@
 
 ### Run this command to install all the libraries
 #### pip install langchain_fireworks langgraph langchain_community SpeechRecognition PyAudio transformers flask pydub
+
+## Idée :
+- Fonction d'arrêt
+- Quiz orienté informatique, (+geste du robot pour confirmer la réponse)
+- PDF générable pour chaque outil. (direction_indicator -> plan avec indication...)
+- Affichage sur la tablette
+- Fiches de tests
