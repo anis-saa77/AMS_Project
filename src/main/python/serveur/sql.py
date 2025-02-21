@@ -2,9 +2,6 @@ import sqlite3
 
 connection = sqlite3.connect("../../../resources/database/data.db")
 cur = connection.cursor()
-
-# cur.execute("CREATE TABLE SocialAid(name, description)")
-# cur.execute("CREATE TABLE Keyword(word)")
 def getAidKeywords(aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
@@ -25,11 +22,8 @@ def getAidKeywords(aid_name):
     WHERE SocialAid.name = ?;
     '''
 
-    # Exécution de la requête avec le nom de l'aide sociale comme paramètre
     cur.execute(query, (aid_name,))
-
-    # Récupération des résultats
-    keywords = [row[0] for row in cur.fetchall()]  # Extraction des mots-clés dans une liste
+    keywords = [row[0] for row in cur.fetchall()]
 
     # Fermeture de la connexion
     #connection.close()
