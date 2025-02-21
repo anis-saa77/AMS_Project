@@ -6,7 +6,8 @@
 #### python3 -m venv Env
 
 ### Run this command to install all the libraries
-#### pip install langchain_fireworks langgraph langchain_community SpeechRecognition PyAudio transformers flask pydub
+
+#### pip install langchain_fireworks langgraph langchain_community SpeechRecognition PyAudio transformers flask pydub qrcode fpdf
 
 ## Idée :
 - Fonction d'arrêt

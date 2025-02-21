@@ -2,5 +2,9 @@
 .idea/
 Env/
 src/main/python/__pycache__
+src/main/python/serveur/__pycache__
 src/resources
 src/main/python/serveur/audio.wav
+src/main/python/serveur/pdf
+src/main/python/serveur/qrcode
+src/main/python/serveur/fonts/arial*
