@@ -3,7 +3,7 @@
 Env/
 src/main/python/__pycache__
 src/main/python/serveur/__pycache__
-src/resources
+src/resources/*_key.txt
 src/main/python/serveur/audio.wav
 src/main/python/serveur/pdf
 src/main/python/serveur/qrcode
