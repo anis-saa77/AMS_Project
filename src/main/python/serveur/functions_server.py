@@ -67,8 +67,8 @@ def create_qr_code(url):
 def create_pdf(messages):
     pdf = FPDF()
     pdf.add_page()
-    pdf.add_font("DejaVuSans", "", "DejaVuSans.ttf")
-    pdf.set_font("DejaVuSans", size=12)
+    pdf.add_font("Arial", "", "fonts/arial.ttf", uni=True)
+    pdf.set_font("Arial", size=12)
 
     i = 0
     print(len(messages))

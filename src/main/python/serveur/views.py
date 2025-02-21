@@ -6,7 +6,7 @@ from functions_server import *
 from config_agent import sendMessage, config
 from ast import literal_eval
 
-create_qr_code("http://10.126.3.101:5000/download")
+create_qr_code("http://172.20.10.2:5000/download")
 
 @app.route('/')
 def homepage():
@@ -62,5 +62,5 @@ def test():
 
 @app.route('/download', methods=['GET'])
 def download():
-    file_path = "pdf/conversation"
+    file_path = "pdf/conversation.pdf"
     return send_file(file_path, as_attachment=True)
