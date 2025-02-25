@@ -1,5 +1,6 @@
 import base64
 import wave
+import requests
 from flask import request, jsonify, send_file
 from app import app
 from functions_server import *
@@ -7,9 +8,10 @@ from config_agent import sendMessage, config
 from config_conv_model import sendConvMessage, configConv
 from model_conv import init_conversation
 from ast import literal_eval
+from sql import *
 
 historic = []
-conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarer une conversation", "démarer une discution", "je veux parler avec toi"]
+deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarer une conversation", "démarer une discution", "je veux parler avec toi"]
 create_qr_code("http://172.20.10.2:5000/download")
 
 @app.route('/')
@@ -40,7 +42,7 @@ def upload():
             wav_file.writeframes(audio_data)
             
         message = recognize_speech_from_wav("audio.wav")
-        if message in conversation :
+        if message in deb_conversation :
             print("Début d'une conversation ...")
             historic = []
             init_conversation()
@@ -49,19 +51,42 @@ def upload():
                 'ai_response': "Trés bien, démarrons une conversation ! Pour l'arreter dites moi : stop.",
                 'conversation' : True
             }, 200
-        ai_response = str(sendMessage(message, "French", config))
+        ai_response, tool_name, query = sendMessage(message, "French", config)
         #recognize_speech_sphinx("audio.wav")
+        image_encoded = None
+        connection = sqlite3.connect("../../../resources/database/data.db")
+        cur = connection.cursor()
+        if tool_name == 'social_aid':
+            image_url = str(getAidImage(cur, query))
+            try:
+                response = requests.get(image_url)
+                if response.status_code == 200:
+                    image_encoded = base64.b64encode(response.content).decode('utf-8')
+                else:
+                    print(f"Erreur lors du téléchargement de l'image: {response.status_code}")
+            except Exception as e:
+                print(f"Erreur lors de la récupération de l'image: {str(e)}")
+        elif tool_name == 'direction ...':
+            # TODO Récupérer la salle correctement
+            salle = query
+            image_path = "../../../resources/plan/" + salle + ".png"
+            try:
+                with open(image_path, "rb") as img_file:
+                    print('cc')
+                    image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
+            except FileNotFoundError:
+                image_encoded = None  # Pas d'image disponible
+        print(image_encoded)
         json = {
-            'message' : message,
-            'ai_response' : ai_response
+            'message': message,
+            'ai_response': ai_response,
+            'image': image_encoded
         }
         return json, 200
     except Exception as e:
         print("error:", str(e))
         print("ai_response : Je n'ai pas compris. Veuillez répéter.")
         return jsonify({'ai_response' : "Je n'ai pas compris. Veuillez répéter."}), 200
-        #return jsonify({"error": str(e)}), 500
-
 
 @app.route('/conversation', methods=['GET', 'POST'])
 def conversation():

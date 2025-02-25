@@ -52,11 +52,17 @@ def sendMessage(message, language, config):
     print("AI_Message : ", response.content)
     ai_message = response.content
     # A tester
-    if output.get('tool_call'): # Supprimer le dernier AIMessage et HumanMessage
-        #app.update_state(config, {"messages": RemoveMessage(id=messages[-1].id)})
-        #app.update_state(config, {"messages": RemoveMessage(id=messages[-1].id)})
-        pass
-    return ai_message
+    tool_call = output.get('tool_call')
+    if tool_call : # Supprimer le dernier AIMessage et HumanMessagex
+        #print(output)
+        tool_agent_action = tool_call[0]
+        tool_name = tool_agent_action[0].tool
+        #print(f"Fonction appelée : {tool_name}")
+        #print(tool_agent_action[-1])
+        result = tool_agent_action[-1][1]
+        #print("result : ", result)
+        return ai_message, tool_name, result
+    return ai_message, None, None
 
 
 ####################################################
