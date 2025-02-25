@@ -11,6 +11,7 @@
 
 ## Idée :
 - Fonction d'arrêt
+- Mode Conversation / Mode Aide
 - Quiz orienté informatique, (+geste du robot pour confirmer la réponse)
 - PDF générable pour chaque outil. (direction_indicator -> plan avec indication...)
 - Affichage sur la tablette
