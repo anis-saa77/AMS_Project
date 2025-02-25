@@ -1,5 +1,5 @@
 import os
-from functions_agent import getLangchain_API_Key, getFireworks_API_Key, getTavily_API_Key
+from dotenv import load_dotenv
 from langchain_fireworks import ChatFireworks
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import trim_messages, SystemMessage
@@ -8,10 +8,17 @@ from langchain_core.messages import trim_messages, SystemMessage
 # Model #
 ##############################################################
 
+racine = os.path.dirname(os.path.abspath(__file__))
+env_path = "../../../resources/.env"
+load_dotenv(os.path.join(racine, env_path))
+langchain_api_key = os.getenv('LANGCHAIN_API_KEY')
+fireworks_api_key = os.getenv('FIREWORKS_API_KEY')
+tavily_api_key = os.getenv('TAVILY_API_KEY')
+
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = getLangchain_API_Key()
-os.environ["FIREWORKS_API_KEY"] = getFireworks_API_Key()
-os.environ["TAVILY_API_KEY"] = getTavily_API_Key()
+os.environ["LANGCHAIN_API_KEY"] = langchain_api_key
+os.environ["FIREWORKS_API_KEY"] = fireworks_api_key
+os.environ["TAVILY_API_KEY"] = tavily_api_key
 
 ####################################################
 # Define the model
