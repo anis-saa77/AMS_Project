@@ -9,7 +9,7 @@ from model_conv import init_conversation
 from ast import literal_eval
 
 historic = []
-conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarer une conversation", "démarer une discution", "je veux parler avec toi"]
+deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarer une conversation", "démarer une discution", "je veux parler avec toi"]
 create_qr_code("http://172.20.10.2:5000/download")
 
 @app.route('/')
@@ -40,7 +40,7 @@ def upload():
             wav_file.writeframes(audio_data)
             
         message = recognize_speech_from_wav("audio.wav")
-        if message in conversation :
+        if message in deb_conversation :
             print("Début d'une conversation ...")
             historic = []
             init_conversation()

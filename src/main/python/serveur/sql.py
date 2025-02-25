@@ -1,8 +1,6 @@
 import sqlite3
 
-connection = sqlite3.connect("../../../resources/database/data.db")
-cur = connection.cursor()
-def getAidKeywords(aid_name):
+def getAidKeywords(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
     cur.execute(check_query, (aid_name,))
@@ -10,7 +8,6 @@ def getAidKeywords(aid_name):
 
     if not aid_exists:
         # Fermer la connexion et lever une exception si l'aide sociale n'existe pas
-        connection.close()
         raise ValueError(f"L'aide sociale '{aid_name}' n'existe pas dans la base de données.")
 
     # Requête SQL pour récupérer les mots-clés associés à l'aide sociale
@@ -29,7 +26,7 @@ def getAidKeywords(aid_name):
     #connection.close()
     return keywords
 
-def getAids():
+def getAids(cur):
     query = '''
         SELECT SocialAid.name
         FROM SocialAid
@@ -39,14 +36,14 @@ def getAids():
     cur.execute(query)
     aids = [row[0] for row in cur.fetchall()]
     return aids
-def getAidInfo(aid_name):
+
+def getAidInfo(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
     cur.execute(check_query, (aid_name,))
     aid_exists = cur.fetchone()  # Récupère la première ligne correspondante
 
     if not aid_exists:
-        connection.close()
         raise ValueError(f"L'aide sociale '{aid_name}' n'existe pas dans la base de données.")
 
     query = '''
@@ -57,14 +54,14 @@ def getAidInfo(aid_name):
     cur.execute(query, (aid_name,))
     info = cur.fetchone()
     return info
-def getAidImage(aid_name):
+
+def getAidImage(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
     cur.execute(check_query, (aid_name,))
     aid_exists = cur.fetchone()  # Récupère la première ligne correspondante
 
     if not aid_exists:
-        connection.close()
         raise ValueError(f"L'aide sociale '{aid_name}' n'existe pas dans la base de données.")
 
     query = '''

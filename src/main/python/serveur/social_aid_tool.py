@@ -17,18 +17,23 @@ def social_aid_suggestion(query):
     query = query.lower()
     query = remove_punctuation(query)
 
-    aids = getAids()
-    # TODO Améliorer la vérification de la correspondance
+    connection = sqlite3.connect("../../../resources/database/data.db")
+    cur = connection.cursor()
+
+    aids = getAids(cur)
+    # TODO: Améliorer la vérification de la correspondance
     # Vérifier si des mots-clés correspondent à des aides
     query_words = query.split()
     for aid in aids:
-        aid_info = getAidInfo(aid)
-        aid_keywords = getAidKeywords(aid)
+        aid_info = getAidInfo(cur, aid)
+        aid_keywords = getAidKeywords(cur, aid)
         # TODO un certain seuil de mot-clés au lieu de 'any'
         if any(keyword in query_words for keyword in aid_keywords):
+            connection.close()
             return f"Aide suggérée : {aid_info}"
 
     # Si aucune aide n'est trouvée
+    connection.close()
     return "Désolé, je n'ai pas trouvé d'aide sociale correspondant à votre besoin."
 
 social_aid_tool = Tool(
