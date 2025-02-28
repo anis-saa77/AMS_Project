@@ -12,7 +12,7 @@ from sql import *
 
 historic = []
 deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarer une conversation", "démarer une discution", "je veux parler avec toi"]
-create_qr_code("http://172.20.10.2:5000/download")
+create_qr_code("http://127.0.0.1:5000/download")
 
 @app.route('/')
 def homepage():
@@ -58,8 +58,7 @@ def upload():
         cur = connection.cursor()
         if tool_name == 'social_aid':
             image_url = str(getAidImage(cur, query))
-            #TODO Ajouter la date
-            filename = query + ".pdf"
+            filename = query
             create_pdf_from_image(image_url, filename)
             try:
                 response = requests.get(image_url)
@@ -73,8 +72,7 @@ def upload():
         elif tool_name == "Direction Indicator Tool":
             salle = query
             image_path = "../../../resources/plan/" + salle + ".png"
-            # TODO Ajouter la date
-            filename = query + ".pdf"
+            filename = query
             create_pdf_from_image(image_path, filename)
             try:
                 with open(image_path, "rb") as img_file:
@@ -156,7 +154,6 @@ def test():
 @app.route('/download', methods=['GET'])
 def download():
     names = get_all_pdf_names()
-    print(names)
     if len(names) == 0:
         return jsonify({"error": "Aucun fichier PDF disponible"}), 400
     file_path = "pdf/" + names[0]

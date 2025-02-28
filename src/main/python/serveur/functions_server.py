@@ -116,6 +116,7 @@ def write_message(message, pdf, color):
         pdf.ln()
 
 def create_pdf_from_image(image_path_or_url, filename):
+    delete_all_pdf()
     try:
         if image_path_or_url.startswith("http://") or image_path_or_url.startswith("https://"):
             response = requests.get(image_path_or_url)
