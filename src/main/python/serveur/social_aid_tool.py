@@ -1,9 +1,5 @@
 import string
-from typing import Optional, Type
-from langchain_core.tools import BaseTool
-from pydantic import Field, BaseModel
 from langchain.tools import Tool
-from langchain_core.messages import SystemMessage
 from sql import *
 
 
