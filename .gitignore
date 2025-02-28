@@ -8,3 +8,4 @@ src/main/python/serveur/audio.wav
 src/main/python/serveur/pdf
 src/main/python/serveur/qrcode
 src/main/python/serveur/fonts/arial*
+src/resources/.env

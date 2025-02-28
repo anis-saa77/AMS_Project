@@ -1,9 +1,5 @@
 import string
-from typing import Optional, Type
-from langchain_core.tools import BaseTool
-from pydantic import Field, BaseModel
 from langchain.tools import Tool
-from langchain_core.messages import SystemMessage
 from sql import *
 
 
@@ -21,7 +17,7 @@ def social_aid_suggestion(query):
     cur = connection.cursor()
 
     aids = getAids(cur)
-    # TODO: Améliorer la vérification de la correspondance
+    # TODO Améliorer la vérification de la correspondance
     # Vérifier si des mots-clés correspondent à des aides
     query_words = query.split()
     for aid in aids:
@@ -30,7 +26,7 @@ def social_aid_suggestion(query):
         # TODO un certain seuil de mot-clés au lieu de 'any'
         if any(keyword in query_words for keyword in aid_keywords):
             connection.close()
-            return f"Aide suggérée : {aid_info}"
+            return f"Aide suggéré : {aid_info}", aid
 
     # Si aucune aide n'est trouvée
     connection.close()
