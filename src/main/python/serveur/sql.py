@@ -1,4 +1,5 @@
 import sqlite3
+
 def getAidKeywords(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
@@ -35,6 +36,7 @@ def getAids(cur):
     cur.execute(query)
     aids = [row[0] for row in cur.fetchall()]
     return aids
+  
 def getAidInfo(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
@@ -52,6 +54,7 @@ def getAidInfo(cur, aid_name):
     cur.execute(query, (aid_name,))
     info = cur.fetchone()
     return info
+  
 def getAidImage(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"

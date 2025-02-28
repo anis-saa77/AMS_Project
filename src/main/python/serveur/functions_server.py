@@ -63,11 +63,31 @@ def recognize_speech_sphinx(wav_filename):
 def create_qr_code(url):
     qr = qrcode.make(url)
     qr.save("qrcode/qrcode.png")
+
+####################################################
+# delete_all_pdf
+####################################################
+def delete_all_pdf():
+    for file in os.listdir("pdf"):
+        if file.endswith(".pdf"):
+            os.remove(f"pdf/{file}")
+
+####################################################
+# get_all_pdf_names
+####################################################
+def get_all_pdf_names():
+    pdf_names = []
+    for file in os.listdir("pdf"):
+        if file.endswith(".pdf"):
+            pdf_names.append(file)
+    return pdf_names
     
 ####################################################
 # create_pdf
 ####################################################
 def create_pdf(messages):
+    delete_all_pdf()
+
     pdf = FPDF()
     pdf.add_page()
     pdf.add_font("Arial", "", "fonts/arial.ttf", uni=True)

@@ -155,5 +155,9 @@ def test():
 
 @app.route('/download', methods=['GET'])
 def download():
-    file_path = "pdf/.pdf"
+    names = get_all_pdf_names()
+    print(names)
+    if len(names) == 0:
+        return jsonify({"error": "Aucun fichier PDF disponible"}), 400
+    file_path = "pdf/" + names[0]
     return send_file(file_path, as_attachment=True)
