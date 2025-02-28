@@ -26,7 +26,7 @@ def social_aid_suggestion(query):
         # TODO un certain seuil de mot-clés au lieu de 'any'
         if any(keyword in query_words for keyword in aid_keywords):
             connection.close()
-            return f"Aide suggérée : {aid_info}", aid
+            return f"Aide suggéré : {aid_info}", aid
 
     # Si aucune aide n'est trouvée
     connection.close()

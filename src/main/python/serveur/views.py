@@ -58,25 +58,37 @@ def upload():
         cur = connection.cursor()
         if tool_name == 'social_aid':
             image_url = str(getAidImage(cur, query))
+            #TODO Ajouter la date
+            filename = query + ".pdf"
+            create_pdf_from_image(image_url, filename)
             try:
                 response = requests.get(image_url)
+                image = response.content
                 if response.status_code == 200:
-                    image_encoded = base64.b64encode(response.content).decode('utf-8')
+                    image_encoded = base64.b64encode(image).decode('utf-8')
                 else:
                     print(f"Erreur lors du téléchargement de l'image: {response.status_code}")
             except Exception as e:
                 print(f"Erreur lors de la récupération de l'image: {str(e)}")
-        elif tool_name == 'direction ...':
-            # TODO Récupérer la salle correctement
+        elif tool_name == "Direction Indicator Tool":
             salle = query
             image_path = "../../../resources/plan/" + salle + ".png"
+            # TODO Ajouter la date
+            filename = query + ".pdf"
+            create_pdf_from_image(image_path, filename)
             try:
                 with open(image_path, "rb") as img_file:
-                    print('cc')
                     image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
             except FileNotFoundError:
                 image_encoded = None  # Pas d'image disponible
-        print(image_encoded)
+        elif tool_name == "qr_code_generation":
+            print("Génération du qr_code")
+            image_path = "qrcode/qrcode.png"
+            try:
+                with open(image_path, "rb") as img_file:
+                    image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
+            except FileNotFoundError:
+                image_encoded = None  # Pas d'image disponible
         json = {
             'message': message,
             'ai_response': ai_response,
@@ -143,5 +155,5 @@ def test():
 
 @app.route('/download', methods=['GET'])
 def download():
-    file_path = "pdf/conversation.pdf"
+    file_path = "pdf/.pdf"
     return send_file(file_path, as_attachment=True)

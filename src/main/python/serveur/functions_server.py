@@ -3,6 +3,9 @@ import os
 import qrcode
 from pydub import AudioSegment
 from fpdf import FPDF
+from PIL import Image
+from io import BytesIO
+import requests
 
 
 ##############################################################
@@ -91,3 +94,17 @@ def write_message(message, pdf, color):
         pdf.set_text_color(color[0], color[1], color[2])
         pdf.multi_cell(0, 10, message)
         pdf.ln()
+
+def create_pdf_from_image(image_path_or_url, filename):
+    try:
+        if image_path_or_url.startswith("http://") or image_path_or_url.startswith("https://"):
+            response = requests.get(image_path_or_url)
+            response.raise_for_status()
+            image = Image.open(BytesIO(response.content))
+        else:
+            image = Image.open(image_path_or_url)
+        filepath = "pdf/" + filename + ".pdf"
+        image.convert('RGB').save(filepath, "PDF", resolution=100.0)
+        print(f"PDF créé avec succès")
+    except Exception as e:
+        print(f"Erreur lors de la création du PDF : {e}")
