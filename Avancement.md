@@ -97,7 +97,7 @@ Les résultats des ces tests nous serviront à détécter les potentiels bugs et
 ### Détail des Éxigences
 ##### Tableau de Suivi des Exigences
 
-<table style="display:flex;justify-content:center;width:80%">
+<table style="font-size:13.5px">
   <tr>
     <th>Catégorie</th>
     <th style="border-left: 2px solid black;">Exigence</th>
