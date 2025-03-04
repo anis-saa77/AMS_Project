@@ -16,7 +16,7 @@ Le projet suis globalement le planing prévue, un léger ajustement a dû être 
     <table border style="width:auto;">
         <tr>
             <th>Ancienne Version*</th>
-            <th>Status</th>
+            <th>Statut</th>
         </tr>
         <tr>
             <td>Orientation</td>
@@ -39,7 +39,7 @@ Le projet suis globalement le planing prévue, un léger ajustement a dû être 
     <table border style="width:auto;">
         <tr>
             <th>Nouvelle Version**</th>
-            <th>Status</th>
+            <th>Statut</th>
         </tr>
         <tr>
             <td>Orientation</td>
