@@ -91,8 +91,10 @@ Une fois la phase de développement fini, ce sera la phase de test qui prendra l
 |Tests non modérés  |Tests réalisé sans supervision directe en "conditions réelles".                                                            |
 
 <br>
+
 Les résultats des ces tests nous serviront à détécter les potentiels bugs et failles que notre code peut contenir. Ils nous serviront également à élaborer une nouvelle phase de test si une deuxième est nécessaires ainsi qu'à la documentation utilisateur.
 
+<br><br><br><br><br><br>
 
 ### Détail des Éxigences
 ##### Tableau de Suivi des Exigences
@@ -208,6 +210,8 @@ Les résultats des ces tests nous serviront à détécter les potentiels bugs et
 </table>
 
 ---
+
+<br><br><br><br><br><br>
 
 ### Diagramme de GANTT
 **Planification des tâches restantes du projet :**
