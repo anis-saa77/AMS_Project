@@ -14,6 +14,7 @@
 ## Idée :
 - Màj niveau choregraphe (Affihce sur tablettes, fonction d'arrêt...)
 - Amélioration du visuel du pdf, des images d'aides et plans.
-(- Quiz) / Affichage, Jouer un son, geste confirmant la réponse ...
+(- Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
 - Tests utilisateurs (guidés / non guidés)
 - Rapport
+- Baser le mode assisatant sur usage exclusive des tools

@@ -1,31 +1,55 @@
-import string
-from typing import Optional, Type
-from langchain_core.tools import BaseTool
-from pydantic import Field, BaseModel
-from langchain.callbacks.manager import (
-    AsyncCallbackManagerForToolRun,
-    CallbackManagerForToolRun,
-)
+from langchain.tools import Tool
+from sql import *
 import re
 
-class DirectionInput(BaseModel):
-    query: str = Field(description="Salle ou toilettes dont on veut connaître la direction.")
+# Dictionnaire de corrections des erreurs courantes
+CORRECTIONS = {
+    "ça": "S1",
+    "salsa": "salle S1",
+}
+def apply_corrections(query):
+    for incorrect, correct in CORRECTIONS.items():
+        if incorrect in query:
+            print(f"Correction : '{incorrect}' => '{correct}'")
+            corrected_query = query.replace(incorrect, correct)
+            return corrected_query
+    return query
+def direction_indication(query):
+    connection = sqlite3.connect("../../../resources/database/data.db")
+    cur = connection.cursor()
+    ##TODO Gérer les amphis et autres dispositifs
 
-class DiretionIndicationTool(BaseTool):
-    """Outil pour donner la direction vers une salle."""
-    name: str = "Direction Indicator Tool"
-    description: str = "Donne la direction en fonction de la salle voulue."
-    args_schema: Type[BaseModel] = DirectionInput
+    if any(word in query.lower() for word in ["toilettes", "toilette", "wc"]):
+        connection.close()
+        return "Les toilettes les plus proches se trouve dans le couloir d'en face, à votre gauche", "WC"
 
-    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-        """Utilise l'outil pour donner la direction vers une salle."""
-        if "toilettes" in query:
-            return "Les toilettes se trouvent à gauche.", "toilettes"
+    print(query)
+    query = apply_corrections(query.lower())
+    match = re.search(r'\bs\d+\b|\bstat\d+\b', query, re.IGNORECASE)
+    if match:
+        room = match.group().upper()
+        if not roomExists(cur, room):
+            return f"La salle '{room}' n'existe pas dans la base de données.", None
+        direction_to_room = getRoomDirection(cur, room)
+        connection.close()
+        return str(direction_to_room), room
+    match = re.search(r'\bc\d+\b', query, re.IGNORECASE)
+    if match:
+        room_number = match.group().upper()
+        room = getRoomNameFromNumber(cur, room_number)
+        if not roomExists(cur, room):
+            return f"La salle '{room_number}' n'existe pas dans la base de données.",None
+        direction_to_room = getRoomDirection(cur, room)
+        connection.close()
+        return str(direction_to_room), room
 
-        match = re.search(r'\bs\d+\b', query, re.IGNORECASE)
-        if match:
-            salle = match.group()
-            return f"La salle {salle} se trouve au fond du couloir à gauche.", salle
+    # Si aucune salle n'est trouvée
+    connection.close()
+    return "La salle n'est pas dans ma base de données.", None
 
-        # Si aucune salle n'est trouvée
-        return "Je ne trouve pas la salle demandée."
+# Création du Tool
+direction_tool = Tool(
+    name="direction_indication",
+    func=direction_indication,
+    description="Donne la direction vers une salle spécifiée ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers un amphithéâtre."
+)
