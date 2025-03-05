@@ -1,6 +1,7 @@
 import base64
 import wave
 import requests
+from main import ip_server
 from flask import request, jsonify, send_file
 from app import app
 from functions_server import *
@@ -12,7 +13,7 @@ from sql import *
 
 historic = []
 deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
-create_qr_code("http://192.168.81.17:5000/download")
+create_qr_code("http://" + ip_server + ":5000/download")
 
 @app.route('/')
 def homepage():
