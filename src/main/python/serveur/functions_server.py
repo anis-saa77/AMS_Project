@@ -5,13 +5,21 @@ from pydub import AudioSegment
 from fpdf import FPDF
 from PIL import Image
 from io import BytesIO
+from datetime import datetime
 import requests
 
 
 ##############################################################
                     # Fonctions_serveur #
 ##############################################################
+class CustomPDF(FPDF):
+    def add_page(self, orientation='', format=''):
+        super().add_page()
+        self.set_custom_background()
 
+    def set_custom_background(self):
+        self.set_fill_color(224, 228, 204)
+        self.rect(0, 0, 210, 297, 'F')
 
 ####################################################
 # mp3_to_wav
@@ -88,33 +96,71 @@ def get_all_pdf_names():
 def create_pdf(messages):
     delete_all_pdf()
 
-    pdf = FPDF()
-    pdf.add_page()
+    pdf = CustomPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+
     pdf.add_font("Arial", "", "fonts/arial.ttf", uni=True)
+
+    add_cover_page(pdf)
+
+    pdf.add_page()
     pdf.set_font("Arial", size=12)
 
     i = 0
-    print(len(messages))
-    color1 = [255, 0, 0]
-    color2 = [0, 0, 255]
+    color1 = [64, 142, 79]
+    color2 = [25, 92, 148]
     while i < len(messages):
-        print(messages[i])
-        print(messages[i+1])
         write_message(messages[i], pdf, color1)
-        write_message(messages[i+1], pdf, color2)
+        write_message(messages[i+1], pdf, color2, human=False)
         i += 2
 
     pdf.output("pdf/conversation.pdf")
+
+####################################################
+# add_cover_page
+####################################################
+def add_cover_page(pdf):
+    pdf.add_page()
     
+    pdf.set_custom_background()
+
+    pdf.set_font("Arial", style="B", size=24)
+    pdf.set_text_color(0, 51, 102)
+    pdf.ln(50)
+    pdf.cell(0, 60, "Transcription de la Conversation", ln=True, align='C')
+
+    pdf.set_font("Arial", size=12)
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(0, 10, f"Date: {datetime.today().strftime('%d/%m/%Y')}", ln=True, align='C')
+
+    pdf.ln(20)
+
 ####################################################
 # write_message
 ####################################################
-def write_message(message, pdf, color):
+def write_message(message, pdf, color, human=True):
     if message.strip():
         pdf.set_text_color(color[0], color[1], color[2])
-        pdf.multi_cell(0, 10, message)
-        pdf.ln()
 
+        width = min(120, pdf.get_string_width(message)) + 5
+        pdf.set_y(pdf.get_y() + 10)
+        if human:
+            pdf.set_x(190 - width + 10)
+        pdf.multi_cell(width, 10, message, align="L")
+        
+        x = pdf.get_x()
+        if human:
+            x = 190 - width
+        y = pdf.get_y()
+
+        pdf.set_draw_color(10, 10, 10)
+        pdf.line(x, y, x + width + 10, y)
+
+        pdf.ln(5)
+
+####################################################
+# create_pdf_from_image
+####################################################
 def create_pdf_from_image(image_path_or_url, filename):
     try:
         if image_path_or_url.startswith("http://") or image_path_or_url.startswith("https://"):
