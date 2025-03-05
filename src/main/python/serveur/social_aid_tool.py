@@ -30,7 +30,7 @@ def social_aid_suggestion(query):
 
     # Si aucune aide n'est trouvée
     connection.close()
-    return "Désolé, je n'ai pas trouvé d'aide sociale correspondant à votre besoin."
+    return "Désolé, je n'ai pas trouvé d'aide sociale correspondant à votre besoin.", None
 
 social_aid_tool = Tool(
     name="social_aid",

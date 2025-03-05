@@ -12,11 +12,9 @@
 #### pip install langchain_fireworks langgraph langchain_community SpeechRecognition PyAudio transformers flask pydub qrcode fpdf
 
 ## Idée :
-- Fonction d'arrêt
-- Mode Conversation / Mode Aide
-- Quiz orienté informatique, (+geste du robot pour confirmer la réponse)
-- PDF générable pour chaque outil. (direction_indicator -> plan avec indication...)
-- Affichage sur la tablette
-- Fiches de tests
-
-``````
+- Màj niveau choregraphe (Affihce sur tablettes, fonction d'arrêt...)
+- Amélioration du visuel du pdf, des images d'aides et plans.
+(- Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
+- Tests utilisateurs (guidés / non guidés)
+- Rapport
+- Baser le mode assisatant sur usage exclusive des tools

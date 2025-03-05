@@ -11,8 +11,8 @@ from ast import literal_eval
 from sql import *
 
 historic = []
-deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarer une conversation", "démarer une discution", "je veux parler avec toi"]
-create_qr_code("http://172.20.10.2:5000/download")
+deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
+create_qr_code("http://192.168.81.17:5000/download")
 
 @app.route('/')
 def homepage():
@@ -52,14 +52,21 @@ def upload():
                 'conversation' : True
             }, 200
         ai_response, tool_name, query = sendMessage(message, "French", config)
-        #recognize_speech_sphinx("audio.wav")
+
         image_encoded = None
+        if not query : #L'appel à la fonction tool n'a pas retourné le 2ème argument (nom de salle ou d'aide)
+            json = {
+                'message': message,
+                'ai_response': ai_response,
+                'image': image_encoded
+            }
+            return json, 200
+
         connection = sqlite3.connect("../../../resources/database/data.db")
         cur = connection.cursor()
         if tool_name == 'social_aid':
             image_url = str(getAidImage(cur, query))
-            #TODO Ajouter la date
-            filename = query + ".pdf"
+            filename = query
             create_pdf_from_image(image_url, filename)
             try:
                 response = requests.get(image_url)
@@ -70,11 +77,12 @@ def upload():
                     print(f"Erreur lors du téléchargement de l'image: {response.status_code}")
             except Exception as e:
                 print(f"Erreur lors de la récupération de l'image: {str(e)}")
-        elif tool_name == "Direction Indicator Tool":
+        elif tool_name == "direction_indication":
             salle = query
-            image_path = "../../../resources/plan/" + salle + ".png"
-            # TODO Ajouter la date
-            filename = query + ".pdf"
+            query = query.upper()
+            image_path = "../../../resources/plans/" + salle + ".jpg"
+            print(image_path)
+            filename = query
             create_pdf_from_image(image_path, filename)
             try:
                 with open(image_path, "rb") as img_file:
@@ -144,19 +152,18 @@ def conversation():
     except Exception as e:
         print("error:", str(e))
         print("ai_response : Je n'ai pas compris. Veuillez répéter.")
-        return jsonify({'ai_response' : "Je n'ai pas compris. Veuillez répéter."}), 200
+        return jsonify({'ai_response': "Je n'ai pas compris. Veuillez répéter."}), 200
     
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     json = {
-        'ai_response' : "Ceci est un test, je fonctionne bien."
+        'ai_response': "Ceci est un test, je fonctionne bien."
     }
     return json, 200
 
 @app.route('/download', methods=['GET'])
 def download():
     names = get_all_pdf_names()
-    print(names)
     if len(names) == 0:
         return jsonify({"error": "Aucun fichier PDF disponible"}), 400
     file_path = "pdf/" + names[0]

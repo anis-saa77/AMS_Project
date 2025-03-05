@@ -73,6 +73,67 @@ def getAidImage(cur, aid_name):
     info = cur.fetchone()
     return info[0]
 
+def getRoomNumber(cur, room):
+    # Vérifier si l'aide sociale existe
+    check_query = "SELECT id FROM Room WHERE name = ?;"
+    cur.execute(check_query, (room,))
+    room_exists = cur.fetchone()  # Récupère la première ligne correspondante
+
+    if not room_exists:
+        raise ValueError(f"La salle '{room}' n'existe pas dans la base de données.")
+
+    query = '''
+       SELECT Room.number
+       FROM Room
+       WHERE Room.name = ?;
+       '''
+    cur.execute(query, (room,))
+    info = cur.fetchone()
+    return info
+
+def getRoomDirection(cur, room):
+    # Vérifier si l'aide sociale existe
+    check_query = "SELECT id FROM Room WHERE name = ?;"
+    cur.execute(check_query, (room,))
+    room_exists = cur.fetchone()  # Récupère la première ligne correspondante
+
+    if not room_exists:
+        raise ValueError(f"La salle '{room}' n'existe pas dans la base de données.")
+
+    query = '''
+       SELECT Room.direction_to_room
+       FROM Room
+       WHERE Room.name = ?;
+       '''
+    cur.execute(query, (room,))
+    info = cur.fetchone()
+    return info
+
+def getRoomNameFromNumber(cur, room_number):
+    # Vérifier si l'aide sociale existe
+    check_query = "SELECT id FROM Room WHERE number = ?;"
+    cur.execute(check_query, (room_number,))
+    room_exists = cur.fetchone()  # Récupère la première ligne correspondante
+
+    if not room_exists:
+        raise ValueError(f"La salle '{room_number}' n'existe pas dans la base de données.")
+    query = '''
+       SELECT Room.name
+       FROM Room
+       WHERE Room.number = ?;
+       '''
+    cur.execute(query, (room_number,))
+    info = cur.fetchone()
+    return info
+
+def roomExists(cur, room):
+    # Vérifier si l'aide sociale existe
+    check_query = "SELECT id FROM Room WHERE name = ?;"
+    cur.execute(check_query, (room,))
+    room_exists = cur.fetchone()
+    if not room_exists:
+        return False
+    return True
 
 
 
