@@ -1,7 +1,6 @@
 import base64
 import wave
 import requests
-from main import ip_server
 from flask import request, jsonify, send_file
 from app import app
 from functions_server import *
@@ -13,8 +12,8 @@ from sql import *
 
 historic = []
 deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
-create_qr_code("http://" + ip_server + ":5000/download")
-
+# create_qr_code("http://" + ip_server + ":5000/download")
+create_qr_code("http://192.168.81.17:5000/download")
 @app.route('/')
 def homepage():
 	return 'Home page'
@@ -133,13 +132,19 @@ def conversation():
             wav_file.writeframes(audio_data)
             
         message = recognize_speech_from_wav("audio.wav")
-        if message == "stoppe" :
+        if message.lower() in ["stop", "stoppe"] :
             create_pdf(historic)
             print("Fin de la conversation.")
+            image_path = "qrcode/qrcode.png"
+            try:
+                with open(image_path, "rb") as img_file:
+                    image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
+            except FileNotFoundError:
+                image_encoded = None  # Pas d'image disponible
             return {
                 'message': message,
                 'conversation': False,
-                'qrcode': "qrcode_encoded" #TODO: mettre le bon qrcode encodé en base64.
+                'qrcode': image_encoded
             }, 200
         ai_response = str(sendConvMessage(message, "French", configConv))
         json = {

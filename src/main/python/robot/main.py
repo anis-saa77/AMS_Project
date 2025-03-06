@@ -11,6 +11,7 @@ while True:
     record_audio_to_wav(audio_filename, duration=10)
     response = send_audio(audio_filename, "upload")
 
+    print("JSON :", response.json())
     print("Vous avez dit :", response.json().get("message"))
     print("L'IA a répondu :", response.json().get("ai_response"))
 
