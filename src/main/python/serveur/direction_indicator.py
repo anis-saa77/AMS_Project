@@ -54,7 +54,7 @@ def direction_indication(query):
         room = getRoomNameFromNumber(cur, room_number)
         if not roomExists(cur, room):
             connection.close()
-            return f"La salle '{room_number}' n'existe pas dans la base de données.",None
+            return f"La salle '{room_number}' n'existe pas dans la base de données.", None
         direction_to_room = getRoomDirection(cur, room)
         connection.close()
         return str(direction_to_room), room
