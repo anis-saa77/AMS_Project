@@ -7,6 +7,9 @@ CORRECTIONS = {
     "ça": "S1",
     "salsa": "salle S1",
     "c'est": "C",
+    "blése":"blaise",
+    "blèse":"blaise",
+
 }
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():
@@ -16,16 +19,27 @@ def apply_corrections(query):
             return corrected_query
     return query
 def direction_indication(query):
+    print(query)
+    query = apply_corrections(query.lower())
+
     connection = sqlite3.connect("../../../resources/database/data.db")
     cur = connection.cursor()
-    ##TODO Gérer les amphis et autres dispositifs
+
+    if any(word in query.lower() for word in ["amphi", "amphithéâtre"]):
+        if "ada" in query.lower():
+            direction_to_room = getRoomDirection(cur, "AMPHI ADA")
+            connection.close()
+            return str(direction_to_room), "AMPHI ADA"
+        if "blaise" in query.lower():
+            direction_to_room = getRoomDirection(cur, "AMPHI BLAISE")
+            connection.close()
+            return str(direction_to_room), "AMPHI BLAISE"
+        return "Vers quel amphithéâtre souhaitez-vous être dirigé", None
 
     if any(word in query.lower() for word in ["toilettes", "toilette", "wc"]):
         connection.close()
         return "Les toilettes les plus proches se trouve dans le couloir d'en face, à votre gauche", "WC"
 
-    print(query)
-    query = apply_corrections(query.lower())
     match = re.search(r'\bs\d+\b|\bstat\d+\b', query, re.IGNORECASE)
     if match:
         room = match.group().upper()
@@ -53,5 +67,5 @@ def direction_indication(query):
 direction_tool = Tool(
     name="direction_indication",
     func=direction_indication,
-    description="Donne la direction vers une salle spécifiée ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers un amphithéâtre."
+    description="Donne la direction vers une salle spécifiée ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers un amphithéâtre ou vers un amphi."
 )
