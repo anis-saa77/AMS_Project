@@ -1,6 +1,5 @@
 import base64
 import wave
-import requests
 from flask import request, jsonify, send_file
 from app import app
 from functions_server import *
