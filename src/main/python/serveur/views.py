@@ -9,11 +9,11 @@ from config_conv_model import sendConvMessage, configConv
 from model_conv import init_conversation
 from ast import literal_eval
 from sql import *
+from main import SERVER_IP
 
 historic = []
 deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
-# create_qr_code("http://" + ip_server + ":5000/download")
-create_qr_code("http://192.168.81.17:5000/download")
+create_qr_code(f"http://{SERVER_IP}:5000/download")
 @app.route('/')
 def homepage():
 	return 'Home page'

@@ -55,7 +55,7 @@ def send_audio(filename, route):
 ###################################################
 # record_audio_to_wav
 ###################################################
-def record_audio_to_wav(filepath="temp/output.wav", duration=30):
+def record_audio_to_wav(filepath="temp/output.wav", duration=15):
     FORMAT = pyaudio.paInt16  # Format du son (16 bits)
     CHANNELS = 1  # Mono
     RATE = 44100  # Taux d'échantillonnage (Hz)
@@ -94,4 +94,4 @@ def record_audio_to_wav(filepath="temp/output.wav", duration=30):
         wf.setframerate(RATE)
         wf.writeframes(b"".join(frames))
 
-    print(f"Fichier sauvegardé sous '{OUTPUT_FILE}'")
+    #print(f"Fichier sauvegardé sous '{OUTPUT_FILE}'")

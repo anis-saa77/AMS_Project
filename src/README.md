@@ -13,8 +13,10 @@
 
 ## Idée :
 - Màj niveau choregraphe (Affihce sur tablettes, fonction d'arrêt...)
-- Amélioration du visuel du pdf, des images d'aides et plans.
+- Amélioration du visuel du pdf, des images d'aides.
 (- Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
 - Tests utilisateurs (guidés / non guidés)
 - Rapport
 - Baser le mode assistant sur usage exclusive des tools ?
+- Tests exhaustifs (direction vers toutes les salles/toutes les aides/...)
+- Netifaces sur mon putain d'ordi

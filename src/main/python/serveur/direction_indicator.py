@@ -4,12 +4,14 @@ import re
 
 # Dictionnaire de corrections des erreurs courantes
 CORRECTIONS = {
-    "ça": "S1",
-    "salsa": "salle S1",
-    "c'est": "C",
+    "ça": "s1",
+    "salsa": "salle s1",
+    "c'est": "c",
     "blése":"blaise",
     "blèse":"blaise",
-
+    "stade":"stat",
+    "States":"stat",
+    "stats":"stat",
 }
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():
@@ -40,9 +42,9 @@ def direction_indication(query):
         connection.close()
         return "Les toilettes les plus proches se trouve dans le couloir d'en face, à votre gauche", "WC"
 
-    match = re.search(r'\bs\d+\b|\bstat\d+\b', query, re.IGNORECASE)
+    match = re.search(r'\bs\d+\b|\bstat\d|\bstat \d+\b', query, re.IGNORECASE)
     if match:
-        room = match.group().upper()
+        room = match.group().upper().strip()
         if not roomExists(cur, room):
             return f"La salle '{room}' n'existe pas dans la base de données.", None
         direction_to_room = getRoomDirection(cur, room)
@@ -67,5 +69,5 @@ def direction_indication(query):
 direction_tool = Tool(
     name="direction_indication",
     func=direction_indication,
-    description="Donne la direction vers une salle spécifiée ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers un amphithéâtre ou vers un amphi."
+    description="Donne la direction vers une salle spécifiée ou vers des salles Stat ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers l'amphithéâtre ou vers un les amphi blaise ou ada."
 )
