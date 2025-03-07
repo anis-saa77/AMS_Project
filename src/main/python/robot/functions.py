@@ -55,13 +55,13 @@ def send_audio(filename, route):
 ###################################################
 # record_audio_to_wav
 ###################################################
-def record_audio_to_wav(filename="output.wav", duration=30):
+def record_audio_to_wav(filepath="temp/output.wav", duration=30):
     FORMAT = pyaudio.paInt16  # Format du son (16 bits)
     CHANNELS = 1  # Mono
     RATE = 44100  # Taux d'échantillonnage (Hz)
     CHUNK = 1024  # Taille des morceaux de son
     DURATION = duration  # Durée de l'enregistrement en secondes
-    OUTPUT_FILE = filename  # Nom du fichier de sortie
+    OUTPUT_FILE = filepath  # Nom du fichier de sortie
 
     # Initialisation de PyAudio
     audio = pyaudio.PyAudio()

@@ -1,15 +1,17 @@
-import speech_recognition as sr
 from functions import *
-
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from PIL import Image
 ##############################################################
                         # Execution #
 ##############################################################
 
-audio_filename = "output.wav"
+
+audio_filepath = "temp/output.wav"
 
 while True:
-    record_audio_to_wav(audio_filename, duration=10)
-    response = send_audio(audio_filename, "upload")
+    record_audio_to_wav(audio_filepath, duration=10)
+    response = send_audio(audio_filepath, "upload")
 
     print("JSON :", response.json())
     print("Vous avez dit :", response.json().get("message"))
@@ -17,8 +19,8 @@ while True:
 
     if response.json().get("conversation"):
         while True:
-            record_audio_to_wav(audio_filename, duration=10)
-            response = send_audio(audio_filename, "conversation")
+            record_audio_to_wav(audio_filepath, duration=10)
+            response = send_audio(audio_filepath, "conversation")
 
             print("Vous avez dit :", response.json().get("message"))
             print("L'IA a répondu :", response.json().get("ai_response"))
@@ -29,8 +31,24 @@ while True:
     if response.json().get('image'):
         image_base64 = response.json().get("image")
         image_data = base64.b64decode(image_base64)
-        with open("image.jpg", "wb") as img_file:  # Sauvegarde en JPEG
+        with open("temp/image.jpg", "wb") as img_file:  # Sauvegarde en JPEG
             img_file.write(image_data)
+            #Affichage de l'image reçu
+            image = Image.open("temp/image.jpg")
+            plt.imshow(image)
+            plt.axis("off")  # Cacher les axes
+            plt.show()
+
+    if response.json().get('qrcode'):
+        image_base64 = response.json().get("qrcode")
+        image_data = base64.b64decode(image_base64)
+        with open("temp/image.jpg", "wb") as img_file:  # Sauvegarde en JPEG
+            img_file.write(image_data)
+            #Affichage de l'image reçu
+            image = Image.open("temp/image.jpg")
+            plt.imshow(image)
+            plt.axis("off")  # Cacher les axes
+            plt.show()
 
     if response.json().get("message") == "stoppe":
         break

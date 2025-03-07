@@ -6,6 +6,7 @@ import re
 CORRECTIONS = {
     "ça": "S1",
     "salsa": "salle S1",
+    "c'est": "C",
 }
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():

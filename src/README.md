@@ -17,4 +17,4 @@
 (- Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
 - Tests utilisateurs (guidés / non guidés)
 - Rapport
-- Baser le mode assisatant sur usage exclusive des tools
+- Baser le mode assistant sur usage exclusive des tools ?
