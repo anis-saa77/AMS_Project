@@ -1,5 +1,6 @@
 from app import app
 import netifaces
+from views import *
 def get_ipv4():
     for interface in netifaces.interfaces():
         addrs = netifaces.ifaddresses(interface)

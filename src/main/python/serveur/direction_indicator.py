@@ -12,6 +12,7 @@ CORRECTIONS = {
     "stade":"stat",
     "States":"stat",
     "stats":"stat",
+    "l":"l'amphi", # Bug de query /Pas de speech recognition
 }
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():
@@ -44,7 +45,7 @@ def direction_indication(query):
 
     match = re.search(r'\bs\d+\b|\bstat\d|\bstat \d+\b', query, re.IGNORECASE)
     if match:
-        room = match.group().upper().strip()
+        room = match.group().upper().replace(" ", "")
         if not roomExists(cur, room):
             return f"La salle '{room}' n'existe pas dans la base de données.", None
         direction_to_room = getRoomDirection(cur, room)
