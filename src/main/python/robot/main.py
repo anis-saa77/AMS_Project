@@ -52,7 +52,7 @@ while True:
         plt.axis("off")  # Cacher les axes
         plt.show()
 
-    if response.json().get("message") == "stoppe":
+    if response.json().get("ai_response") == "STOP":
         break
 
 print("Fin")
