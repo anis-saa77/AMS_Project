@@ -41,24 +41,26 @@ def upload():
             wav_file.writeframes(audio_data)
             
         message = recognize_speech_from_wav("audio.wav")
-        if message in deb_conversation :
+        ai_response, tool_name, query = sendMessage(message, "French", config)
+
+        if tool_name == "conversation_tool" :
+            json = {
+                'message': message,
+                'ai_response': ai_response,
+                'conversation': True
+            }
             print("Début d'une conversation ...")
             historic = []
             init_conversation()
-            return {
-                'message' : message,
-                'ai_response': "Trés bien, démarrons une conversation ! Pour l'arreter dites moi : stop.",
-                'conversation' : True
-            }, 200
-        ai_response, tool_name, query = sendMessage(message, "French", config)
-
+            return json, 200
+        
         image_encoded = None
         if not query : #L'appel à la fonction tool n'a pas retourné le 2ème argument (nom de salle ou d'aide)
             json = {
                 'message': message,
                 'ai_response': ai_response,
                 'image': image_encoded
-            }
+            }                
             return json, 200
 
         connection = sqlite3.connect("../../../resources/database/data.db")
