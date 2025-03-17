@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afficher l'Image</title>
+    <title>Image</title>
+    <style>
+        /* Utilisation de Flexbox pour centrer l'image */
+        body {
+            display: flex;
+            justify-content: center; /* Centrer horizontalement */
+            align-items: center;     /* Centrer verticalement */
+            height: 100vh;           /* Utiliser toute la hauteur de la fenêtre */
+            margin: 0;               /* Supprimer les marges par défaut */
+        }
+
+        img {
+            max-width: 100%;         /* Limiter la largeur de l'image à 100% de l'écran */
+            max-height: 100%;        /* Limiter la hauteur de l'image à 100% de l'écran */
+        }
+    </style>
 </head>
 <body>
-    <h1>Image</h1>
     <img src="{{ image_url }}" alt="Image">
 </body>
 </html>
