@@ -7,7 +7,7 @@ import wave
 import requests
 import base64
 
-
+ROBOT_URL = "http://10.126.3.101:5000/"
 ##############################################################
 # Functions #
 ##############################################################
@@ -41,7 +41,7 @@ def send_audio(filename, route):
 
     params_base64 = base64.b64encode(str(params_tuple).encode("utf-8")).decode("utf-8")
 
-    url = "http://127.0.0.1:5000/" + route
+    url = ROBOT_URL + route
     headers = {"Content-Type": "application/json"}
     payload = {
         "audio_base64": audio_base64,

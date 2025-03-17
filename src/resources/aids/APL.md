@@ -1,6 +1,9 @@
 # 🏠 L'Aide Personnalisée au Logement (APL)
 
-L'Aide Personnalisée au Logement (APL) est une aide financière versée par la Caisse d'Allocations Familiales (CAF) ou la Mutualité Sociale Agricole (MSA) pour réduire le montant du loyer ou des mensualités d'un prêt immobilier. Elle est attribuée sous conditions de ressources.
+L'Aide Personnalisée au Logement (APL) est une aide financière
+versée par la Caisse d'Allocations Familiales (CAF) ou la Mutualité
+Sociale Agricole (MSA) pour réduire le montant du loyer ou des mensualités d'un prêt immobilier. Elle est attribuée sous  
+ conditions de ressources.
 
 ---
 
@@ -13,9 +16,11 @@ L'APL s'adresse aux personnes qui :
 ✅ Occupent le logement en tant que résidence principale.  
 ✅ Ont des revenus ne dépassant pas un certain plafond.  
 
-**💡 Bon à savoir :** L'APL peut être demandée aussi bien par les étudiants, les travailleurs, les chômeurs que les retraités.
+**💡 Bon à savoir :** L'APL peut être demandée aussi bien par les étudiants, les\
+travailleurs, les chômeurs que les retraités.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 📊 **Comment est calculé le montant de l'APL ?**
 
@@ -35,6 +40,7 @@ Le montant de l'APL dépend de plusieurs critères :
 ## 📄 **Démarches pour faire une demande d'APL**
 
 ### 🔹 Étape 1 : Réunir les documents nécessaires
+
 Vous aurez besoin de fournir les documents suivants :
 
 📜 Pièce d'identité (CNI, passeport, titre de séjour).  
@@ -43,25 +49,31 @@ Vous aurez besoin de fournir les documents suivants :
 💳 Relevé d'identité bancaire (RIB).  
 
 ### 🔹 Étape 2 : Faire la demande en ligne
+
 Vous pouvez faire votre demande sur le site officiel de la CAF :  
 🌍 [https://www.caf.fr/](https://www.caf.fr/)
 
+<div style="page-break-before: always;"></div>
+
 ### 🔹 Étape 3 : Suivi et versement
-📅 L’APL est généralement versée le **5 du mois suivant** directement au bailleur, qui réduit ensuite le montant du loyer.
+
+📅 L’APL est généralement versée le **5 du mois suivant** directement au bailleur, qui\
+réduit ensuite le montant du loyer.
 
 ---
 
 ## 🖼️ **Exemple de calcul du montant de l'APL**
 
-![Exemple de calcul APL](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/CAF_%28logo%29.svg/500px-CAF_%28logo%29.svg.png)
 
-> **Exemple :**  
+> Exemple : 
 > - Lucas est étudiant et loue un studio à Lyon pour **450€/mois**.  
 > - Il n’a aucun revenu.  
 > - Après simulation, la CAF lui accorde une **APL de 220€**.  
 > - Lucas ne paiera donc plus que **230€ de loyer** après déduction de l’aide.
 
 ---
+
+
 
 ## 📌 **Foire aux Questions (FAQ)**
 
@@ -75,9 +87,10 @@ Vous pouvez faire votre demande sur le site officiel de la CAF :
 📌 Vérifiez votre dossier sur le site de la CAF et mettez à jour vos informations. Vous pouvez aussi faire une réclamation.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 🔎 **En savoir plus**
+
 🔗 Site officiel de la CAF : [www.caf.fr](https://www.caf.fr/)  
 📞 Contactez votre CAF locale pour des questions spécifiques.
 
----
