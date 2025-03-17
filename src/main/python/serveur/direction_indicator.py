@@ -12,7 +12,6 @@ CORRECTIONS = {
     "stade":"stat",
     "States":"stat",
     "stats":"stat",
-    "l":"l'amphi", # Bug de query /Pas de speech recognition
 }
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():

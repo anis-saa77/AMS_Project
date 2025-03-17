@@ -1,5 +1,6 @@
 import base64
 import wave
+import json as JSON
 from flask import request, jsonify, send_file
 from app import app
 from functions_server import *
@@ -23,7 +24,7 @@ def upload():
         data = request.get_json(force=True)
         
         audio_base64 = data.get('audio_base64')
-        params_base64 = data.get("params_base64")
+        params_base64 = data.get('params_base64')
         
         if not audio_base64:
             return jsonify({"error": "Aucun audio base64 fourni"}), 400
@@ -144,6 +145,7 @@ def conversation():
                 image_encoded = None  # Pas d'image disponible
             return {
                 'message': message,
+                'ai_response': "Ok, je met fin à la conversation. Voulez vous un historique de la conversation ?",
                 'conversation': False,
                 'qrcode': image_encoded
             }, 200
@@ -175,3 +177,8 @@ def download():
         return jsonify({"error": "Aucun fichier PDF disponible"}), 400
     file_path = "pdf/" + names[0]
     return send_file(file_path, as_attachment=True)
+
+@app.route('/getImage/<filename>', methods=['GET'])
+def get_image(filename):
+    #TODO: rendre l'image dans un html pour l'afficher sur la tablette
+    return
