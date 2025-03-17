@@ -1,7 +1,7 @@
 import base64
 import wave
 import json as JSON
-from flask import request, jsonify, send_file
+from flask import request, jsonify, send_file, render_template, url_for, send_from_directory
 from app import app
 from functions_server import *
 from config_agent import sendMessage, config
@@ -14,6 +14,9 @@ from main import SERVER_IP
 historic = []
 deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
 create_qr_code(f"http://{SERVER_IP}:5000/download")
+
+RESOURCES_DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'resources'))
+TEMPLATES_PATH = "../../../resources/templates/"
 @app.route('/')
 def homepage():
 	return 'Home page'
@@ -93,7 +96,7 @@ def upload():
                 image_encoded = None  # Pas d'image disponible
         elif tool_name == "qr_code_generation":
             print("Génération du qr_code")
-            image_path = "qrcode/qrcode.png"
+            image_path = "../../../resources/qrcode/qrcode.png"
             try:
                 with open(image_path, "rb") as img_file:
                     image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
@@ -137,7 +140,7 @@ def conversation():
         if message.lower() in ["stop", "stoppe"] :
             create_pdf(historic)
             print("Fin de la conversation.")
-            image_path = "qrcode/qrcode.png"
+            image_path = "../../../resources/qrcode/qrcode.png"
             try:
                 with open(image_path, "rb") as img_file:
                     image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
@@ -178,7 +181,14 @@ def download():
     file_path = "pdf/" + names[0]
     return send_file(file_path, as_attachment=True)
 
-@app.route('/getImage/<filename>', methods=['GET'])
-def get_image(filename):
-    #TODO: rendre l'image dans un html pour l'afficher sur la tablette
-    return
+@app.route('/resources/<path:filename>')
+def resources(filename):
+    print(f"Path to resource: {os.path.join(RESOURCES_DIR_PATH, filename)}")
+    return send_from_directory(RESOURCES_DIR_PATH, filename)
+
+@app.route('/getImage/<directory>/<filename>', methods=['GET'])
+def get_image(directory, filename):
+    #TODO Utiliser filename
+    bof = filename
+    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/qrcode.png'))
+    #return render_template('display_image.html', image_url=url_for('static', filename=f'.../{filename}'))

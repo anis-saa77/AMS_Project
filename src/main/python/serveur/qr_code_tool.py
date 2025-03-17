@@ -3,7 +3,7 @@ from langchain.tools import Tool
 from functions_server import create_qr_code
 import os
 def qr_code_func(query):
-    if not os.listdir("qrcode"): #Si il n'y a pas de pdf
+    if not os.listdir("../../../resources/qrcode"): #Si il n'y a pas de pdf
         return "La génération d'un QR Code est impossible"
     #create_qr_code("http://192.168.81.17:5000/download")
     return "Voici le QR Code demandé."
