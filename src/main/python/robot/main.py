@@ -1,8 +1,7 @@
 import threading
-
 from settings import *  # Do not delete !
 from functions import *
-from webview import show_webview
+from window_webview import show_webview
 
 """      ______Exécution______        """
 
@@ -27,15 +26,10 @@ while True:  # Boucle Principale
 
     if response.json().get('image_loc'):
         image_loc = response.json().get('image_loc')
-        #show_webview(f"http://{SERVER_IP}:{PORT}/getImage/"+image_loc)
-        thread = threading.Thread(target=show_webview, args=(f"http://{SERVER_IP}:{PORT}/getImage/" + image_loc,))
-        thread.daemon = True  # Permet de ne pas bloquer l'arrêt du programme
-        thread.start()
-
+        image_url = f"http://{SERVER_IP}:{PORT}/getImage/{image_loc}"
+        show_webview(image_url)
 
     if response.json().get("ai_response") == "STOP":
         break
 
 print("Fin")
-
-##############################################################

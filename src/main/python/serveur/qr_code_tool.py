@@ -3,11 +3,10 @@ import json
 from langchain.tools import Tool
 def qr_code_func(query):
     if not os.listdir("../../../resources/qrcode"): #Si qrcode/ est vide  (pas de pdf ou de qrcode)
-        tool_response = "La génération d'un QR Code est impossible pour le moment !"
+        tool_response, entity = "La génération d'un QR Code est impossible pour le moment !", None
     else:
-        tool_response = "Voici le QR Code demandé."
-
-    return json.dumps({"tool_response": tool_response, "entity": None})
+        tool_response, entity = "Voici le QR Code demandé.", "qrcode"
+    return json.dumps({"tool_response": tool_response, "entity": entity})
 
 
 qr_code_tool = Tool(
