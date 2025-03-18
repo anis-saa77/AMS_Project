@@ -14,7 +14,7 @@ while True:
 
     print("Vous avez dit :", response.json().get("message"))
     print("L'IA a répondu :", response.json().get("ai_response"))
-
+    print(response.json())
     if response.json().get("conversation"):
         while True:
             record_audio_to_wav(AUDIO_OUTPUT_PATH, duration=10)
@@ -39,14 +39,14 @@ while True:
         plt.axis("off")  # Cacher les axes
         plt.show()
 
-    if response.json().get('image_url'):
-        image_url = response.json().get('image_url')
-        show_webview(f"http://{SERVER_IP}:{PORT}/getImage/"+image_url)
+    if response.json().get('image_loc'):
+        image_loc = response.json().get('image_loc')
+        show_webview(f"http://{SERVER_IP}:{PORT}/getImage/"+image_loc)
 
     if response.json().get('qrcode'):
         image_base64 = response.json().get("qrcode")
         image_data = base64.b64decode(image_base64)
-        with open("temp/image.jpg", "wb") as img_file:  # Sauvegarde en JPEG
+        with open(TEMP_IMAGE_PATH, "wb") as img_file:  # Sauvegarde en JPEG
             img_file.write(image_data)
         time.sleep(1)
         #Affichage de l'image reçu

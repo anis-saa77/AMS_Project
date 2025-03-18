@@ -29,5 +29,5 @@ def show_webview(image_url):
     sys.exit(app.exec_())
 
 # Test
-# image_url = "http://192.168.81.42:5000/getImage/qrcode/qrcode.png"
-# show_webview(image_url)
+image_url = "http://192.168.81.33:5000/getImage/qrcode/qrcode.png"
+show_webview(image_url)

@@ -45,7 +45,7 @@ def upload():
         message = recognize_speech_from_wav(AUDIO_FILE_PATH)
         ai_response, tool_name, query = sendMessage(message, "French", config)
 
-        if tool_name == "conversation_tool" :
+        if tool_name == "conversation_tool":
             json = {
                 'message': message,
                 'ai_response': ai_response,
@@ -190,4 +190,4 @@ def resources(filename):
 
 @app.route('/getImage/<directory>/<filename>', methods=['GET'])
 def get_image(directory, filename):
-    return render_template('display_image.html', image_loc=url_for('resources', filename=f'{directory}/{filename}'))
+    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'))

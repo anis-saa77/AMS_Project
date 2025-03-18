@@ -1,3 +1,4 @@
+import sqlite3  # Do not delete !
 def getAidKeywords(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
