@@ -7,11 +7,11 @@ CORRECTIONS = {
     "ça": "s1",
     "salsa": "salle s1",
     "c'est": "c",
-    "blése":"blaise",
-    "blèse":"blaise",
-    "stade":"stat",
-    "States":"stat",
-    "stats":"stat",
+    "blése": "blaise",
+    "blèse": "blaise",
+    "stade": "stat",
+    "States": "stat",
+    "stats": "stat",
 }
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():

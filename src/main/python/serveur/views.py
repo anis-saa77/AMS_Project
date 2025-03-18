@@ -9,14 +9,13 @@ from config_conv_model import sendConvMessage, configConv
 from model_conv import init_conversation
 from ast import literal_eval
 from sql import *
-from main import SERVER_IP
+from config import SERVER_IP
 
 historic = []
 deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
 create_qr_code(f"http://{SERVER_IP}:5000/download")
 
 RESOURCES_DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'resources'))
-TEMPLATES_PATH = "../../../resources/templates/"
 @app.route('/')
 def homepage():
 	return 'Home page'
@@ -59,6 +58,7 @@ def upload():
             return json, 200
         
         image_encoded = None
+        image_url = None
         if not query : #L'appel à la fonction tool n'a pas retourné le 2ème argument (nom de salle ou d'aide)
             json = {
                 'message': message,
@@ -89,6 +89,7 @@ def upload():
             print(image_path)
             filename = query
             create_pdf_from_image(image_path, filename)
+            image_url = "plans/"+salle +".jpg"
             try:
                 with open(image_path, "rb") as img_file:
                     image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
@@ -97,6 +98,7 @@ def upload():
         elif tool_name == "qr_code_generation":
             print("Génération du qr_code")
             image_path = "../../../resources/qrcode/qrcode.png"
+            image_url = "qrcode/qrcode.png"
             try:
                 with open(image_path, "rb") as img_file:
                     image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
@@ -105,7 +107,8 @@ def upload():
         json = {
             'message': message,
             'ai_response': ai_response,
-            'image': image_encoded
+            'image': image_encoded,
+            'image_url': image_url,
         }
         return json, 200
     except Exception as e:
@@ -150,7 +153,8 @@ def conversation():
                 'message': message,
                 'ai_response': "Ok, je met fin à la conversation. Voulez vous un historique de la conversation ?",
                 'conversation': False,
-                'qrcode': image_encoded
+                'qrcode': image_encoded,
+                'image_url': "qrcode/qrcode.png"
             }, 200
         ai_response = str(sendConvMessage(message, "French", configConv))
         json = {
@@ -188,7 +192,4 @@ def resources(filename):
 
 @app.route('/getImage/<directory>/<filename>', methods=['GET'])
 def get_image(directory, filename):
-    #TODO Utiliser filename
-    bof = filename
-    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/qrcode.png'))
-    #return render_template('display_image.html', image_url=url_for('static', filename=f'.../{filename}'))
+    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'))

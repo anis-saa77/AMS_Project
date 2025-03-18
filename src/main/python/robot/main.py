@@ -1,7 +1,15 @@
-from functions import *
+# Ajouter le dossier python au chemin des modules
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from config import *  # Do not delete !
+
 import matplotlib.pyplot as plt
 from PIL import Image
 import time
+from functions import *
+from webview import show_webview
+
+
 ##############################################################
                         # Execution #
 ##############################################################
@@ -39,6 +47,10 @@ while True:
         plt.imshow(image)
         plt.axis("off")  # Cacher les axes
         plt.show()
+
+    if response.json().get('image_url'):
+        image_url = response.json().get('image_url')
+        show_webview(f"http://{SERVER_IP}:5000/getImage/"+image_url)
 
     if response.json().get('qrcode'):
         image_base64 = response.json().get("qrcode")
