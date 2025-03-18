@@ -38,6 +38,7 @@ def call_model(state: State):
 
     try:
         json.loads(response['output'])
+        print("json : " + response['output'])
         print("La réponse est au format json")
         updated_messages = state["messages"] + [AIMessage(content="Je n'ai pas compris ta demande. Peux-tu reformuler ?")]
         return {"messages": updated_messages, "tool_call": intermediate_steps}
@@ -58,10 +59,12 @@ def sendMessage(message, language, config):
     print("AI_Message : ", response.content)
     ai_message = response.content
     tool_call = output.get('tool_call')
-    if tool_call :
+    if tool_call:
         tool_agent_action = tool_call[0]
         tool_name = tool_agent_action[0].tool
         result = tool_agent_action[-1][1]
+        print("ai_message : " + ai_message)
+        print("result : " + result)
         return ai_message, tool_name, result
     return ai_message, None, None
 

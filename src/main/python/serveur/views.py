@@ -4,11 +4,11 @@ from flask import request, jsonify, send_file, render_template, url_for, send_fr
 from ast import literal_eval
 
 from app import app
-from functions_server import *
+from audio import *
+from pdf import *
 from config_agent import sendMessage, config
 from config_conv_model import sendConvMessage, configConv
 from model_conv import init_conversation
-from sql import *
 from settings import *
 
 historic = []
@@ -43,7 +43,7 @@ def upload():
             wav_file.writeframes(audio_data)
             
         message = recognize_speech_from_wav(AUDIO_FILE_PATH)
-        ai_response, tool_name, query = sendMessage(message, "French", config)
+        ai_response, tool_name, entity = sendMessage(message, "French", config)
 
         if tool_name == "conversation_tool":
             json = {
@@ -52,67 +52,42 @@ def upload():
                 'conversation': True
             }
             print("Début d'une conversation ...")
-            historic = []
+            historic.clear()
             init_conversation()
             return json, 200
-        
-        image_encoded = None
-        image_loc = None
-        if not query : #L'appel à la fonction tool n'a pas retourné le 2ème argument (nom de salle ou d'aide)
+
+        if not entity:  # L'appel à la fonction tool n'a pas retourné d'entité (ex : 'CAF', 'APL', 'S2', 'Stat4'...)
             json = {
                 'message': message,
-                'ai_response': ai_response,
-                'image': image_encoded
+                'ai_response': ai_response
             }                
             return json, 200
+        entity = entity.upper()  # entity = 'CAF', 'APL', 'S2', 'Stat4'...
 
-        connection = sqlite3.connect(DB_FILE_PATH)
-        cur = connection.cursor()
         if tool_name == 'social_aid':
-            image_url = str(getAidImage(cur, query))
-            filename = query
-            create_pdf_from_image(image_url, filename)
-            try:
-                response = requests.get(image_url)
-                image = response.content
-                if response.status_code == 200:
-                    image_encoded = base64.b64encode(image).decode('utf-8')
-                else:
-                    print(f"Erreur lors du téléchargement de l'image: {response.status_code}")
-            except Exception as e:
-                print(f"Erreur lors de la récupération de l'image: {str(e)}")
+            update_pdf(tool_name, entity)
+            image_loc = AIDS_DIR_PATH+entity+".png"
+
         elif tool_name == "direction_indication":
-            salle = query
-            query = query.upper()
-            image_path = f"{PLANS_DIR_PATH}{salle}.jpg"
-            filename = query
-            create_pdf_from_image(image_path, filename)
-            image_loc = f"plans/{salle}.jpg"
-            try:
-                with open(image_path, "rb") as img_file:
-                    image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
-            except FileNotFoundError:
-                image_encoded = None  # Pas d'image disponible
+            update_pdf(tool_name, entity)
+            image_loc = f"plans/{entity}.jpg"
+
         elif tool_name == "qr_code_generation":
-            print("Génération du qr_code")
-            image_path = QR_CODE_PATH
             image_loc = "qrcode/qrcode.png"
-            try:
-                with open(image_path, "rb") as img_file:
-                    image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
-            except FileNotFoundError:
-                image_encoded = None  # Pas d'image disponible
+
+        else:
+            image_loc = None
+
         json = {
             'message': message,
             'ai_response': ai_response,
-            'image': image_encoded,
             'image_loc': image_loc,
         }
         return json, 200
+
     except Exception as e:
         print("error:", str(e))
-        print("ai_response : Je n'ai pas compris. Veuillez répéter.")
-        return jsonify({'ai_response' : "Je n'ai pas compris. Veuillez répéter."}), 200
+        return jsonify({'ai_response': "Je n'ai pas compris. Veuillez répéter."}), 200
 
 @app.route('/conversation', methods=['GET', 'POST'])
 def conversation():
@@ -138,26 +113,19 @@ def conversation():
             wav_file.writeframes(audio_data)
             
         message = recognize_speech_from_wav("audio.wav")
-        if message.lower() in ["stop", "stoppe"] :
+        if message.lower() in ["stop", "stoppe"]:
             create_pdf(historic)
             print("Fin de la conversation.")
-            image_path = "../../../resources/qrcode/qrcode.png"
-            try:
-                with open(image_path, "rb") as img_file:
-                    image_encoded = base64.b64encode(img_file.read()).decode('utf-8')
-            except FileNotFoundError:
-                image_encoded = None  # Pas d'image disponible
             return {
                 'message': message,
                 'ai_response': "Ok, je met fin à la conversation. Voulez vous un historique de la conversation ?",
                 'conversation': False,
-                'qrcode': image_encoded,
                 'image_loc': "qrcode/qrcode.png"
             }, 200
         ai_response = str(sendConvMessage(message, "French", configConv))
         json = {
-            'message' : message,
-            'ai_response' : ai_response,
+            'message': message,
+            'ai_response': ai_response,
             'conversation': True
         }
         historic.append(message)

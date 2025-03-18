@@ -5,6 +5,7 @@ RESOURCES_DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..
 PLANS_DIR_PATH = "../../../resources/plans/"
 PDF_DIR_PATH = "../../../resources/pdf/"
 FONTS_DIR_PATH = "../../../resources/fonts/"
+AIDS_DIR_PATH = "../../../resources/aids/"
 
 # Chemins vers les fichiers
 AUDIO_FILE_PATH = "temp/audio.wav"
