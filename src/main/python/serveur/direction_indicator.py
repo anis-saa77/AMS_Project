@@ -35,25 +35,25 @@ def direction_indication(query):
         if "ada" in query.lower():
             direction_to_room = getRoomDirection(cur, "AMPHI ADA")
             connection.close()
-            return json.dumps({"message": str(direction_to_room), "room": "AMPHI ADA"})
+            return json.dumps({"tool_response": str(direction_to_room), "entity": "AMPHI ADA"})
         if "blaise" in query.lower():
             direction_to_room = getRoomDirection(cur, "AMPHI BLAISE")
             connection.close()
-            return json.dumps({"message": str(direction_to_room), "room": "AMPHI BLAISE"})
-        return json.dumps({"message": "Vers quel amphithéâtre souhaitez-vous être dirigé", "room": None})
+            return json.dumps({"tool_response": str(direction_to_room), "room": "AMPHI BLAISE"})
+        return json.dumps({"tool_response": "Vers quel amphithéâtre souhaitez-vous être dirigé", "entity": None})
 
     if any(word in query.lower() for word in ["toilettes", "toilette", "wc"]):
         connection.close()
-        return json.dumps({"message": "Les toilettes les plus proches se trouvent dans le couloir d'en face, à votre gauche", "room": "WC"})
+        return json.dumps({"tool_response": "Les toilettes les plus proches se trouvent dans le couloir d'en face, à votre gauche", "entity": "WC"})
 
     match = re.search(r'\bs\d+\b|\bstat\d|\bstat \d+\b', query, re.IGNORECASE)
     if match:
         room = match.group().upper().replace(" ", "")
         if not roomExists(cur, room):
-            return json.dumps({"message": f"La salle '{room}' n'existe pas dans la base de données.", "room": None})
+            return json.dumps({"tool_response": f"La salle '{room}' n'existe pas dans la base de données.", "entity": None})
         direction_to_room = getRoomDirection(cur, room)
         connection.close()
-        return json.dumps({"message": str(direction_to_room), "room": room})
+        return json.dumps({"tool_response": str(direction_to_room), "entity": room})
 
     match = re.search(r'\bc\d+\b', query, re.IGNORECASE)
     if match:
@@ -61,13 +61,13 @@ def direction_indication(query):
         room = getRoomNameFromNumber(cur, room_number)
         if not roomExists(cur, room):
             connection.close()
-            return json.dumps({"message": f"La salle '{room_number}' n'existe pas dans la base de données.", "room": None})
+            return json.dumps({"tool_response": f"La salle '{room_number}' n'existe pas dans la base de données.", "entity": None})
         direction_to_room = getRoomDirection(cur, room)
         connection.close()
-        return json.dumps({"message": str(direction_to_room), "room": room})
+        return json.dumps({"tool_response": str(direction_to_room), "entity": room})
 
     connection.close()
-    return json.dumps({"message": "La salle n'est pas dans ma base de données.", "room": None})
+    return json.dumps({"tool_response": "La salle n'est pas dans ma base de données.", "entity": None})
 
 
 # Création du Tool

@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
-from PIL import Image
-import time
+import threading
 
 from settings import *  # Do not delete !
 from functions import *
@@ -29,7 +27,11 @@ while True:  # Boucle Principale
 
     if response.json().get('image_loc'):
         image_loc = response.json().get('image_loc')
-        show_webview(f"http://{SERVER_IP}:{PORT}/getImage/"+image_loc)
+        #show_webview(f"http://{SERVER_IP}:{PORT}/getImage/"+image_loc)
+        thread = threading.Thread(target=show_webview, args=(f"http://{SERVER_IP}:{PORT}/getImage/" + image_loc,))
+        thread.daemon = True  # Permet de ne pas bloquer l'arrêt du programme
+        thread.start()
+
 
     if response.json().get("ai_response") == "STOP":
         break

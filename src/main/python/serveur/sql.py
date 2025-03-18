@@ -20,9 +20,6 @@ def getAidKeywords(cur, aid_name):
 
     cur.execute(query, (aid_name,))
     keywords = [row[0] for row in cur.fetchall()]
-
-    # Fermeture de la connexion
-    #connection.close()
     return keywords
 
 def getAids(cur):
@@ -106,7 +103,7 @@ def getRoomDirection(cur, room):
        '''
     cur.execute(query, (room,))
     info = cur.fetchone()
-    return info
+    return info[0]
 
 def getRoomNameFromNumber(cur, room_number):
     # Vérifier si l'aide sociale existe
