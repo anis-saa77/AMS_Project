@@ -1,5 +1,4 @@
 import speech_recognition as sr
-import os
 import qrcode
 from pydub import AudioSegment
 from fpdf import FPDF
@@ -8,8 +7,7 @@ from io import BytesIO
 from datetime import datetime
 import requests
 
-QR_CODE_PATH = "../../../resources/qrcode/qrcode.png"
-PDF_DIRECTORY_PATH = "../../../resources/pdf/"
+from settings import *
 
 ##############################################################
                     # Fonctions_serveur #
@@ -78,16 +76,16 @@ def create_qr_code(url):
 # delete_all_pdf
 ####################################################
 def delete_all_pdf():
-    for file in os.listdir("../../../resources/pdf"):
+    for file in os.listdir(PDF_DIR_PATH):
         if file.endswith(".pdf"):
-            os.remove(f"../../../resources/pdf/{file}")
+            os.remove(f"{PDF_DIR_PATH}{file}")
 
 ####################################################
 # get_all_pdf_names
 ####################################################
 def get_all_pdf_names():
     pdf_names = []
-    for file in os.listdir("../../../resources/pdf"):
+    for file in os.listdir(PDF_DIR_PATH):
         if file.endswith(".pdf"):
             pdf_names.append(file)
     return pdf_names
@@ -101,7 +99,7 @@ def create_pdf(messages):
     pdf = CustomPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
 
-    pdf.add_font("Arial", "", "../../../resources/fonts/arial.ttf", uni=True)
+    pdf.add_font("Arial", "", FONTS_DIR_PATH+"/arial.ttf", uni=True)
 
     add_cover_page(pdf)
 
@@ -116,7 +114,7 @@ def create_pdf(messages):
         write_message(messages[i+1], pdf, color2, human=False)
         i += 2
 
-    pdf.output(PDF_DIRECTORY_PATH + "conversation.pdf")
+    pdf.output(PDF_DIR_PATH + "conversation.pdf")
 
 ####################################################
 # add_cover_page
@@ -172,7 +170,7 @@ def create_pdf_from_image(image_path_or_url, filename):
             image = Image.open(BytesIO(response.content))
         else:
             image = Image.open(image_path_or_url)
-        filepath = PDF_DIRECTORY_PATH + filename + ".pdf"
+        filepath = PDF_DIR_PATH + filename + ".pdf"
         image.convert('RGB').save(filepath, "PDF", resolution=100.0)
         print(f"PDF créé avec succès")
     except Exception as e:

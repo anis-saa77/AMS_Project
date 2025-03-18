@@ -1,8 +1,6 @@
-# Ajout du dossier python au chemin des modules
-import sys, os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
-
-# Configuration serveur
+# Chemins vers les fichiers
+AUDIO_OUTPUT_PATH = "temp/output.wav"
+TEMP_IMAGE_PATH = "temp/image.jpg"
 def get_ipv4():
     import netifaces
     for interface in netifaces.interfaces():
@@ -13,9 +11,6 @@ def get_ipv4():
                     return addr["addr"]
     return "127.0.0.1"
 
+# Configuration serveur
 SERVER_IP = get_ipv4()
 PORT = 5000
-
-# Chemins vers les dossiers
-
-# Chemins vers les fichiers

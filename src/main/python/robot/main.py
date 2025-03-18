@@ -1,33 +1,24 @@
-# Ajouter le dossier python au chemin des modules
-import sys, os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from config import *  # Do not delete !
-
 import matplotlib.pyplot as plt
 from PIL import Image
 import time
+
+from settings import *  # Do not delete !
 from functions import *
 from webview import show_webview
 
-
-##############################################################
-                        # Execution #
-##############################################################
-
-
-audio_filepath = "temp/output.wav"
+"""      ______Exécution______        """
 
 while True:
-    record_audio_to_wav(audio_filepath, duration=10)
-    response = send_audio(audio_filepath, "upload")
+    record_audio_to_wav(AUDIO_OUTPUT_PATH, duration=10)
+    response = send_audio(AUDIO_OUTPUT_PATH, "upload")
 
     print("Vous avez dit :", response.json().get("message"))
     print("L'IA a répondu :", response.json().get("ai_response"))
 
     if response.json().get("conversation"):
         while True:
-            record_audio_to_wav(audio_filepath, duration=10)
-            response = send_audio(audio_filepath, "conversation")
+            record_audio_to_wav(AUDIO_OUTPUT_PATH, duration=10)
+            response = send_audio(AUDIO_OUTPUT_PATH, "conversation")
 
             print("Vous avez dit :", response.json().get("message"))
             print("L'IA a répondu :", response.json().get("ai_response"))
@@ -43,14 +34,14 @@ while True:
             img_file.write(image_data)
         time.sleep(1)
         #Affichage de l'image reçu
-        image = Image.open("temp/image.jpg")
+        image = Image.open(TEMP_IMAGE_PATH)
         plt.imshow(image)
         plt.axis("off")  # Cacher les axes
         plt.show()
 
     if response.json().get('image_url'):
         image_url = response.json().get('image_url')
-        show_webview(f"http://{SERVER_IP}:5000/getImage/"+image_url)
+        show_webview(f"http://{SERVER_IP}:{PORT}/getImage/"+image_url)
 
     if response.json().get('qrcode'):
         image_base64 = response.json().get("qrcode")
