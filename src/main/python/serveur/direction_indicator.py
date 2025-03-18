@@ -15,6 +15,7 @@ CORRECTIONS = {
     "States": "stat",
     "stats": "stat",
 }
+
 def apply_corrections(query):
     for incorrect, correct in CORRECTIONS.items():
         if incorrect in query:
