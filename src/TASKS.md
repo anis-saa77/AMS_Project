@@ -3,8 +3,8 @@
 ----
 
 **Aide Sociales :** 
-- Ajouter les images des aides en local.
-- Créer les pdfs à partir des fichiers markdown.
+- Améliorer la reconnaissance de l'aide (ou des aides) nécessaires !
+- Entrainer un modèle pour reconnaitre l'aides ?!
 
 **Choregraph**
 - Màj niveau choregraphe (Affihce sur tablettes, fonction d'arrêt...)
@@ -21,6 +21,6 @@
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
 
 **A faire dans ma branche:**
-- Retourner str dans les fonctions sql
+- Retourner des string dans les fonctions sql
 - Régler webview bloquante
 - Fonction transcript
