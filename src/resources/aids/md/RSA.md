@@ -1,21 +1,27 @@
 # 💰 Le Revenu de Solidarité Active (RSA)
 
-Le **Revenu de Solidarité Active (RSA)** est une aide financière destinée aux personnes ayant **peu ou pas de ressources**. Il permet de garantir un **revenu minimum** afin d'assurer des conditions de vie décentes.
+Le **Revenu de Solidarité Active (RSA)** est une aide financière destinée aux personnes ayant **peu ou pas de ressources**. Il permet de garantir un **revenu minimum** afin \
+d'assurer des conditions de vie décentes.
 
-![Illustration RSA](chemin/vers/limage.png)
+<p align="center">
+  <img src="https://www.aizenay.fr/medias/2016/04/Logo-RSA.jpg" alt="Illustration FSL" width="50%">
+</p>
 
 ---
 
 ## 📌 **Qui peut bénéficier du RSA ?**
 Pour toucher le RSA, il faut remplir plusieurs conditions :
 
-✅ **Âge** : avoir **au moins 25 ans** (ou moins de 25 ans avec un enfant à charge ou si vous avez travaillé suffisamment).  
+✅ **Âge** : avoir **au moins 25 ans** (ou moins de 25 ans avec un enfant à charge ou si \
+ vous avez travaillé suffisamment).  
 ✅ **Nationalité** : être **français** ou résider en France de manière stable.  
 ✅ **Ressources** : ne pas dépasser un certain plafond de revenus.  
 
-📌 **Les jeunes de 18 à 24 ans** peuvent demander le **RSA jeune actif** s’ils ont travaillé au moins **2 ans** sur les 3 dernières années.
+📌 **Les jeunes de 18 à 24 ans** peuvent demander le **RSA jeune actif** s’ils ont travaillé \
+ au moins **2 ans** sur les 3 dernières années.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 📊 **Montant du RSA en 2024**
 Le montant du RSA varie selon la situation familiale :
@@ -27,7 +33,8 @@ Le montant du RSA varie selon la situation familiale :
 | 👨‍👧‍👦 Parent isolé avec 1 enfant | **951,48 €** |
 | 👨‍👩‍👧‍👦 Couple avec 2 enfants | **1 334,97 €** |
 
-💡 **À noter** : Ces montants sont **réduits en fonction des ressources** que vous percevez (allocations, travail, autres revenus).
+💡 **À noter** : Ces montants sont **réduits en fonction des ressources** que vous \
+percevez (allocations, travail, autres revenus).
 
 ---
 
@@ -55,7 +62,8 @@ En contrepartie du RSA, les bénéficiaires doivent :
 ✔ **S’engager dans un parcours d’insertion** (formations, stages).  
 ✔ **Faire une déclaration trimestrielle de ressources** auprès de la CAF/MSA.  
 
-🚨 **Sanctions possibles** : Si vous ne respectez pas vos obligations, le RSA peut être suspendu ou réduit.
+🚨 **Sanctions possibles** : Si vous ne respectez pas vos obligations, le RSA peut être \
+ suspendu ou réduit.
 
 ---
 
@@ -68,11 +76,6 @@ En contrepartie du RSA, les bénéficiaires doivent :
 
 ❓ **Le RSA est-il rétroactif ?**  
 📌 Non, il est versé **à partir du mois suivant la demande**.
-
----
-
-## 🖼️ **Infographie explicative**
-![Infographie RSA](chemin/vers/limage.png)
 
 ---
 

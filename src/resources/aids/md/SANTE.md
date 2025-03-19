@@ -1,6 +1,7 @@
 # 🏥 Les Aides pour la Santé en France  
 
-En France, plusieurs aides existent pour garantir l’accès aux soins, notamment pour les personnes à faibles revenus ou en situation de handicap.  
+En France, plusieurs aides existent pour garantir l’accès aux soins, notamment pour \
+les personnes à faibles revenus ou en situation de handicap.  
 
 ---
 
@@ -21,6 +22,8 @@ En France, plusieurs aides existent pour garantir l’accès aux soins, notammen
 🔹 **Démarches** : Demande sur [www.ameli.fr](https://www.ameli.fr).  
 
 ---
+
+<div style="page-break-before: always;"></div>
 
 ## 🌍 **2. Aide Médicale d’État (AME)**  
 ### ✅ Pour qui ?  
@@ -50,6 +53,8 @@ En France, plusieurs aides existent pour garantir l’accès aux soins, notammen
 📌 Infos sur [www.service-public.fr](https://www.service-public.fr).  
 
 ---
+
+<div style="page-break-before: always;"></div>
 
 ## 📞 **Besoin d’aide ?**  
 📌 **Ameli** : Assurance maladie ([www.ameli.fr](https://www.ameli.fr)).  

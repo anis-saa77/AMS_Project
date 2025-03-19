@@ -1,8 +1,12 @@
 # 🏠 Fonds de Solidarité pour le Logement (FSL)
 
-Le **Fonds de Solidarité pour le Logement (FSL)** est une aide destinée aux **personnes en difficulté financière** pour accéder à un logement ou s’y maintenir en cas d'impayés.
+Le **Fonds de Solidarité pour le Logement (FSL)** est une aide destinée aux **personnes en difficulté financière** pour accéder à un logement ou s’y maintenir en cas\
+d'impayés.
 
-![Illustration FSL](chemin/vers/limage.png)
+<p align="center">
+  <img src="https://www.grandnancy.eu/fileadmin/fichiers/VIVRE_ET_HABITER/Solidarite/FSL.png" alt="Illustration FSL" width="50%">
+</p>
+
 
 ---
 
@@ -15,9 +19,11 @@ Le FSL peut financer :
 ✅ **Assurance habitation** si obligatoire pour le logement.  
 ✅ **Frais de déménagement** en cas de situation d'urgence.  
 
-💡 **Le FSL est une aide départementale** : chaque département fixe ses propres critères.
+💡 **Le FSL est une aide départementale** : chaque département fixe ses propres\
+critères.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 📊 **Qui peut bénéficier du FSL ?**
 Le FSL est destiné aux **ménages en difficulté financière**, notamment :
@@ -29,7 +35,8 @@ Le FSL est destiné aux **ménages en difficulté financière**, notamment :
 📌 **Conditions principales** :
 - Résider en **France** de manière stable.  
 - Avoir des **revenus inférieurs à un plafond** fixé par le département.  
-- Être **locataire, sous-locataire, propriétaire en difficulté ou hébergé à titre gratuit**.  
+- Être **locataire, sous-locataire, propriétaire en difficulté ou hébergé à titre\
+ gratuit**.  
 
 ---
 
@@ -69,11 +76,6 @@ Le FSL peut être :
 
 ❓ **Le FSL est-il cumulable avec d’autres aides ?**  
 📌 Oui ! Il est **cumulable avec l’APL** et d'autres aides sociales.
-
----
-
-## 🖼️ **Infographie explicative**
-![Infographie FSL](chemin/vers/limage.png)
 
 ---
 

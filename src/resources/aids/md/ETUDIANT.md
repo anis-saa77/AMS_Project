@@ -19,6 +19,8 @@ Les étudiants et les jeunes en formation peuvent bénéficier de plusieurs aide
 🔹 **Démarches** : Demande via le **Dossier Social Étudiant (DSE)** sur [www.messervices.etudiant.gouv.fr](https://www.messervices.etudiant.gouv.fr).  
 
 ---
+<div style="page-break-before: always;"></div>
+
 
 ## 🏆 **2. Aide au mérite**  
 ### ✅ Pour qui ?  
@@ -43,6 +45,7 @@ Les étudiants et les jeunes en formation peuvent bénéficier de plusieurs aide
 🔹 **Démarches** : Demande à faire sur [messervices.etudiant.gouv.fr](https://www.messervices.etudiant.gouv.fr).  
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 🏡 **4. Aide Mobili-Jeune**  
 ### ✅ Pour qui ?  

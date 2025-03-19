@@ -2,7 +2,7 @@
 
 Le dispositif **Loca-Pass** permet d’aider les locataires à financer leur **dépôt de garantie** et à obtenir une **garantie de loyer gratuite**. Cette aide est destinée aux salariés et aux jeunes en formation.
 
-![Illustration Loca-Pass](chemin/vers/limage.png)
+![Illustration Loca-Pass](https://selectra.info/sites/selectra.info/files/styles/article_hero/public/field/image/avance_et_garantie_local-pass-825x293.png?itok=NIGNX4Va)
 
 ---
 
@@ -10,14 +10,17 @@ Le dispositif **Loca-Pass** permet d’aider les locataires à financer leur **d
 Il existe **deux types d’aides** :
 
 1️⃣ **L’avance Loca-Pass** :  
-💰 Un **prêt sans intérêt** pour financer le **dépôt de garantie** demandé par le propriétaire.  
+💰 Un **prêt sans intérêt** pour financer le **dépôt de garantie** demandé par le \
+propriétaire.  
 
 2️⃣ **La garantie Loca-Pass** :  
-🔒 Une **caution gratuite** pour couvrir les **loyers impayés** en cas de difficultés financières.  
+🔒 Une **caution gratuite** pour couvrir les **loyers impayés** en cas de difficultés \
+financières.  
 
 💡 Ces aides sont gérées par **Action Logement**.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 📊 **Qui peut en bénéficier ?**
 Loca-Pass est accessible aux :
@@ -47,6 +50,7 @@ Loca-Pass est accessible aux :
 📌 **Délai de traitement** : Réponse sous **10 jours** après dépôt du dossier.
 
 ---
+<div style="page-break-before: always;"></div>
 
 ## 💰 **Montant et remboursement**
 ### ✅ **Avance Loca-Pass** :
@@ -70,14 +74,11 @@ Loca-Pass est accessible aux :
 🚀 Vous pouvez essayer d’autres aides comme le **FSL** ou le **Visale**.
 
 ---
-
-## 🖼️ **Infographie explicative**
-![Infographie Loca-Pass](chemin/vers/limage.png)
-
----
+<div style="page-break-before: always;"></div>
 
 ## 📞 **Besoin d’aide ?**
-📌 **Action Logement** : Appelez le **0970 800 800** ou consultez [www.actionlogement.fr](https://www.actionlogement.fr/).  
+📌 **Action Logement** : Appelez le **0970 800 800** ou consultez  
+ [www.actionlogement.fr](https://www.actionlogement.fr/).  
 📌 **CAF** : Vérifiez votre éligibilité à d’autres aides comme l’APL.  
 📌 **CCAS / Mairie** : Aides locales complémentaires.
 

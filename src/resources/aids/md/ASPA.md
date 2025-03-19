@@ -2,7 +2,7 @@
 
 L'**Allocation de Solidarité aux Personnes Âgées (ASPA)** est une aide financière destinée aux **retraités disposant de faibles ressources**. Elle permet de garantir un **revenu minimum** pour les personnes âgées vivant en France.
 
-![Illustration ASPA](chemin/vers/limage.png)
+![Illustration ASPA](https://www.adiam.net/wp-content/uploads/2023/11/allocation-solidarite-personne-agee-aspa.jpg)
 
 ---
 
@@ -12,6 +12,8 @@ L'ASPA est accessible aux personnes qui remplissent ces conditions :
 ✅ **Âge minimum** : 65 ans (ou 62 ans en cas d'invalidité reconnue).  
 ✅ **Résidence en France** : Résider de manière stable en métropole ou Outre-mer.  
 ✅ **Ressources financières limitées** : Le plafond varie selon la situation familiale.  
+
+<div style="page-break-before: always;"></div>
 
 **🔹 Plafonds de ressources pour 2024 :**  
 - **Personne seule** : Maximum **11 533,02 € / an** (soit 961,08 €/mois).  
@@ -39,6 +41,8 @@ Le montant de l'ASPA est **calculé en fonction des revenus** perçus (pensions,
 - **Si vous êtes retraité d'un autre régime** : Contactez votre **caisse de retraite**.  
 - **Si vous n’avez jamais cotisé** : Adressez-vous à votre mairie.
 
+<div style="page-break-before: always;"></div>
+
 ### 🔹 **Documents nécessaires :**
 📜 Justificatif d’identité et de résidence.  
 📄 Avis d’imposition et relevé de pension de retraite.  
@@ -59,14 +63,4 @@ L'ASPA est une **avance sociale récupérable** après le décès du bénéficia
 - **Assurance Retraite** : 🌍 [www.lassuranceretraite.fr](https://www.lassuranceretraite.fr/)  
 - **Mairie ou CCAS** (Centre Communal d'Action Sociale) : pour une aide à la demande.  
 
----
-
-## 🖼️ **Infographie explicative**
-![Infographie ASPA](chemin/vers/limage.png)
-
----
-
-## 🏁 **Conclusion**
-L'ASPA est une aide essentielle pour garantir un minimum de ressources aux retraités modestes. Il est important de vérifier votre éligibilité et d’entamer les démarches pour en bénéficier si besoin.  
-💡 Pour toute question, n’hésitez pas à contacter les services de retraite ou votre mairie.
 
