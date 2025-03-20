@@ -9,7 +9,7 @@
 
 **Choregraph**
 - Image trop grande cache le bouton qrcode (ex: APL)'
-- Le lien a doi avoir la même hitbox que le bouton
+- Le lien doit avoir la même hitbox que le bouton
 - Afficher sur la tablette "Mode Assistant" / "Mode conv"
 - (Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
 
@@ -22,6 +22,4 @@
 - ~Baser le mode assistant sur usage exclusive des tools ?!!!!!!!!
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
 - SLM pour speech recognition
-
-**A faire dans ma branche (Anis) : **
 - Régler webview bloquante
