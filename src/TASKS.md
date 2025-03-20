@@ -1,6 +1,8 @@
 ## Tâches + ~Idée :
 
 ----
+**Historique :**
+- Qui commence à parler, l'ia ou l'humain ? (altérner les polices différement en fonction de la réponse)
 
 **Aide Sociales :**
 - Ajouter les nouvelles aides à la base

@@ -3,7 +3,6 @@ from fpdf import FPDF
 from PIL import Image
 from datetime import datetime
 import shutil
-import os
 
 from settings import *
 
@@ -11,7 +10,17 @@ from settings import *
                     # Fonctions_serveur #
 ##############################################################
 class CustomPDF(FPDF):
-    def add_page(self, orientation='', format=''):
+    def __init__(self, orientation='P', unit='mm', format='A4'):
+        super().__init__(orientation, unit, format)
+        self.set_auto_page_break(auto=True, margin=15)
+        # Ajout des polices
+        # pdf.add_font("", CONSOLAS_FONT_PATH, uni=True)
+        # pdf.add_font("", ARIAL_FONT_PATH, uni=True)
+        # pdf.add_font("", SEGOE_UI_FONT_PATH, uni=True)
+        # pdf.add_font("DejaVu", DEJA_VU_FONT_PATH, uni=True)
+        # pdf.add_font("Roboto", ROBOTO_FONT_PATH, uni=True)
+
+    def add_page(self, orientation='P', format='A4'):
         super().add_page()
         self.set_custom_background()
 
@@ -65,6 +74,18 @@ def get_all_pdf_names():
             pdf_names.append(file)
     return pdf_names
 
+def fix_encoding(text):
+    replacements = {
+        "œ": "oe",
+        "Œ": "OE",
+        "€": "EUR",
+        "‘": "'", "’": "'", "“": '"', "”": '"',
+        "–": "-", "—": "-",
+        "…": "..."
+    }
+    for char, replacement in replacements.items():
+        text = text.replace(char, replacement)
+    return text
 
 ####################################################
 # create_pdf
@@ -73,21 +94,21 @@ def create_pdf(messages):
     delete_all_pdf()
 
     pdf = CustomPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-
-    pdf.add_font("Arial", "","fonts/arial.ttf", uni=True)
-
     add_cover_page(pdf)
 
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
 
     i = 0
+    pdf.set_font("Arial", size=12)
     color1 = [64, 142, 79]
     color2 = [25, 92, 148]
     while i < len(messages):
-        write_message(messages[i], pdf, color1)
-        write_message(messages[i + 1], pdf, color2, human=False)
+        msg1 = fix_encoding(messages[i])
+        msg2 = fix_encoding(messages[i + 1])
+        #pdf.set_font(HUMAN_FONT, size=12)
+        write_message(msg1, pdf, color1)
+        #pdf.set_font(AI_FONT, size=12)
+        write_message(msg2, pdf, color2, human=False)
         i += 2
 
     pdf.output(PDF_DIR_PATH + "conversation.pdf")
@@ -134,5 +155,4 @@ def update_pdf(tool_name, entity):
         except Exception as e:
             print(f"Erreur lors de la création du PDF : {e}")
 
-create_pdf(["dsnqfkl", "lsndfq"])
-
+create_pdf(["dsé\nnqfkçl", 'ls…dfq'])

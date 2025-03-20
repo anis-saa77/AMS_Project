@@ -10,7 +10,7 @@ src/main/python/serveur/__pycache__
 src/main/python/serveur/temp/*
 src/resources/pdf/*.pdf
 src/resources/qrcode/*.png
-src/main/python/serveur/fonts/arial*
+src/resources/fonts/arial*
 
 src/main/python/robot/__pycache__
 src/main/python/robot/temp/*
