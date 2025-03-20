@@ -1,20 +1,16 @@
-import base64
-import wave
-from flask import request, jsonify, send_file, render_template, url_for, send_from_directory
-from ast import literal_eval
+from flask import request, send_file, render_template, url_for, send_from_directory
 
 from app import app
-from audio import *
+from audio import transcribe_audio_data
 from pdf import *
 from config_agent import sendMessage, config
 from config_conv_model import sendConvMessage, configConv
 from model_conv import init_conversation
 from settings import *
 
+#deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
 historic = []
-deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
-
 @app.route('/')
 def homepage():
 	return 'Home page'
@@ -22,27 +18,9 @@ def homepage():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     try:
-        data = request.get_json(force=True)
-        
-        audio_base64 = data.get('audio_base64')
-        params_base64 = data.get('params_base64')
-        
-        if not audio_base64:
-            return jsonify({"error": "Aucun audio base64 fourni"}), 400
-
-        audio_data = base64.b64decode(audio_base64)
-        
-        if not params_base64:
-            return jsonify({"error": "Aucun paramètre fourni"}), 400
-        
-        params = base64.b64decode(params_base64)
-        params = literal_eval(params.decode("utf-8"))
-
-        with wave.open(AUDIO_FILE_PATH, "wb") as wav_file:
-            wav_file.setparams(params)
-            wav_file.writeframes(audio_data)
-            
-        message = recognize_speech_from_wav(AUDIO_FILE_PATH)
+        audio_data = request.get_json(force=True)
+        message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
+        # Traitement du message par le model/agent
         ai_response, tool_name, entity = sendMessage(message, "French", config)
 
         if tool_name == "conversation_tool":
@@ -92,28 +70,10 @@ def upload():
 @app.route('/conversation', methods=['GET', 'POST'])
 def conversation():
     try:
-        data = request.get_json(force=True)
-        
-        audio_base64 = data.get('audio_base64')
-        params_base64 = data.get("params_base64")
-        
-        if not audio_base64:
-            return jsonify({"error": "Aucun audio base64 fourni"}), 400
+        audio_data = request.get_json(force=True)
+        message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
 
-        audio_data = base64.b64decode(audio_base64)
-        
-        if not params_base64:
-            return jsonify({"error": "Aucun paramètre fourni"}), 400
-        
-        params = base64.b64decode(params_base64)
-        params = literal_eval(params.decode("utf-8"))
-
-        with wave.open("audio.wav", "wb") as wav_file:
-            wav_file.setparams(params)
-            wav_file.writeframes(audio_data)
-            
-        message = recognize_speech_from_wav("audio.wav")
-        if message.lower() in ["stop", "stoppe"]:
+        if message.lower() in ["stop", "stoppe"]:  # Condition d'arrêt de la conversation
             create_pdf(historic)
             print("Fin de la conversation.")
             return {
@@ -122,7 +82,10 @@ def conversation():
                 'conversation': False,
                 'image_loc': "qrcode/qrcode.png"
             }, 200
+
+        # Traitement du message par le model conversationnel
         ai_response = str(sendConvMessage(message, "French", configConv))
+
         json = {
             'message': message,
             'ai_response': ai_response,

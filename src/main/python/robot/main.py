@@ -1,7 +1,7 @@
 import threading
 from settings import *  # Do not delete !
 from functions import *
-from window_webview import show_webview
+from tablet import show_webview
 
 """      ______Exécution______        """
 

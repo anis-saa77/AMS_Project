@@ -1,4 +1,4 @@
-import sys,os
+import os
 
 # Chemins vers les dossiers
 RESOURCES_DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'resources'))

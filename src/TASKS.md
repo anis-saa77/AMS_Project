@@ -3,6 +3,7 @@
 ----
 
 **Aide Sociales :** 
+- Ajouter les nouvelles aides à la base
 - Améliorer la reconnaissance de l'aide (ou des aides) nécessaires !
 - Entrainer un modèle pour reconnaitre l'aides ?!
 
@@ -20,7 +21,5 @@
 - ~Baser le mode assistant sur usage exclusive des tools ?!!!!!!!!
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
 
-**A faire dans ma branche:**
-- Retourner des string dans les fonctions sql
+**A faire dans ma branche (Anis) : **
 - Régler webview bloquante
-- Fonction transcript
