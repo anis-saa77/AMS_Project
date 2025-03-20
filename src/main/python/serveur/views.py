@@ -1,4 +1,4 @@
-from flask import request, send_file, render_template, url_for, send_from_directory
+from flask import request, jsonify, send_file, render_template, url_for, send_from_directory
 
 from app import app
 from audio import transcribe_audio_data
@@ -78,7 +78,7 @@ def conversation():
             print("Fin de la conversation.")
             return {
                 'message': message,
-                'ai_response': "Ok, je met fin à la conversation. Voulez vous un historique de la conversation ?",
+                'ai_response': "Ok, je met fin à la conversation. Sannez le QR Code pour avoir un historique de notre conversation. Vous devez être connecté au réseau du CERI.",
                 'conversation': False,
                 'image_loc': "qrcode/qrcode.png"
             }, 200
@@ -111,7 +111,7 @@ def download():
     names = get_all_pdf_names()
     if len(names) == 0:
         return jsonify({"error": "Aucun fichier PDF disponible"}), 400
-    file_path = "pdf/" + names[0]
+    file_path = PDF_DIR_PATH + names[0]
     return send_file(file_path, as_attachment=True)
 
 @app.route('/resources/<path:filename>')
@@ -121,4 +121,5 @@ def resources(filename):
 
 @app.route('/getImage/<directory>/<filename>', methods=['GET'])
 def get_image(directory, filename):
-    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'))
+    is_qrcode = (filename == "qrcode.png")
+    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'), is_qrcode=bool(is_qrcode))

@@ -3,6 +3,7 @@ from fpdf import FPDF
 from PIL import Image
 from datetime import datetime
 import shutil
+import os
 
 from settings import *
 
@@ -26,6 +27,24 @@ def create_qr_code(url):
     qr = qrcode.make(url)
     qr.save(QR_CODE_PATH)
 
+####################################################
+# add_cover_page
+####################################################
+def add_cover_page(pdf):
+    pdf.add_page()
+
+    pdf.set_custom_background()
+
+    pdf.set_font("Arial", style="B", size=24)
+    pdf.set_text_color(0, 51, 102)
+    pdf.ln(50)
+    pdf.cell(0, 60, "Transcription de la Conversation", ln=True, align='C')
+
+    pdf.set_font("Arial", size=12)
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(0, 10, f"Date: {datetime.today().strftime('%d/%m/%Y')}", ln=True, align='C')
+
+    pdf.ln(20)
 
 ####################################################
 # delete_all_pdf
@@ -56,7 +75,7 @@ def create_pdf(messages):
     pdf = CustomPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
 
-    pdf.add_font("Arial", "", FONTS_DIR_PATH + "/arial.ttf", uni=True)
+    pdf.add_font("Arial", "","fonts/arial.ttf", uni=True)
 
     add_cover_page(pdf)
 
@@ -72,26 +91,6 @@ def create_pdf(messages):
         i += 2
 
     pdf.output(PDF_DIR_PATH + "conversation.pdf")
-
-
-####################################################
-# add_cover_page
-####################################################
-def add_cover_page(pdf):
-    pdf.add_page()
-
-    pdf.set_custom_background()
-
-    pdf.set_font("Arial", style="B", size=24)
-    pdf.set_text_color(0, 51, 102)
-    pdf.ln(50)
-    pdf.cell(0, 60, "Transcription de la Conversation", ln=True, align='C')
-
-    pdf.set_font("Arial", size=12)
-    pdf.set_text_color(0, 0, 0)
-    pdf.cell(0, 10, f"Date: {datetime.today().strftime('%d/%m/%Y')}", ln=True, align='C')
-
-    pdf.ln(20)
 
 
 ####################################################
@@ -134,3 +133,6 @@ def update_pdf(tool_name, entity):
             image.convert('RGB').save(filepath, "PDF", resolution=100.0)
         except Exception as e:
             print(f"Erreur lors de la création du PDF : {e}")
+
+create_pdf(["dsnqfkl", "lsndfq"])
+

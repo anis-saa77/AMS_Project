@@ -4,7 +4,7 @@ import os
 RESOURCES_DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'resources'))
 PLANS_DIR_PATH = "../../../resources/plans/"
 PDF_DIR_PATH = "../../../resources/pdf/"
-FONTS_DIR_PATH = "../../../resources/fonts/"
+FONTS_DIR_PATH = "fonts/"
 AIDS_DIR_PATH = "../../../resources/aids/"
 
 # Chemins vers les fichiers

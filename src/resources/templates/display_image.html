@@ -8,19 +8,61 @@
         /* Utilisation de Flexbox pour centrer l'image */
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center; /* Centrer horizontalement */
             align-items: center;     /* Centrer verticalement */
             height: 100vh;           /* Utiliser toute la hauteur de la fenêtre */
             margin: 0;               /* Supprimer les marges par défaut */
         }
 
-        img {
-            max-width: 100%;         /* Limiter la largeur de l'image à 100% de l'écran */
-            max-height: 100%;        /* Limiter la hauteur de l'image à 100% de l'écran */
+        #img {
+            max-width: 80vh;
+            max-height: 80vh;
+            object-fit: contain; /* Évite la déformation */
         }
+
+        /* Style du bouton en bas à droite */
+        #qr_button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Rendre le lien aussi grand que le bouton */
+        #qr_button a {
+            display: flex;       /* Active Flexbox */
+            align-items: center; /* Centre le texte verticalement */
+            justify-content: center; /* Centre le texte horizontalement */
+            width: 100%;         /* Remplit toute la largeur du bouton */
+            height: 100%;        /* Remplit toute la hauteur du bouton */
+            text-decoration: none;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
-    <img src="{{ image_url }}" alt="Image">
+    <img id="img" src="{{ image_url }}" alt="Image">
+    <button style="display: flex;" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}"><a style="text-decoration: none;" href="/getImage/qrcode/qrcode.png" >Voir le QRCode</a></button>
+
+    <script>
+        const button = document.getElementById("qr_button");
+        function displayButton(is_qrcode) {
+            if (is_qrcode){
+                button.setAttribute('style', "display: none;");
+            }
+        }
+        const is_qrcode = JSON.parse(button.dataset.isQrcode)
+        displayButton(is_qrcode);
+    </script>
 </body>
 </html>
