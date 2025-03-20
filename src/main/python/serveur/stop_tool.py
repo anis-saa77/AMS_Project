@@ -1,6 +1,8 @@
+import json
 from langchain.tools import Tool
+
 def stop_func(query):
-    return "STOP"
+    return json.dumps({"tool_response": "STOP", "entity": None})
 
 stop_tool = Tool(
     name="stop_tool",

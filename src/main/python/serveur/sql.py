@@ -1,5 +1,4 @@
-import sqlite3
-
+import sqlite3  # Do not delete !
 def getAidKeywords(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
@@ -21,9 +20,6 @@ def getAidKeywords(cur, aid_name):
 
     cur.execute(query, (aid_name,))
     keywords = [row[0] for row in cur.fetchall()]
-
-    # Fermeture de la connexion
-    #connection.close()
     return keywords
 
 def getAids(cur):
@@ -36,7 +32,7 @@ def getAids(cur):
     cur.execute(query)
     aids = [row[0] for row in cur.fetchall()]
     return aids
-  
+
 def getAidInfo(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
@@ -53,7 +49,7 @@ def getAidInfo(cur, aid_name):
        '''
     cur.execute(query, (aid_name,))
     info = cur.fetchone()
-    return info
+    return info[0]
   
 def getAidImage(cur, aid_name):
     # Vérifier si l'aide sociale existe
@@ -89,8 +85,7 @@ def getRoomNumber(cur, room):
        '''
     cur.execute(query, (room,))
     info = cur.fetchone()
-    return info
-
+    return info[0]
 def getRoomDirection(cur, room):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM Room WHERE name = ?;"
@@ -107,7 +102,7 @@ def getRoomDirection(cur, room):
        '''
     cur.execute(query, (room,))
     info = cur.fetchone()
-    return info
+    return info[0]
 
 def getRoomNameFromNumber(cur, room_number):
     # Vérifier si l'aide sociale existe
@@ -124,7 +119,7 @@ def getRoomNameFromNumber(cur, room_number):
        '''
     cur.execute(query, (room_number,))
     info = cur.fetchone()
-    return info
+    return info[0]
 
 def roomExists(cur, room):
     # Vérifier si l'aide sociale existe

@@ -1,11 +1,9 @@
-from gtts import gTTS
-from pydub import AudioSegment
-
-import speech_recognition as sr
 import pyaudio
 import wave
-import requests
 import base64
+import requests
+
+from settings import AUDIO_OUTPUT_PATH, ROBOT_URL
 
 
 ##############################################################
@@ -41,7 +39,7 @@ def send_audio(filename, route):
 
     params_base64 = base64.b64encode(str(params_tuple).encode("utf-8")).decode("utf-8")
 
-    url = "http://127.0.0.1:5000/" + route
+    url = ROBOT_URL + route
     headers = {"Content-Type": "application/json"}
     payload = {
         "audio_base64": audio_base64,
@@ -55,7 +53,7 @@ def send_audio(filename, route):
 ###################################################
 # record_audio_to_wav
 ###################################################
-def record_audio_to_wav(filepath="temp/output.wav", duration=15):
+def record_audio_to_wav(filepath=AUDIO_OUTPUT_PATH, duration=15):
     FORMAT = pyaudio.paInt16  # Format du son (16 bits)
     CHANNELS = 1  # Mono
     RATE = 44100  # Taux d'échantillonnage (Hz)
