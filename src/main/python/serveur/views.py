@@ -45,7 +45,7 @@ def upload():
 
         if tool_name == 'social_aid':
             update_pdf(tool_name, entity)
-            image_loc = AIDS_DIR_PATH+entity+".png"
+            image_loc = "aids/"+entity+".png"
 
         elif tool_name == "direction_indication":
             update_pdf(tool_name, entity)
@@ -123,7 +123,7 @@ def resources(filename):
 @app.route('/getImage/<directory>/<filename>', methods=['GET'])
 def get_image(directory, filename):
     print("Requête reçue pour :", request.url)
-    image_url = request.url_root[:-1] + url_for('resources', filename=f'{directory}/{filename}', _external=True )
+    image_url = url_for('resources', filename=f'{directory}/{filename}')
     is_qrcode = (filename == "qrcode.png")
     homepage_url = "http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png"
     return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))

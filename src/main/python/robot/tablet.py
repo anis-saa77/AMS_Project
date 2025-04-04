@@ -1,20 +1,12 @@
 import sys
 import webview
+from settings import *
 
 def show_webview(image_url):
     """ Fonction pour afficher le webview avec une image donnée à une URL """
-
-    if webview.active_window():
-        update_webview(image_url)
-    else :
-        # Créer une fenêtre WebView
-        window = webview.create_window("Image Viewer", image_url)
-        webview.start()  # Démarre le processus de rendu de la fenêtre
-
-def update_webview(image_url):
-    """Met à jour l'URL dans la fenêtre WebView existante"""
-    webview.load_url(image_url)
-
+    # Créer une fenêtre WebView
+    webview.create_window("Image Viewer", image_url)
+    webview.start()  # Démarre le processus de rendu de la fenêtre
 # Test
-image_url = "http://192.168.81.33:5000/getImage/qrcode/qrcode.png"
+#image_url = f"http://{SERVER_IP}:5000/getImage/aids/CAF.png"
 #show_webview(image_url)
