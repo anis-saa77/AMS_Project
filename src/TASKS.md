@@ -26,3 +26,6 @@
 - SLM pour speech recognition
 - Régler webview bloquante
 - Fournir un plan du CERI
+- Régler l'amphi -> l
+- Rajouter noms d'aides en keyword
+-  Dimension de la tablette -> width:980 height:613
