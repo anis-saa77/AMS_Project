@@ -9,6 +9,7 @@ CORRECTIONS = {
     "ça": "s1",
     "salsa": "salle s1",
     "c'est": "c",
+    "c-": "c",
     "blése": "blaise",
     "blèse": "blaise",
     "stade": "stat",
@@ -28,6 +29,7 @@ import json
 def direction_indication(query):
     print("Query in tool_call : " + query)
     query = apply_corrections(query.lower())
+    print("Query corrected : " + query)
 
     connection = sqlite3.connect(DB_FILE_PATH)
     cur = connection.cursor()
@@ -75,6 +77,7 @@ def direction_indication(query):
 direction_tool = Tool(
     name="direction_indication",
     func=direction_indication,
-    description="Donne la direction vers une salle spécifiée ou vers des salles Stat ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers l'amphithéâtre ou vers un les amphi blaise ou ada.",
+    #description="Donne la direction vers une salle spécifiée ou vers des salles 'States' ou vers la salle ça ou vers la salsa, ou vers les toilettes, ou vers l'amphithéâtre ou vers un les amphi blaise ou ada.",
+    description="Donne la direction vers une salle spécifiée ou vers les toilettes, ou vers les amphithéâtres Blaise et Ada.",
     return_direct=True
 )

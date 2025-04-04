@@ -52,8 +52,8 @@
 </head>
 <body>
     <img id="img" src="{{ image_url }}" alt="Image">
-    <button style="display: flex;" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}"><a style="text-decoration: none;" href="/getImage/qrcode/qrcode.png" >Voir le QRCode</a></button>
-
+    <button style="display: flex;" onclick="redirect()" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}">Voir le QRCode</button>
+    <p id="url_p" style="display: none;">{{homepage_url}}</p>
     <script>
         const button = document.getElementById("qr_button");
         function displayButton(is_qrcode) {
@@ -61,6 +61,9 @@
                 button.setAttribute('style', "display: none;");
             }
         }
+
+        const url_p = document.getElementById("url_p");
+        function redirect() {window.location.href = url_p.innerHTML;}
         const is_qrcode = JSON.parse(button.dataset.isQrcode)
         displayButton(is_qrcode);
     </script>

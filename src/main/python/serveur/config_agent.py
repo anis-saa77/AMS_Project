@@ -70,6 +70,7 @@ def sendMessage(message, language, config):
     if tool_call:
         tool_agent_action = tool_call[0]
         tool_name = tool_agent_action[0].tool
+        print("Tool Call : ", tool_name)
         tool_return = tool_agent_action[-1]
         #print("tool_return : ", tool_return)
         if isinstance(tool_return, tuple):
