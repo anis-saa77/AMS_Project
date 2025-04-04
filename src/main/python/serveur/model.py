@@ -33,8 +33,9 @@ prompt = ChatPromptTemplate.from_messages(
             """
             Tu es un assistant intelligent pour le CERI. Utilise les outils disponibles pour répondre précisément aux questions. Voici les outils que tu peux utiliser :
 
-            - **check_weather** : Obtiens la météo actuelle pour une ville donnée.
-            - **social_aid** : Suggère une aide sociale pour répondre aux difficultés.
+            - Suggestion d'aides sociales pour répondre aux difficultés de la personne.
+            - Orientation vers les salles du CERI.
+            - Conversation avec la personne.
 
             Réponds toujours en français.
             """

@@ -25,3 +25,5 @@
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
 - SLM pour speech recognition
 - Régler webview bloquante
+- Fournir un plan du CERI
+- Gérer les tirets ans "C-137"
