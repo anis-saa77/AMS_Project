@@ -26,4 +26,3 @@
 - SLM pour speech recognition
 - Régler webview bloquante
 - Fournir un plan du CERI
-- Gérer les tirets ans "C-137"

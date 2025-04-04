@@ -183,24 +183,20 @@ class MyClass(GeneratedClass):
         response = self.pydial_call(self.url, data, params)
 
         sentence = response.json().get('ai_response')
-        is_sentence = True
         if sentence == None:
-            is_sentence = False
             sentence = "Je n'ai pas compris, veuillez répéter."
         elif response.json().get('conversation'):
             self.onConversationStart(u''.join(sentence).encode('utf-8'))
         else :
             self.onStopped(u''.join(sentence).encode('utf-8'))
-        #sentence = str(json.loads(response.body)['ai_response'])
-        #if sentence == None:
-        #    sentence = "Je n'ai pas compris, répète."
-        #self.onStopped(sentence)
+
         if response.json().get('image_loc'):
             image_loc = response.json().get('image_loc')
             self.onShowImage(u''.join(image_loc).encode('utf-8'))
+            return
 
-        if is_sentence:
-            self.onSentence()
+        self.onSentence()
+
 
     def onInput_onStop(self):
         self.onUnload()
@@ -287,9 +283,7 @@ class MyClass(GeneratedClass):
         response = self.pydial_call(self.url, data, params)
 
         sentence = response.json().get('ai_response')
-        is_sentence = True
         if sentence == None:
-            is_sentence = False
             sentence = "Je n'ai pas compris, veuillez répéter."
         elif response.json().get('conversation'):
             self.onConversation(u''.join(sentence).encode('utf-8'))
@@ -299,13 +293,8 @@ class MyClass(GeneratedClass):
         if response.json().get('image_loc'):
             image_loc = response.json().get('image_loc')
             self.onShowImage(u''.join(image_loc).encode('utf-8'))
-
-        if is_sentence:
-            self.onSentence()
-        #sentence = str(json.loads(response.body)['ai_response'])
-        #if sentence == None:
-        #    sentence = "Je n'ai pas compris, répète."
-        #self.onStopped(sentence)
+            return
+        self.onSentence()
 
     def onInput_onStop(self):
         self.onUnload()

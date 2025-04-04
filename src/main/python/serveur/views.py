@@ -122,4 +122,6 @@ def resources(filename):
 @app.route('/getImage/<directory>/<filename>', methods=['GET'])
 def get_image(directory, filename):
     is_qrcode = (filename == "qrcode.png")
-    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'), is_qrcode=bool(is_qrcode))
+    homepage_url = "http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png"
+    print(homepage_url)
+    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'), is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))
