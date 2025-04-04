@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Image</title>
     <style>
         /* Utilisation de Flexbox pour centrer l'image */
@@ -14,15 +15,26 @@
             height: 100vh;           /* Utiliser toute la hauteur de la fenêtre */
             margin: 0;               /* Supprimer les marges par défaut */
         }
+        /*
+        div {
+          max-height: 80%;
+          max-width: 100%;
+        }
+        */
 
         #img {
-            max-width: 80vh;
-            max-height: 80vh;
-            object-fit: contain; /* Évite la déformation */
+                z_index: 0;
+                position: relative;
+                max-width: 80vw;  /* 80% de la largeur de l'écran */
+                max-height: 80vh; /* 80% de la hauteur de l'écran */
+                width: auto;      /* S'assure que l'image ne s'étire pas */
+                height: auto;     /* Garde le ratio */
+                object-fit: contain;
         }
 
         /* Style du bouton en bas à droite */
         #qr_button {
+            z_index: 1;
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -37,20 +49,12 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Rendre le lien aussi grand que le bouton */
-        #qr_button a {
-            display: flex;       /* Active Flexbox */
-            align-items: center; /* Centre le texte verticalement */
-            justify-content: center; /* Centre le texte horizontalement */
-            width: 100%;         /* Remplit toute la largeur du bouton */
-            height: 100%;        /* Remplit toute la hauteur du bouton */
-            text-decoration: none;
-            color: white;
-        }
-
     </style>
 </head>
 <body>
+<!--    <div>-->
+<!--        <img id="img" src="{{ image_url }}" alt="Image">-->
+<!--    </div>-->
     <img id="img" src="{{ image_url }}" alt="Image">
     <button style="display: flex;" onclick="redirect()" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}">Voir le QRCode</button>
     <p id="url_p" style="display: none;">{{homepage_url}}</p>

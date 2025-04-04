@@ -20,6 +20,7 @@ def upload():
     try:
         audio_data = request.get_json(force=True)
         message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
+        message = message.replace("'", " ")
         # Traitement du message par le model/agent
         ai_response, tool_name, entity = sendMessage(message, "French", config)
 
@@ -44,7 +45,7 @@ def upload():
 
         if tool_name == 'social_aid':
             update_pdf(tool_name, entity)
-            image_loc = AIDS_DIR_PATH+entity+".png"
+            image_loc = "aids/"+entity+".png"
 
         elif tool_name == "direction_indication":
             update_pdf(tool_name, entity)
@@ -121,7 +122,8 @@ def resources(filename):
 
 @app.route('/getImage/<directory>/<filename>', methods=['GET'])
 def get_image(directory, filename):
+    print("Requête reçue pour :", request.url)
+    image_url = url_for('resources', filename=f'{directory}/{filename}')
     is_qrcode = (filename == "qrcode.png")
     homepage_url = "http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png"
-    print(homepage_url)
-    return render_template('display_image.html', image_url=url_for('resources', filename=f'{directory}/{filename}'), is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))
+    return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))
