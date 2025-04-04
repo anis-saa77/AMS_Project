@@ -36,15 +36,24 @@ def call_model(state: State):
     #         AIMessage(content="Je ne peux répondre qu'en utilisant un outil. Peux-tu reformuler ta demande ?")]
     #     return {"messages": updated_messages, "tool_call": []}
 
+    # Cas anormal : Le retour de l'agent est un json
     try:
-        json.loads(response['output'])
-        print("La réponse est au format json")
-        updated_messages = state["messages"] + [AIMessage(content="Je n'ai pas compris ta demande. Peux-tu reformuler ?")]
-        return {"messages": updated_messages, "tool_call": intermediate_steps}
+        json_response = json.loads(response['output'])
+        if json_response.get('tool_response'):  # Si un Json valide est envoyé
+            tool_response = json_response.get('tool_response')
+            updated_messages = state["messages"] + [AIMessage(content=tool_response)]
+            return {"messages": updated_messages, "tool_call": intermediate_steps}
+
+        else: # Si le Json n'est pas valide
+            print("Réponse au format json non attendu : ", json_response)
+            updated_messages = state["messages"] + [AIMessage(content="Je n'ai pas compris ta demande. Peux-tu reformuler ?")]
+            return {"messages": updated_messages, "tool_call": intermediate_steps}
     except json.JSONDecodeError:
         pass
+
+    # Cas normal : Le retour de l'agent n'est pas un json
     updated_messages = state["messages"] + [AIMessage(content=response["output"])]
-    return {"messages": updated_messages, "tool_call":intermediate_steps}
+    return {"messages": updated_messages, "tool_call": intermediate_steps}
 
 
 ####################################################
@@ -58,11 +67,18 @@ def sendMessage(message, language, config):
     print("AI_Message : ", response.content)
     ai_message = response.content
     tool_call = output.get('tool_call')
-    if tool_call :
+    if tool_call:
         tool_agent_action = tool_call[0]
         tool_name = tool_agent_action[0].tool
-        result = tool_agent_action[-1][1]
-        return ai_message, tool_name, result
+        print("Tool Call : ", tool_name)
+        tool_return = tool_agent_action[-1]
+        #print("tool_return : ", tool_return)
+        if isinstance(tool_return, tuple):
+            entity = tool_return[1]
+        elif isinstance(tool_return, str):
+            tool_return = json.loads(tool_return)
+            entity = tool_return.get('entity')
+        return ai_message, tool_name, entity
     return ai_message, None, None
 
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Image</title>
+    <style>
+        /* Utilisation de Flexbox pour centrer l'image */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centrer horizontalement */
+            align-items: center;     /* Centrer verticalement */
+            height: 100vh;           /* Utiliser toute la hauteur de la fenêtre */
+            margin: 0;               /* Supprimer les marges par défaut */
+        }
+        /*
+        div {
+          max-height: 80%;
+          max-width: 100%;
+        }
+        */
+
+        #img {
+                z_index: 0;
+                position: relative;
+                max-width: 80vw;  /* 80% de la largeur de l'écran */
+                max-height: 80vh; /* 80% de la hauteur de l'écran */
+                width: auto;      /* S'assure que l'image ne s'étire pas */
+                height: auto;     /* Garde le ratio */
+                object-fit: contain;
+        }
+
+        /* Style du bouton en bas à droite */
+        #qr_button {
+            z_index: 1;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+<!--    <div>-->
+<!--        <img id="img" src="{{ image_url }}" alt="Image">-->
+<!--    </div>-->
+    <img id="img" src="{{ image_url }}" alt="Image">
+    <button style="display: flex;" onclick="redirect()" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}">Voir le QRCode</button>
+    <p id="url_p" style="display: none;">{{homepage_url}}</p>
+    <script>
+        const button = document.getElementById("qr_button");
+        function displayButton(is_qrcode) {
+            if (is_qrcode){
+                button.setAttribute('style', "display: none;");
+            }
+        }
+
+        const url_p = document.getElementById("url_p");
+        function redirect() {window.location.href = url_p.innerHTML;}
+        const is_qrcode = JSON.parse(button.dataset.isQrcode)
+        displayButton(is_qrcode);
+    </script>
+</body>
+</html>

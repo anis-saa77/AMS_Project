@@ -1,6 +1,6 @@
 from config_conv_model import sendConvMessage
 from config_conv_model import configConv
-from functions_server import create_pdf
+from pdf import create_pdf
 
 historic = []
 while True:

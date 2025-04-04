@@ -7,11 +7,10 @@ src/resources/.env
 
 src/main/python/__pycache__
 src/main/python/serveur/__pycache__
-src/main/python/serveur/audio.wav
-src/main/python/serveur/pdf
-src/main/python/serveur/qrcode
-src/main/python/serveur/fonts/arial*
+src/main/python/serveur/temp/*
+src/resources/pdf/*.pdf
+src/resources/qrcode/*.png
+src/resources/fonts/arial*
 
 src/main/python/robot/__pycache__
-src/main/python/robot/*.wav
-src/main/python/robot/*.jpg
+src/main/python/robot/temp/*

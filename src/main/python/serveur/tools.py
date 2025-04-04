@@ -1,6 +1,5 @@
 from langchain_community.tools.tavily_search import TavilySearchResults
 from direction_indicator import direction_tool
-from weather import weather_tool
 from social_aid_tool import social_aid_tool
 from qr_code_tool import qr_code_tool
 from stop_tool import stop_tool
