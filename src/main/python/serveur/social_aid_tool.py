@@ -21,7 +21,7 @@ def social_aid_suggestion(query):
     # Vérifier si des mots-clés correspondent à des aides
     query_words = query.split()
     for aid in aids:
-        aid_info = getAidInfo(cur, aid)
+        aid_info = getAidDescription(cur, aid)
         aid_keywords = getAidKeywords(cur, aid)
         # TODO un certain seuil de mot-clés au lieu de 'any'
         if any(keyword in query_words for keyword in aid_keywords):

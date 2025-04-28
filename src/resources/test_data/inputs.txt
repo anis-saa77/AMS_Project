@@ -1,0 +1,64 @@
+Où se trouve la salle S1 ?
+Peux-tu me dire où est la salle S1 ?
+Je cherche la salle S1, où elle est ?
+Quel est l'emplacement de la salle S1 ?
+Saurais-tu où est la salle S1 ?
+Où est située la salle S1 ?
+Tu sais où se trouve la salle S1 ?
+J'ai besoin de savoir où se trouve la salle S1.
+Où se trouve la salle Blaise ?
+Peux-tu me dire où est la salle Blaise ?
+Je cherche la salle Blaise, où elle est ?
+Quel est l'emplacement de la salle Blaise ?
+Saurais-tu où est la salle Blaise ?
+Où est située la salle Blaise ?
+Tu sais où se trouve la salle Blaise ?
+J'ai besoin de savoir où se trouve la salle Blaise.
+Où se trouve la salle Ada ?
+Peux-tu me dire où est la salle Ada ?
+Je cherche la salle Ada, où elle est ?
+Quel est l'emplacement de la salle Ada ?
+Saurais-tu où est la salle Ada ?
+Où est située la salle Ada ?
+Tu sais où se trouve la salle Ada ?
+J'ai besoin de savoir où se trouve la salle Ada.
+Où se trouve la salle toilettes ?
+Peux-tu me dire où est la salle toilettes ?
+Je cherche la salle toilettes, où elle est ?
+Quel est l'emplacement de la salle toilettes ?
+Saurais-tu où est la salle toilettes ?
+Où est située la salle toilettes ?
+Tu sais où se trouve la salle toilettes ?
+J'ai besoin de savoir où se trouve la salle toilettes.
+Où se trouve l'amphi Blaise ?
+Peux-tu me dire où est l'amphi Blaise ?
+Je cherche l'amphi Blaise, où il est ?
+Quel est l'emplacement de l'amphi Blaise ?
+Saurais-tu où est l'amphi Blaise ?
+Où est situé l'amphi Blaise ?
+Tu sais où se trouve l'amphi Blaise ?
+J'ai besoin de savoir où se trouve l'amphi Blaise.
+Où se trouve l'amphi Ada ?
+Peux-tu me dire où est l'amphi Ada ?
+Je cherche l'amphi Ada, où il est ?
+Quel est l'emplacement de l'amphi Ada ?
+Saurais-tu où est l'amphi Ada ?
+Où est situé l'amphi Ada ?
+Tu sais où se trouve l'amphi Ada ?
+J'ai besoin de savoir où se trouve l'amphi Ada.
+Où sont les toilettes ?
+Peux-tu me dire où se trouvent les toilettes ?
+Je cherche les toilettes, où elles sont ?
+Quel est l'emplacement des toilettes ?
+Saurais-tu où sont les toilettes ?
+Où sont situées les toilettes ?
+Tu sais où se trouvent les toilettes ?
+J'ai besoin de savoir où se trouvent les toilettes.
+Où sont les WC ?
+Peux-tu me dire où se trouvent les WC ?
+Je cherche les WC, où elles sont ?
+Quel est l'emplacement des WC ?
+Saurais-tu où sont les WC ?
+Où sont situées les WC ?
+Tu sais où se trouvent les WC ?
+J'ai besoin de savoir où se trouvent les WC.

@@ -4,23 +4,10 @@ from tools import tools
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.graph import START, StateGraph
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.prebuilt import create_react_agent
-from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain.agents import create_tool_calling_agent
 import json
-from langchain_core.messages import RemoveMessage
 from custom_agent_executor import AgentExecutorCustom
 
-##############################################################
-# Config #
-##############################################################
-
-
-####################################################
-# Define the function that calls the model
-####################################################
-# Ajouter le prompt dans les messages
-# final_prompt = prompt.format_messages(messages=trimmed_messages)
-# response = agent_executor.invoke({"messages": final_prompt, "language": state["language"]})
 def call_model(state: State):
     # Trim des messages
     trimmed_messages = trimmer.invoke(state["messages"])
@@ -30,14 +17,8 @@ def call_model(state: State):
     intermediate_steps = response.get("intermediate_steps", [])
     print("Tool Call :", intermediate_steps)
 
-    # Patch : forcer tous les tool_calls à recevoir "messages"
-    for i, step in enumerate(intermediate_steps):
-        tool_action = step[0]  # Normalement : (ToolInvocation, ToolOutput)
-        if hasattr(tool_action, "args") and "messages" not in tool_action.args:
-            tool_action.args["messages"] = trimmed_messages
-
-    """ Baser le mode assisatant sur usage exclusive des tools ???????????? """
-    #TODO Si l'agent n'a pas appelé de tool, lui dire de reformuler
+    """ Baser le mode assistant sur usage exclusive des tools ?! (Mauvaise idée)"""
+    #TODO Si l'agent n'a pas appelé de tool, demander un reformulation
     # if not intermediate_steps:
     #     updated_messages = state["messages"] + [
     #         AIMessage(content="Je ne peux répondre qu'en utilisant un outil. Peux-tu reformuler ta demande ?")]
@@ -52,6 +33,9 @@ def call_model(state: State):
             return {"messages": updated_messages, "tool_call": intermediate_steps}
 
         else: # Si le Json n'est pas valide
+            # TODO
+            #   json_response = {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
+            #  Utiliser json_response pour réitérer l'appel
             print("Réponse au format json non attendu : ", json_response)
             updated_messages = state["messages"] + [AIMessage(content="Je n'ai pas compris ta demande. Peux-tu reformuler ?")]
             return {"messages": updated_messages, "tool_call": intermediate_steps}
@@ -61,11 +45,6 @@ def call_model(state: State):
     # Cas normal : Le retour de l'agent n'est pas un json
     updated_messages = state["messages"] + [AIMessage(content=response["output"])]
     return {"messages": updated_messages, "tool_call": intermediate_steps}
-
-
-####################################################
-# Define the function to send a message to the model
-####################################################
 
 def sendMessage(message, language, config):
     state = {"messages": messages + [HumanMessage(content=message)], "language": language}
@@ -89,27 +68,20 @@ def sendMessage(message, language, config):
     return ai_message, None, None
 
 
-####################################################
-# Define some variables
-####################################################
-# Define the graph
+# Defininir le graphe
 workflow = StateGraph(state_schema=State)
 
-# Define the (single) node in the graph
 workflow.add_edge(START, "model")
 workflow.add_node("model", call_model)
 
-# Add memory
+# Ajout de la mémoire
 memory = MemorySaver()
 
-# Create the agent
+# Création de l'agent
 agent = create_tool_calling_agent(model, tools, prompt)
-#agent_executor = AgentExecutor(agent=agent, tools=tools, return_intermediate_steps=True, verbose=False)  # verbose= True
 agent_executor = AgentExecutorCustom(agent=agent, tools=tools, return_intermediate_steps=True, verbose=False)  # verbose= True
 
 app = workflow.compile(checkpointer=memory)
 
-# Per user
+# Config
 config = {"configurable": {"thread_id": "abc123"}}
-
-##############################################################

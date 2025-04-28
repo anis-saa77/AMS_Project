@@ -39,7 +39,6 @@ prompt = ChatPromptTemplate.from_messages(
             - Conversation avec la personne.
 
             Règles importantes :
-            - Utilise uniquement les outils si possible.
             - Réponds toujours en français.
             """
         ),

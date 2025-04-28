@@ -15,6 +15,9 @@ CORRECTIONS = {
     "stade": "stat",
     "States": "stat",
     "stats": "stat",
+    "s2-bis": "s2bis",
+    "s2_bis": "s2bis",
+
 }
 
 def apply_corrections(query):
@@ -34,7 +37,7 @@ def direction_indication(query):
     connection = sqlite3.connect(DB_FILE_PATH)
     cur = connection.cursor()
 
-    if any(word in query.lower() for word in ["amphi", "amphithéâtre"]):
+    if any(word in query.lower() for word in ["amphi", "amphithéâtre", "ada", "blaise"]):
         if "ada" in query.lower():
             direction_to_room = getRoomDirection(cur, "AMPHI ADA")
             connection.close()
@@ -42,14 +45,14 @@ def direction_indication(query):
         if "blaise" in query.lower():
             direction_to_room = getRoomDirection(cur, "AMPHI BLAISE")
             connection.close()
-            return json.dumps({"tool_response": str(direction_to_room), "room": "AMPHI BLAISE"})
+            return json.dumps({"tool_response": str(direction_to_room), "entity": "AMPHI BLAISE"})
         return json.dumps({"tool_response": "Vers quel amphithéâtre souhaitez-vous être dirigé", "entity": None})
 
     if any(word in query.lower() for word in ["toilettes", "toilette", "wc"]):
         connection.close()
         return json.dumps({"tool_response": "Les toilettes les plus proches se trouvent dans le couloir d'en face, à votre gauche", "entity": "WC"})
 
-    match = re.search(r'\bs\d+\b|\bstat\d|\bstat \d+\b', query, re.IGNORECASE)
+    match = re.search(r'\bs2bis\b|\bs\d+\b|\bstat\d\b|\bstat \d+\b', query, re.IGNORECASE)
     if match:
         room = match.group().upper().replace(" ", "")
         if not roomExists(cur, room):

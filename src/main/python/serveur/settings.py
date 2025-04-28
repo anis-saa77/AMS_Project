@@ -10,6 +10,8 @@ AIDS_DIR_PATH = "../../../resources/aids/"
 AUDIO_FILE_PATH = "temp/audio.wav"
 DB_FILE_PATH = "../../../resources/database/data.db"
 QR_CODE_PATH = "../../../resources/qrcode/qrcode.png"
+TEST_FILE_PATH = "../../../resources/test_data/inputs.txt"
+TEST_OUTPUT_PATH = "../../../resources/test_data/out.txt"
 
 # Chemins vers les polices d'écriture
 # ARIAL_FONT_PATH = os.path.abspath("../../../resources/fonts/Arial/arial.ttf")
