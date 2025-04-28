@@ -40,8 +40,6 @@ prompt = ChatPromptTemplate.from_messages(
 
             Règles importantes :
             - Utilise uniquement les outils si possible.
-            - Quand tu appelles un outil, passe **l'intégralité du dernier message utilisateur** comme argument "query", sans modifier ou reformuler ce message.
-            - Ne coupe pas, ne résume pas, n'extrait pas partiellement le message.
             - Réponds toujours en français.
             """
         ),

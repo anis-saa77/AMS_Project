@@ -20,7 +20,6 @@ def upload():
     try:
         audio_data = request.get_json(force=True)
         message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
-        message = message.replace("'", " ")
         # Traitement du message par le model/agent
         ai_response, tool_name, entity = sendMessage(message, "French", config)
 

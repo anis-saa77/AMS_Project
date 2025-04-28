@@ -8,6 +8,7 @@ from langgraph.prebuilt import create_react_agent
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 import json
 from langchain_core.messages import RemoveMessage
+from custom_agent_executor import AgentExecutorCustom
 
 ##############################################################
 # Config #
@@ -27,7 +28,13 @@ def call_model(state: State):
     response = agent_executor.invoke({"messages": trimmed_messages, "language": state["language"]})
     # Log des étapes intermédiaires
     intermediate_steps = response.get("intermediate_steps", [])
-    # print("Tool Call :", intermediate_steps)
+    print("Tool Call :", intermediate_steps)
+
+    # Patch : forcer tous les tool_calls à recevoir "messages"
+    for i, step in enumerate(intermediate_steps):
+        tool_action = step[0]  # Normalement : (ToolInvocation, ToolOutput)
+        if hasattr(tool_action, "args") and "messages" not in tool_action.args:
+            tool_action.args["messages"] = trimmed_messages
 
     """ Baser le mode assisatant sur usage exclusive des tools ???????????? """
     #TODO Si l'agent n'a pas appelé de tool, lui dire de reformuler
@@ -97,7 +104,8 @@ memory = MemorySaver()
 
 # Create the agent
 agent = create_tool_calling_agent(model, tools, prompt)
-agent_executor = AgentExecutor(agent=agent, tools=tools, return_intermediate_steps=True, verbose=False)  # verbose= True
+#agent_executor = AgentExecutor(agent=agent, tools=tools, return_intermediate_steps=True, verbose=False)  # verbose= True
+agent_executor = AgentExecutorCustom(agent=agent, tools=tools, return_intermediate_steps=True, verbose=False)  # verbose= True
 
 app = workflow.compile(checkpointer=memory)
 
