@@ -1,5 +1,5 @@
 from config_agent import sendMessage, config
-from settings import TEST_FILE_PATH, TEST_OUTPUT_PATH
+from settings import TEST_FILE_PATH, TEST_OUTPUT_PATH, LOG_FILE_PATH
 import time
 import sys
 
@@ -35,8 +35,10 @@ if __name__ == '__main__':
                     # En cas d'erreur, afficher l'indice de l'itération et l'exception
                     sys.stderr.write(f"Erreur lors du traitement de la ligne {index}: {e}\n")
                     exit(0)
+            if index == 5:
+                break
 
-    with open("log_file.txt", "w", encoding="utf-8") as log_file:
+    with open(LOG_FILE_PATH, "w", encoding="utf-8") as log_file:
         log_file.write(f"Tool not used : {tool_not_used}%\n")
         execution_time = time.time() - start_time
         log_file.write(f"Temps d'exécution : {execution_time}\n")

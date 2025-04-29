@@ -12,6 +12,8 @@ DB_FILE_PATH = "../../../resources/database/data.db"
 QR_CODE_PATH = "../../../resources/qrcode/qrcode.png"
 TEST_FILE_PATH = "../../../resources/test_data/inputs.txt"
 TEST_OUTPUT_PATH = "../../../resources/test_data/out.txt"
+LOG_FILE_PATH = "../../../resources/test_data/log_file.txt"
+
 
 # Chemins vers les polices d'écriture
 # ARIAL_FONT_PATH = os.path.abspath("../../../resources/fonts/Arial/arial.ttf")
