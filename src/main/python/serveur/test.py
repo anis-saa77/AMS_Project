@@ -19,7 +19,6 @@ if __name__ == '__main__':
                     # Appeler la fonction sendMessage pour obtenir la réponse
                     # TODO Modifier config
                     ai_message, tool_name, entity = sendMessage(message, "French", config)
-
                     if not tool_name:
                         tool_not_used += 1
 

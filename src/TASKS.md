@@ -10,7 +10,6 @@
 - Embedding ?!
 
 **Direction Tool**
-- Compléter les descriptions dans la base
 - Fournir un plan du CERI
 
 **Choregraph**
