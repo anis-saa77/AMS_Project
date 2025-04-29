@@ -6,11 +6,13 @@ from pdf import *
 from config_agent import sendMessage, config
 from config_conv_model import sendConvMessage, configConv
 from model_conv import init_conversation
+from best_aid import best_aid_finder
 from settings import *
 
 #deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
 historic = []
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
+
 @app.route('/')
 def homepage():
 	return 'Home page'
@@ -19,13 +21,14 @@ def homepage():
 def upload():
     try:
         audio_data = request.get_json(force=True)
-        message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
+        human_message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
+
         # Traitement du message par le model/agent
-        ai_response, tool_name, entity = sendMessage(message, "French", config)
+        ai_response, tool_name, entity = sendMessage(human_message, "French", config)
 
         if tool_name == "conversation_tool":
             json = {
-                'message': message,
+                'message': human_message,
                 'ai_response': ai_response,
                 'conversation': True
             }
@@ -34,9 +37,13 @@ def upload():
             init_conversation()
             return json, 200
 
+        # Modification du retour si appel à social_aid
+        if tool_name == 'social_aid':  # Ne pas déplacer !
+            ai_message, entity = best_aid_finder(human_message)
+
         if not entity:  # L'appel à la fonction tool n'a pas retourné d'entité (ex : 'CAF', 'APL', 'S2', 'Stat4'...)
             json = {
-                'message': message,
+                'message': human_message,
                 'ai_response': ai_response
             }                
             return json, 200
@@ -57,7 +64,7 @@ def upload():
             image_loc = None
 
         json = {
-            'message': message,
+            'message': human_message,
             'ai_response': ai_response,
             'image_loc': image_loc,
         }

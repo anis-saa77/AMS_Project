@@ -2,7 +2,7 @@ from config_agent import sendMessage, config
 from settings import TEST_FILE_PATH, TEST_OUTPUT_PATH, LOG_FILE_PATH
 import time
 import sys
-
+from best_aid import best_aid_finder
 # TODO Modifier le threa_id pour ignorer la mémoire ?
 
 if __name__ == '__main__':
@@ -19,8 +19,14 @@ if __name__ == '__main__':
                     # Appeler la fonction sendMessage pour obtenir la réponse
                     # TODO Modifier config
                     ai_message, tool_name, entity = sendMessage(message, "French", config)
+
+                    # Modification du retour si appel à social_aid
+                    if tool_name == 'social_aid':
+                        ai_message, entity = best_aid_finder(message)
+                        print("ai_message :", ai_message)
+
                     if not tool_name:
-                        tool_not_used += 1
+                         tool_not_used += 1
 
                     # Enregistrer les résultats dans out.txt (commenté ici)
                     # output_file.write(f"Message: {message}\n")
@@ -35,7 +41,7 @@ if __name__ == '__main__':
                     # En cas d'erreur, afficher l'indice de l'itération et l'exception
                     sys.stderr.write(f"Erreur lors du traitement de la ligne {index}: {e}\n")
                     exit(0)
-            if index == 5:
+            if index == 1:
                 break
 
     with open(LOG_FILE_PATH, "w", encoding="utf-8") as log_file:

@@ -7,7 +7,6 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain.agents import create_tool_calling_agent
 import json
 from custom_agent_executor import AgentExecutorCustom
-
 def call_model(state: State):
     # Trim des messages
     trimmed_messages = trimmer.invoke(state["messages"])

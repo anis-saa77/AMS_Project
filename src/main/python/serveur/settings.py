@@ -13,6 +13,7 @@ QR_CODE_PATH = "../../../resources/qrcode/qrcode.png"
 TEST_FILE_PATH = "../../../resources/test_data/inputs.txt"
 TEST_OUTPUT_PATH = "../../../resources/test_data/out.txt"
 LOG_FILE_PATH = "../../../resources/test_data/log_file.txt"
+AIDS_EMBEDDING = "../../../resources/database/aid_embeddings.json"
 
 
 # Chemins vers les polices d'écriture

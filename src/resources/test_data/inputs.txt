@@ -1,3 +1,5 @@
+J'ai du mal à payer mon loyer
+Où est situé l'amphi Ada ?
 Où se trouve la salle S1 ?
 Peux-tu me dire où est la salle S1 ?
 Je cherche la salle S1, où elle est ?
@@ -43,7 +45,6 @@ Peux-tu me dire où est l'amphi Ada ?
 Je cherche l'amphi Ada, où il est ?
 Quel est l'emplacement de l'amphi Ada ?
 Saurais-tu où est l'amphi Ada ?
-Où est situé l'amphi Ada ?
 Tu sais où se trouve l'amphi Ada ?
 J'ai besoin de savoir où se trouve l'amphi Ada.
 Où sont les toilettes ?

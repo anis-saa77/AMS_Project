@@ -1,5 +1,6 @@
 ## Tâches + ~Idée :
 
+Refaire requirments
 ----
 **Historique :**
 - Qui commence à parler, l'ia ou l'humain ? (pour altérner les polices différement en fonction de la réponse)
