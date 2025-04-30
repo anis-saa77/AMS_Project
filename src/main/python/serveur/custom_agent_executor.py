@@ -6,7 +6,6 @@ class AgentExecutorCustom(AgentExecutor):
         super().__init__(agent=agent, tools=tools, return_intermediate_steps=return_intermediate_steps, verbose=verbose)
 
     def invoke(self, inputs):
-        print("inputs : ", inputs)
         # Extraire le dernier message utilisateur
         human_messages = [msg for msg in inputs["messages"] if isinstance(msg, HumanMessage)]
         if not human_messages:

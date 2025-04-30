@@ -18,12 +18,17 @@ if __name__ == '__main__':
                 try:
                     # Appeler la fonction sendMessage pour obtenir la réponse
                     # TODO Modifier config
+                    #config = {"configurable": {"thread_id": "abc123"}}
+                    config['configurable']["thread_id"] = f"abc{index}"
                     ai_message, tool_name, entity = sendMessage(message, "French", config)
 
                     # Modification du retour si appel à social_aid
                     if tool_name == 'social_aid':
                         ai_message, entity = best_aid_finder(message)
-                        print("ai_message :", ai_message)
+                        print("Human Message : ", message)
+                        print("AI Message :", ai_message)
+                        print("Tool Call : ", tool_name)
+                        print("Aid :", entity)
 
                     if not tool_name:
                          tool_not_used += 1
@@ -41,7 +46,7 @@ if __name__ == '__main__':
                     # En cas d'erreur, afficher l'indice de l'itération et l'exception
                     sys.stderr.write(f"Erreur lors du traitement de la ligne {index}: {e}\n")
                     exit(0)
-            if index == 1:
+            if index == 6:
                 break
 
     with open(LOG_FILE_PATH, "w", encoding="utf-8") as log_file:

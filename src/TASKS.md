@@ -6,9 +6,9 @@ Refaire requirments
 - Qui commence à parler, l'ia ou l'humain ? (pour altérner les polices différement en fonction de la réponse)
 
 **Aide Sociales :**
-- Test nouvelles descriptions
-- Améliorer la reconnaissance de l'aide (ou des aides) nécessaires !
-- Embedding ?!
+- Embedding
+- Utilisation de "config" pour exécuter un nouveau thread et suggérer la requête via une utilisation du modèle avec un autre "prompt".
+ **Compliqué** car signifierait passer sur de l'asyncrone / manque de temps
 
 **Direction Tool**
 - Fournir un plan du CERI
@@ -22,19 +22,20 @@ Refaire requirments
 - Tests exhaustifs (direction vers toutes les salles/toutes les aides/...) et affinage du dico de correction
 - Avec et sans "Utilise uniquement les outils si possible." dans le prompt
 - Avec et sans influence sur la prise de décision
-- Avec et sans modif du tool_args
-- Commande pour lancer les test : python test.py > $null
+- Avec et sans modif du tool_args / de inputs dans agent executor
+- Commande pour lancer les test en ignorant les prints : python test.py > $null
 
 **Corrections/Améliorations**
 - ~Changement de modèle pour des query plus précise / des décisions plus juste / moins d'erreurs de réponses json?
-- ~Baser le mode assistant sur un usage exclusive des tools ?!!!!!!!!\
+- ~Baser le mode assistant sur un usage exclusive des tools ? \ Ajouter "Utilise uniquement les outils si possible." dans le prompt ?
     **Gros défaut :** Impossibilité de se servir du llm pour répondre à des questions sur d'anciennes réponse\
     **Par exemple :** "qu'elle aide m'as-tu proposer ?" / "Quel était le num de la salle déjà ?"
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
 - SLM pour speech recognition
-- Prendre la phrase entière en query (pour l'aide sociale surtout) ?
-- Ajouter "Utilise uniquement les outils si possible." dans le prompt ?
+
 - Modifier les paramètres suivant ?
+- Détécter les parties les plus gourmandes en temps d'exécution et optimiser
+- Demander des informations supplémentaires pour une réponse correcte.
 ```
 trimmer = trim_messages(
     max_tokens=65,

@@ -2,8 +2,8 @@ import string
 import json
 from langchain.tools import Tool
 
-from sql import *
-from settings import DB_FILE_PATH
+# from sql import *
+# from settings import DB_FILE_PATH
 
 def remove_punctuation(text):
     translator = str.maketrans('', '', string.punctuation)

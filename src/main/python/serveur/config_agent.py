@@ -14,7 +14,7 @@ def call_model(state: State):
     response = agent_executor.invoke({"messages": trimmed_messages, "language": state["language"]})
     # Log des étapes intermédiaires
     intermediate_steps = response.get("intermediate_steps", [])
-    print("Tool Call :", intermediate_steps)
+    #print("Intermediate Steps :", intermediate_steps)
 
     """ Baser le mode assistant sur usage exclusive des tools ?! (Mauvaise idée)"""
     #TODO Si l'agent n'a pas appelé de tool, demander un reformulation
@@ -49,13 +49,13 @@ def sendMessage(message, language, config):
     state = {"messages": messages + [HumanMessage(content=message)], "language": language}
     output = app.invoke(state, config)
     response = output['messages'][-1]
-    print("AI_Message : ", response.content)
+    #print("AI_Message : ", response.content)
     ai_message = response.content
     tool_call = output.get('tool_call')
     if tool_call:
         tool_agent_action = tool_call[0]
         tool_name = tool_agent_action[0].tool
-        print("Tool Call : ", tool_name)
+        #print("Tool Call : ", tool_name)
         tool_return = tool_agent_action[-1]
         #print("tool_return : ", tool_return)
         if isinstance(tool_return, tuple):

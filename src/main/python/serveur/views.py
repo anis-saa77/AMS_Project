@@ -39,7 +39,12 @@ def upload():
 
         # Modification du retour si appel à social_aid
         if tool_name == 'social_aid':  # Ne pas déplacer !
-            ai_message, entity = best_aid_finder(human_message)
+            ai_response, entity = best_aid_finder(human_message)
+
+        # Débug prints
+        print("AI Message : ", ai_response)
+        print("Tool Call : ", tool_name)
+        print("Entity : ", entity)
 
         if not entity:  # L'appel à la fonction tool n'a pas retourné d'entité (ex : 'CAF', 'APL', 'S2', 'Stat4'...)
             json = {
