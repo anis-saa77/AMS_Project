@@ -13,7 +13,7 @@ from settings import *
 historic = []
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
 
-current_image = None
+current_image = os.path.join(RESOURCES_DIR_PATH, "image_state/homepage.png")
 
 @app.route('/')
 def homepage():
@@ -68,7 +68,9 @@ def upload():
             image_loc = "qrcode/qrcode.png"
 
         else:
-            image_loc = None
+            image_loc = "image_state/homepage.png"
+        
+        current_image = os.path.join(RESOURCES_DIR_PATH, image_loc)
 
         json = {
             'message': human_message,
@@ -90,6 +92,7 @@ def conversation():
         if message.lower().strip() == "arrêter la conversation":  # Condition d'arrêt de la conversation
             create_pdf(historic)
             print("Fin de la conversation.")
+            current_image = os.path.join(RESOURCES_DIR_PATH, "qrcode/qrcode.png")
             return {
                 'message': message,
                 'ai_response': "Ok, je met fin à la conversation. Sannez le QR Code pour avoir un historique de notre conversation. Vous devez être connecté au réseau du CERI.",
@@ -141,3 +144,9 @@ def get_image(directory, filename):
     is_qrcode = (filename == "qrcode.png")
     homepage_url = "http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png"
     return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))
+
+@app.route('/getView/<listening>', methods=['GET'])
+def get_view(listening):
+    if listening == "true":
+        return render_template('current_page.html', image=current_image, listening=True)
+    return render_template('current_page.html', image=current_image, listening=False)
