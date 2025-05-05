@@ -85,7 +85,7 @@ def conversation():
         audio_data = request.get_json(force=True)
         message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
 
-        if message.lower() in ["stop", "stoppe"]:  # Condition d'arrêt de la conversation
+        if message.lower().strip() == "arrêter la conversation":  # Condition d'arrêt de la conversation
             create_pdf(historic)
             print("Fin de la conversation.")
             return {
@@ -97,6 +97,7 @@ def conversation():
 
         # Traitement du message par le model conversationnel
         ai_response = str(sendConvMessage(message, "French", configConv))
+
 
         json = {
             'message': message,

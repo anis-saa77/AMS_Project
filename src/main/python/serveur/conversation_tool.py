@@ -1,7 +1,7 @@
 import json
 from langchain.tools import Tool
 def conversation_func(query):
-    tool_response = "Trés bien, démarrons une conversation ! Pour l'arreter dites moi : stop."
+    tool_response = "Trés bien, démarrons une conversation ! Pour l'arreter dites moi : Arrêter la conversation."
     return json.dumps({"tool_response": tool_response, "entity": None})
 
 conversation_tool = Tool(
