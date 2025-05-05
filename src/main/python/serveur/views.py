@@ -13,7 +13,8 @@ from settings import *
 historic = []
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
 
-current_image = os.path.join(RESOURCES_DIR_PATH, "image_state/homepage.png")
+current_image = "image_state/homepage.png"
+show_qrcode_button = False
 
 @app.route('/')
 def homepage():
@@ -59,18 +60,22 @@ def upload():
         if tool_name == 'social_aid':
             update_pdf(tool_name, entity)
             image_loc = "aids/"+entity+".png"
+            show_qrcode_button = True
 
         elif tool_name == "direction_indication":
             update_pdf(tool_name, entity)
             image_loc = f"plans/{entity}.jpg"
+            show_qrcode_button = True
 
         elif tool_name == "qr_code_generation":
             image_loc = "qrcode/qrcode.png"
+            show_qrcode_button = False
 
         else:
             image_loc = "image_state/homepage.png"
+            show_qrcode_button = False
         
-        current_image = os.path.join(RESOURCES_DIR_PATH, image_loc)
+        current_image = image_loc
 
         json = {
             'message': human_message,
@@ -92,7 +97,8 @@ def conversation():
         if message.lower().strip() == "arrêter la conversation":  # Condition d'arrêt de la conversation
             create_pdf(historic)
             print("Fin de la conversation.")
-            current_image = os.path.join(RESOURCES_DIR_PATH, "qrcode/qrcode.png")
+            current_image = "qrcode/qrcode.png"
+            show_qrcode_button = False
             return {
                 'message': message,
                 'ai_response': "Ok, je met fin à la conversation. Sannez le QR Code pour avoir un historique de notre conversation. Vous devez être connecté au réseau du CERI.",
@@ -102,7 +108,6 @@ def conversation():
 
         # Traitement du message par le model conversationnel
         ai_response = str(sendConvMessage(message, "French", configConv))
-
 
         json = {
             'message': message,
@@ -147,6 +152,9 @@ def get_image(directory, filename):
 
 @app.route('/getView/<listening>', methods=['GET'])
 def get_view(listening):
+    image = url_for('resources', filename=current_image)
+    print("Current image:", current_image)
+    print("Image URL:", image)
     if listening == "true":
-        return render_template('current_page.html', image=current_image, listening=True)
-    return render_template('current_page.html', image=current_image, listening=False)
+        return render_template('current_image.html', image=image, listening=True, show_qrcode_button=show_qrcode_button, qrcode_url="http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png")
+    return render_template('current_image.html', image=image, listening=False, show_qrcode_button=show_qrcode_button, qrcode_url="http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png")
