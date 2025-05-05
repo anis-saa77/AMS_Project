@@ -13,6 +13,8 @@ from settings import *
 historic = []
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
 
+current_image = None
+
 @app.route('/')
 def homepage():
 	return 'Home page'
