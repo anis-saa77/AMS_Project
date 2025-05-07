@@ -49,6 +49,23 @@
             transition: background-color 0.3s ease;
         }
 
+        /* Animation de clignotement lent */
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Image du micro animée */
+        #mic_animation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            animation: blink 2s infinite ease-in-out;
+            z-index: 2;
+        }
+
     </style>
 </head>
 <body>
@@ -58,7 +75,7 @@
         <button style="display: flex;" onclick="redirect()" id="qr_button">Voir le QRCode</button>
     {% endif %}
     {% if listening %}
-        <p >Listening ... </p>
+    <img id="mic_animation" src="{{ url_for('resources', filename='webview/mic_image.png') }}" alt="Micro en écoute">
     {% endif %}
 
     <p id="url_p" style="display: none;">{{ qrcode_url }}</p>
