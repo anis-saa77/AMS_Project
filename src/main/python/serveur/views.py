@@ -141,6 +141,7 @@ def resources(filename):
 def get_image(directory, filename):
     print("Requête reçue pour :", request.url)
     image_url = url_for('resources', filename=f'{directory}/{filename}')
+    print(image_url)
     is_qrcode = (filename == "qrcode.png")
     homepage_url = "http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png"
     return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))
