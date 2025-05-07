@@ -1,7 +1,7 @@
 import string
 import json
 import re
-from sentence_transformers import SentenceTransformer, CrossEncoder, util
+from sentence_transformers import SentenceTransformer, util
 import torch
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -12,11 +12,7 @@ from settings import DB_FILE_PATH, AIDS_EMBEDDING
 
 # Charger le modèle
 model = SentenceTransformer('all-MiniLM-L6-v2')
-# TODO Tester :
 #model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
-
-# Charger le cross-encoder
-#cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
 
 def tokenize(text):
     # Séparer en mots simples (alphabet uniquement, sans ponctuation)
@@ -33,7 +29,7 @@ def build_and_save_index(json_path=AIDS_EMBEDDING):
     data = {}
     for aid in aids:
         info = getAidInfo(cur, aid)  # Informations utilisé pour l'embedding
-        desc = getAidDescription(cur, aid) # Description fournie à l'utilisateur
+        desc = getAidDescription(cur, aid)  # Description fournie à l'utilisateur
         desc_clean = info.lower()
         embedding = model.encode(desc_clean, convert_to_numpy=True).tolist()
         data[aid] = {"info": info, "embedding": embedding, "desc": desc}
@@ -55,7 +51,8 @@ def load_index(json_path=AIDS_EMBEDDING):
     return aid_embeddings_index
 
 # Création des embeddings dans un json
-build_and_save_index()  # Utilisation unique !
+#build_and_save_index()  # Utilisation unique !
+
 # Chargement des embeddings
 aid_embeddings_index = load_index()
 
@@ -88,9 +85,9 @@ def best_aid_finder(query):
     # Sélection des top-N (par similarité brute)
     top_candidates = sorted(similarities, key=lambda x: x[2], reverse=True)
 
-    print("[Étape 1 - Similarités Bi-encoder]")
-    for aid, _, sim in top_candidates[:TOP_N]:
-        print(f"{aid}: {sim:.4f}")
+    #print("[Étape 1 - Similarités Bi-encoder]")
+    # for aid, _, sim in top_candidates[:TOP_N]:
+    #     print(f"{aid}: {sim:.4f}")
 
     # Etape 2 : Ajout de bonus par mot-clés
     boosted_candidates = []
@@ -103,27 +100,9 @@ def best_aid_finder(query):
     # Re-trier après bonus
     reranked = sorted(boosted_candidates, key=lambda x: x[2], reverse=True)[:TOP_N]
 
-    print("[Étape 2 - Ajout du bonus]")
-    for aid, _, score in reranked:
-        print(f"{aid}: {score:.4f}")
-
-    # Etape 3 : Appliquer Cross-Encoder sur top-k boostés
-    # pairs = [(query, desc) for (_, desc, _) in boosted_candidates]
-    # cross_scores = cross_encoder.predict(pairs)
-    #
-    # # Normalisation des scores Cross-Encoder
-    # min_score = min(cross_scores)
-    # max_score = max(cross_scores)
-    # normalized_scores = [(score - min_score) / (max_score - min_score + 1e-8) for score in cross_scores]
-    #
-    # print("\n[Étape 3 - Scores normalisés après CrossEncoder]")
-    # reranked = []
-    # for (aid, _, desc), norm_score in zip(boosted_candidates, normalized_scores):
-    #     reranked.append((aid, desc, norm_score))
-    #     print(f"{aid}: {norm_score:.4f}")
-
-    # Trier par score final Cross-Encoder
-    #reranked.sort(key=lambda x: x[2], reverse=True)
+    # print("[Étape 2 - Ajout du bonus]")
+    # for aid, _, score in reranked:
+    #     print(f"{aid}: {score:.4f}")
 
     best_aid, best_desc, best_score = reranked[0]
     if best_score >= SIMILARITY_THRESHOLD:

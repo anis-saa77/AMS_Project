@@ -26,7 +26,8 @@ while True:  # Boucle Principale
 
     if response.json().get('image_loc'):
         image_loc = response.json().get('image_loc')
-        image_url = f"http://{SERVER_IP}:{PORT}/getImage/{image_loc}"
+        #image_url = f"http://{SERVER_IP}:{PORT}/getImage/{image_loc}"
+        image_url = f"http://{SERVER_IP}:{PORT}/getView/true"
         show_webview(image_url)
 
     if response.json().get("ai_response") == "STOP":

@@ -52,24 +52,32 @@
     </style>
 </head>
 <body>
-<!--    <div>-->
-<!--        <img id="img" src="{{ image_url }}" alt="Image">-->
-<!--    </div>-->
-    <img id="img" src="{{ image_url }}" alt="Image">
-    <button style="display: flex;" onclick="redirect()" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}">Voir le QRCode</button>
+    <img id="img" src="{{ image }}" alt="Image">
+
+    {% if show_qr_button %}
+        <button style="display: flex;" onclick="redirect()" id="qr_button">Voir le QRCode</button>
+    {% endif %}
+    {% if listening %}
+        <p >Listening ... </p>
+    {% endif %}
+
     <p id="url_p" style="display: none;">{{ qrcode_url }}</p>
     <script>
-        const button = document.getElementById("qr_button");
-        function displayButton(is_qrcode) {
-            if (is_qrcode){
-                button.setAttribute('style', "display: none;");
-            }
-        }
+        //const button = document.getElementById("qr_button");
+        //function displayButton(is_qrcode) {
+        //    if (is_qrcode){
+        //        button.setAttribute('style', "display: none;");
+        //    }
+        //}
 
         const url_p = document.getElementById("url_p");
-        function redirect() {window.location.href = url_p.innerHTML;}
-        const is_qrcode = JSON.parse(button.dataset.isQrcode)
-        displayButton(is_qrcode);
+
+        function redirect() {
+            window.location.href = url_p.innerHTML;
+        }
+
+        //const is_qrcode = JSON.parse(button.dataset.isQrcode)
+        //displayButton(is_qrcode);
     </script>
 </body>
 </html>

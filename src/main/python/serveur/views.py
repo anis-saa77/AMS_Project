@@ -13,15 +13,17 @@ from settings import *
 historic = []
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
 
-current_image = "image_state/homepage.png"
-show_qrcode_button = False
+current_image = "webview/homepage.png"
+show_qr_button = False
 
 @app.route('/')
 def homepage():
-	return 'Home page'
+    return 'Home page'
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
+    global current_image, show_qr_button
     try:
         audio_data = request.get_json(force=True)
         human_message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
@@ -30,14 +32,16 @@ def upload():
         ai_response, tool_name, entity = sendMessage(human_message, "French", config)
 
         if tool_name == "conversation_tool":
+            print("Début d'une conversation ...")
             json = {
                 'message': human_message,
                 'ai_response': ai_response,
                 'conversation': True
             }
-            print("Début d'une conversation ...")
             historic.clear()
             init_conversation()
+            current_image = "webview/conv_mode.png"
+            show_qr_button = False
             return json, 200
 
         # Modification du retour si appel à social_aid
@@ -53,28 +57,28 @@ def upload():
             json = {
                 'message': human_message,
                 'ai_response': ai_response
-            }                
+            }
             return json, 200
         entity = entity.upper()  # entity = 'CAF', 'APL', 'S2', 'Stat4'...
 
         if tool_name == 'social_aid':
             update_pdf(tool_name, entity)
-            image_loc = "aids/"+entity+".png"
-            show_qrcode_button = True
+            image_loc = "aids/" + entity + ".png"
+            show_qr_button = True
 
         elif tool_name == "direction_indication":
             update_pdf(tool_name, entity)
             image_loc = f"plans/{entity}.jpg"
-            show_qrcode_button = True
+            show_qr_button = True
 
         elif tool_name == "qr_code_generation":
             image_loc = "qrcode/qrcode.png"
-            show_qrcode_button = False
+            show_qr_button = False
 
         else:
-            image_loc = "image_state/homepage.png"
-            show_qrcode_button = False
-        
+            image_loc = "webview/assist_mode.png"
+            show_qr_button = False
+
         current_image = image_loc
 
         json = {
@@ -88,8 +92,10 @@ def upload():
         print("error:", str(e))
         return jsonify({'ai_response': "Je n'ai pas compris. Veuillez répéter."}), 200
 
+
 @app.route('/conversation', methods=['GET', 'POST'])
 def conversation():
+    global current_image, show_qr_button
     try:
         audio_data = request.get_json(force=True)
         message = transcribe_audio_data(audio_data, AUDIO_FILE_PATH)
@@ -98,7 +104,7 @@ def conversation():
             create_pdf(historic)
             print("Fin de la conversation.")
             current_image = "qrcode/qrcode.png"
-            show_qrcode_button = False
+            show_qr_button = False
             return {
                 'message': message,
                 'ai_response': "Ok, je met fin à la conversation. Sannez le QR Code pour avoir un historique de notre conversation. Vous devez être connecté au réseau du CERI.",
@@ -108,6 +114,8 @@ def conversation():
 
         # Traitement du message par le model conversationnel
         ai_response = str(sendConvMessage(message, "French", configConv))
+        current_image = "webview/conv_mode.png"
+        show_qr_button = False
 
         json = {
             'message': message,
@@ -117,17 +125,20 @@ def conversation():
         historic.append(message)
         historic.append(ai_response)
         return json, 200
+
     except Exception as e:
         print("error:", str(e))
         print("ai_response : Je n'ai pas compris. Veuillez répéter.")
         return jsonify({'ai_response': "Je n'ai pas compris. Veuillez répéter."}), 200
-    
+
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     json = {
         'ai_response': "Ceci est un test, je fonctionne bien."
     }
     return json, 200
+
 
 @app.route('/download', methods=['GET'])
 def download():
@@ -137,25 +148,38 @@ def download():
     file_path = PDF_DIR_PATH + names[0]
     return send_file(file_path, as_attachment=True)
 
+
 @app.route('/resources/<path:filename>')
 def resources(filename):
     print(f"Path to resource: {os.path.join(RESOURCES_DIR_PATH, filename)}")
     return send_from_directory(RESOURCES_DIR_PATH, filename)
 
-@app.route('/getImage/<directory>/<filename>', methods=['GET'])
-def get_image(directory, filename):
-    print("Requête reçue pour :", request.url)
-    image_url = url_for('resources', filename=f'{directory}/{filename}')
-    print(image_url)
-    is_qrcode = (filename == "qrcode.png")
-    homepage_url = "http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png"
-    return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode), homepage_url=str(homepage_url))
+
+# @app.route('/getImage/<directory>/<filename>', methods=['GET'])
+# def get_image(directory, filename):
+#     print("Requête reçue pour :", request.url)
+#     image_url = url_for('resources', filename=f'{directory}/{filename}')
+#     print(image_url)
+#     is_qrcode = (filename == "qrcode.png")
+#     homepage_url = "http://" + str(SERVER_IP) + ":" + str(PORT) + "/getImage/qrcode/qrcode.png"
+#     return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode),
+#                            homepage_url=str(homepage_url))
 
 @app.route('/getView/<listening>', methods=['GET'])
 def get_view(listening):
     image = url_for('resources', filename=current_image)
+    is_listening = listening.lower() == "true"
     print("Current image:", current_image)
     print("Image URL:", image)
-    if listening == "true":
-        return render_template('current_image.html', image=image, listening=True, show_qrcode_button=show_qrcode_button, qrcode_url="http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png")
-    return render_template('current_image.html', image=image, listening=False, show_qrcode_button=show_qrcode_button, qrcode_url="http://"+str(SERVER_IP)+":"+str(PORT)+"/getImage/qrcode/qrcode.png")
+    print("Listening : ", is_listening)
+    qrcode_url = "http://" + str(SERVER_IP) + ":" + str(PORT) + "/getQRCode/false"
+    return render_template('current_image.html', image=image, listening=is_listening,
+                           show_qr_button=show_qr_button,
+                           qrcode_url=qrcode_url)
+
+@app.route('/getQRCode/<listening>', methods=['GET'])
+def get_qrcode(listening):
+    print("get_qrcode")
+    global current_image, show_qr_button
+    current_image, show_qr_button = "qrcode/qrcode.png", False
+    return get_view(listening)

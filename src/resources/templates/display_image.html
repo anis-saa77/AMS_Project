@@ -52,9 +52,7 @@
     </style>
 </head>
 <body>
-<!--    <div>-->
-<!--        <img id="img" src="{{ image_url }}" alt="Image">-->
-<!--    </div>-->
+
     <img id="img" src="{{ image_url }}" alt="Image">
     <button style="display: flex;" onclick="redirect()" id="qr_button" data-is-qrcode="{{ is_qrcode | tojson }}">Voir le QRCode</button>
     <p id="url_p" style="display: none;">{{homepage_url}}</p>
