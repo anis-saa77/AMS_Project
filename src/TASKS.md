@@ -31,10 +31,6 @@ Refaire requirments
 - Demander des informations supplémentaires pour une réponse correcte.
 - Modifier les paramètres suivant ?
 
-**Now**
-- choregraph variable globale
-- choregraph webview là où il faut
-- bang de recore_sound (au début et à la fin)
 
 ```
 trimmer = trim_messages(
