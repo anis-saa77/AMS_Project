@@ -9,7 +9,6 @@ from model_conv import init_conversation
 from best_aid import best_aid_finder
 from settings import *
 
-#deb_conversation = ["commencer une conversation", "commencer une discution", "débuter une conversation", "débuter une discution", "démarrer une conversation", "démarrer une discution", "je veux parler avec toi"]
 historic = []
 create_qr_code(f"http://{SERVER_IP}:{PORT}/download")
 
@@ -153,17 +152,6 @@ def download():
 def resources(filename):
     print(f"Path to resource: {os.path.join(RESOURCES_DIR_PATH, filename)}")
     return send_from_directory(RESOURCES_DIR_PATH, filename)
-
-
-# @app.route('/getImage/<directory>/<filename>', methods=['GET'])
-# def get_image(directory, filename):
-#     print("Requête reçue pour :", request.url)
-#     image_url = url_for('resources', filename=f'{directory}/{filename}')
-#     print(image_url)
-#     is_qrcode = (filename == "qrcode.png")
-#     homepage_url = "http://" + str(SERVER_IP) + ":" + str(PORT) + "/getImage/qrcode/qrcode.png"
-#     return render_template('display_image.html', image_url=image_url, is_qrcode=bool(is_qrcode),
-#                            homepage_url=str(homepage_url))
 
 @app.route('/getView/<listening>', methods=['GET'])
 def get_view(listening):

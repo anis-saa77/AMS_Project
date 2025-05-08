@@ -18,8 +18,6 @@ Refaire requirments
 - (Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
 
 **Tests**
-- Tests utilisateurs (guidés / non guidés)
-- Tests exhaustifs (direction vers toutes les salles/toutes les aides/...) et affinage du dico de correction
 - Avec et sans "Utilise uniquement les outils si possible." dans le prompt
 - Avec et sans influence sur la prise de décision
 - Avec et sans modif du tool_args / de inputs dans agent executor
@@ -27,15 +25,17 @@ Refaire requirments
 
 **Corrections/Améliorations**
 - ~Changement de modèle pour des query plus précise / des décisions plus juste / moins d'erreurs de réponses json?
-- ~Baser le mode assistant sur un usage exclusive des tools ? \ Ajouter "Utilise uniquement les outils si possible." dans le prompt ?
-    **Gros défaut :** Impossibilité de se servir du llm pour répondre à des questions sur d'anciennes réponse\
-    **Par exemple :** "qu'elle aide m'as-tu proposer ?" / "Quel était le num de la salle déjà ?"
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
-- SLM pour speech recognition
 
-- Modifier les paramètres suivant ?
 - Détécter les parties les plus gourmandes en temps d'exécution et optimiser
 - Demander des informations supplémentaires pour une réponse correcte.
+- Modifier les paramètres suivant ?
+
+**Now**
+- choregraph variable globale
+- choregraph webview là où il faut
+- bang de recore_sound (au début et à la fin)
+
 ```
 trimmer = trim_messages(
     max_tokens=65,

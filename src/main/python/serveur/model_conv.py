@@ -41,7 +41,7 @@ prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are the robot of a chatbot. You must answer conciently. Answer all questions to the best of your ability in {language}.",
+            "You are the robot of a chatbot. You must answer concisely and accurately. Always respond to the best of your ability in {language}.",
         ),
         MessagesPlaceholder(variable_name="messages"),
     ]
