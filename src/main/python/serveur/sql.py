@@ -33,7 +33,7 @@ def getAids(cur):
     aids = [row[0] for row in cur.fetchall()]
     return aids
 
-def getAidInfo(cur, aid_name):
+def getAidDescription(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
     cur.execute(check_query, (aid_name,))
@@ -51,7 +51,7 @@ def getAidInfo(cur, aid_name):
     info = cur.fetchone()
     return info[0]
   
-def getAidImage(cur, aid_name):
+def getAidInfo(cur, aid_name):
     # Vérifier si l'aide sociale existe
     check_query = "SELECT id FROM SocialAid WHERE name = ?;"
     cur.execute(check_query, (aid_name,))
@@ -61,7 +61,7 @@ def getAidImage(cur, aid_name):
         raise ValueError(f"L'aide sociale '{aid_name}' n'existe pas dans la base de données.")
 
     query = '''
-       SELECT SocialAid.image
+       SELECT SocialAid.info
        FROM SocialAid
        WHERE SocialAid.name = ?;
        '''

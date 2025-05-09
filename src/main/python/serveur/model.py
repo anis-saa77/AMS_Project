@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from langchain_fireworks import ChatFireworks
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import trim_messages, SystemMessage
+#from langchain_openai import ChatOpenAI
 
 ##############################################################
 # Model #
@@ -20,24 +21,31 @@ os.environ["LANGCHAIN_API_KEY"] = langchain_api_key
 os.environ["FIREWORKS_API_KEY"] = fireworks_api_key
 os.environ["TAVILY_API_KEY"] = tavily_api_key
 
-####################################################
-# Define the model
-####################################################
-
+# Importation du modèle
 model = ChatFireworks(model="accounts/fireworks/models/llama-v3p1-70b-instruct")
+
+# openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+#
+# model = ChatOpenAI(
+#     base_url="https://openrouter.ai/api/v1",
+#     api_key=os.getenv("OPENROUTER_API_KEY"),
+#     model="anthropic/claude-3-haiku"
+# )
 
 prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
             """
-            Tu es un assistant intelligent pour le CERI. Utilise les outils disponibles pour répondre précisément aux questions. Voici les outils que tu peux utiliser :
+            Tu es un assistant intelligent pour le CERI. Utilise uniquement les outils disponibles pour répondre précisément aux questions.
 
+            Voici les outils que tu peux utiliser :
             - Suggestion d'aides sociales pour répondre aux difficultés de la personne.
             - Orientation vers les salles du CERI.
             - Conversation avec la personne.
 
-            Réponds toujours en français.
+            Règles importantes :
+            - Réponds toujours en français.
             """
         ),
         MessagesPlaceholder(variable_name="messages"),

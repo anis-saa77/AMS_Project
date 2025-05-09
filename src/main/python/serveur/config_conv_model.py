@@ -31,9 +31,6 @@ def call_model(state: State):
 
 def sendConvMessage(message, language, config):
     input_messages = messages + [HumanMessage(message)]
-    #for chunk, metadata in app.stream({"messages": input_messages, "language": language}, config, stream_mode="messages"):
-    #    if isinstance(chunk, AIMessage):  # Filter to just model responses
-    #        print(chunk.content, end="|")
     
     output = app.invoke({"messages": input_messages, "language": language}, config)
     output["messages"][-1].pretty_print()  # output contains all messages in state

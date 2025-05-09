@@ -1,34 +1,45 @@
 ## Tâches + ~Idée :
 
+Refaire requirments
 ----
 **Historique :**
 - Qui commence à parler, l'ia ou l'humain ? (pour altérner les polices différement en fonction de la réponse)
 
 **Aide Sociales :**
-- Ajouter les nouvelles aides à la base
-- Améliorer la reconnaissance de l'aide (ou des aides) nécessaires !
-- Entrainer un modèle pour reconnaitre l'aide ?!
+- Embedding
+- Utilisation de "config" pour exécuter un nouveau thread et suggérer la requête via une utilisation du modèle avec un autre "prompt".
+ **Compliqué** car signifierait passer sur de l'asyncrone / manque de temps
 
 **Direction Tool**
-- Compléter les descriptions dans la base
 - Fournir un plan du CERI
-- Régler l'amphi -> l
 
 **Choregraph**
-- Image trop grande cache le bouton qrcode (ex: APL)'
-- Le lien doit avoir la même hitbox que le bouton
 - Afficher sur la tablette "Mode Assistant" / "Mode conv"
 - (Quiz) / Affichage, Jouer un son, geste confirmant la réponse...
 
-- 
 **Tests**
-- Tests utilisateurs (guidés / non guidés)
-- Tests exhaustifs (direction vers toutes les salles/toutes les aides/...) et affinage du dico de correction
+- Avec et sans "Utilise uniquement les outils si possible." dans le prompt
+- Avec et sans influence sur la prise de décision
+- Avec et sans modif du tool_args / de inputs dans agent executor
+- Commande pour lancer les test en ignorant les prints : python test.py > $null
 
 **Corrections/Améliorations**
 - ~Changement de modèle pour des query plus précise / des décisions plus juste / moins d'erreurs de réponses json?
-- ~Baser le mode assistant sur un usage exclusive des tools ?!!!!!!!!
 - Régler le problème --> La réponse est au format json :  {"type": "function", "name": "direction_indication", "parameters": {"__arg1": "S3"}}
-- SLM pour speech recognition
-- Dimension de la tablette -> width:980 height:613
-- Prendre la phrase entière en query ?
+
+- Détécter les parties les plus gourmandes en temps d'exécution et optimiser
+- Demander des informations supplémentaires pour une réponse correcte.
+- Modifier les paramètres suivant ?
+
+
+```
+trimmer = trim_messages(
+    max_tokens=65,
+    strategy="last",
+    token_counter=model,
+    include_system=True,
+    allow_partial=False,
+    start_on="human",
+)
+```
+
