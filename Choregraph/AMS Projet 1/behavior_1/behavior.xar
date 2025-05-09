@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><ChoregrapheProject xmlns="http://www.aldebaran-robotics.com/schema/choregraphe/project.xsd" xar_version="3"><Box name="root" id="-1" localization="8" tooltip="Root box of Choregraphe&apos;s behavior. Highest level possible." x="0" y="0"><bitmap>media/images/box/root.png</bitmap><script language="4"><content><![CDATA[]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /><Timeline enable="0"><BehaviorLayer name="behavior_layer1"><BehaviorKeyframe name="keyframe1" index="1"><Diagram><Box name="Call" id="3" localization="8" tooltip="Cette boite fait le call vers Rasa, en ayant reçu en input les paramètres." x="397" y="36"><bitmap>media/images/box/box-python-script.png</bitmap><script language="4"><content><![CDATA[import urllib2
+<?xml version="1.0" encoding="UTF-8" ?><ChoregrapheProject xmlns="http://www.aldebaran-robotics.com/schema/choregraphe/project.xsd" xar_version="3"><Box name="root" id="-1" localization="8" tooltip="Root box of Choregraphe&apos;s behavior. Highest level possible." x="0" y="0"><bitmap>media/images/box/root.png</bitmap><script language="4"><content><![CDATA[]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /><Timeline enable="0"><BehaviorLayer name="behavior_layer1"><BehaviorKeyframe name="keyframe1" index="1"><Diagram><Box name="Call" id="3" localization="8" tooltip="Cette boite fait le call vers Rasa, en ayant reçu en input les paramètres." x="398" y="97"><bitmap>media/images/box/box-python-script.png</bitmap><script language="4"><content><![CDATA[import urllib2
 import json
 import random
 import time
@@ -12,8 +12,8 @@ class MyClass(GeneratedClass):
 
         # Modifier l'IP du robot et l'IP du serveur
         #memory = ALProxy("ALMemory", "192.168.13.63", 9559)
-        self.memory.insertData("ServerIP", "10.21....")
-        self.memory.insertData("ServerPort", "5000")
+        #self.memory.insertData("ServerIP", "10.26.8.178")
+        #self.memory.insertData("ServerPort", "5000")
 
     def onLoad(self):
         pass
@@ -172,10 +172,10 @@ import requests
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
-        server_ip = self/memory.getData("ServerIP")
-        server_port = self.memory.getData("ServerPort")
-        self.url = "http://"+server_ip+":"+server_port+"/upload"
-        #self.url = 'http://10.126.3.101:5000/upload'
+        #server_ip = self/memory.getData("ServerIP")
+        #server_port = self.memory.getData("ServerPort")
+        #self.url = "http://"+server_ip+":"+server_port+"/upload"
+        self.url = 'http://10.26.8.178:5000/upload'
 
     def onLoad(self):
         pass
@@ -189,6 +189,8 @@ class MyClass(GeneratedClass):
         data = base64.b64encode(file.readframes(file.getnframes()))
 
         response = self.pydial_call(self.url, data, params)
+
+        self.updateView()
 
         sentence = response.json().get('ai_response')
         if sentence == None:
@@ -216,7 +218,7 @@ class MyClass(GeneratedClass):
         #response = Response()
         #response.code = f.getcode()
         #response.body = f.read()
-        #return response]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="3" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /><Output name="onConversationStart" type="3" type_size="1" nature="2" inner="0" tooltip="" id="5" /></Box><Box name="SayBye" id="2" localization="8" tooltip="Say the text received on its input." x="1364" y="48"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[import time
+        #return response]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="3" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /><Output name="onConversationStart" type="3" type_size="1" nature="2" inner="0" tooltip="" id="5" /><Output name="updateView" type="1" type_size="1" nature="2" inner="0" tooltip="" id="6" /></Box><Box name="SayBye" id="2" localization="8" tooltip="Say the text received on its input." x="1364" y="48"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[import time
 
 class MyClass(GeneratedClass):
     def __init__(self):
@@ -267,10 +269,10 @@ import requests
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
-        server_ip = self.memory.getData("ServerIP")
-        server_port = self.memory.getData("ServerPort")
-        self.url = "http://"+server_ip+":"+server_port+"/conversation"
-        #self.url = 'http://10.126.3.101:5000/conversation'
+        #server_ip = self.memory.getData("ServerIP")
+        #server_port = self.memory.getData("ServerPort")
+        #self.url = "http://"+server_ip+":"+server_port+"/conversation"
+        self.url = 'http://10.26.8.178:5000/conversation'
 
     def onLoad(self):
         pass
@@ -284,6 +286,8 @@ class MyClass(GeneratedClass):
         data = base64.b64encode(file.readframes(file.getnframes()))
 
         response = self.pydial_call(self.url, data, params)
+
+        self.updateView()
 
         sentence = response.json().get('ai_response')
         if sentence == None:
@@ -301,7 +305,7 @@ class MyClass(GeneratedClass):
         headers = {"Content-Type": "application/json"}
         json_dumps = json.dumps(data)
 
-        return requests.post(url, data=json_dumps, headers=headers)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="3" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /><Output name="onConversation" type="3" type_size="1" nature="2" inner="0" tooltip="" id="5" /></Box><Box name="Say Text (1)" id="4" localization="8" tooltip="Say the text received on its input." x="664" y="303"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[import time
+        return requests.post(url, data=json_dumps, headers=headers)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="3" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /><Output name="onConversation" type="3" type_size="1" nature="2" inner="0" tooltip="" id="5" /><Output name="updateView" type="1" type_size="1" nature="2" inner="0" tooltip="" id="6" /></Box><Box name="Say Text (1)" id="4" localization="8" tooltip="Say the text received on its input." x="664" y="303"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[import time
 
 class MyClass(GeneratedClass):
     def __init__(self):
@@ -427,10 +431,10 @@ class MyClass(GeneratedClass):
 
     def __init__(self):
         GeneratedClass.__init__(self)
-        server_ip = self.memory.getData("ServerIP")
-        server_port = self.memory.getData("ServerPort")
-        self.url = "http://"+server_ip+":"+server_port+"/getView/"
-        #self.url = 'http://10.126.3.101:5000/getView'
+        #server_ip = self.memory.getData("ServerIP")
+        #server_port = self.memory.getData("ServerPort")
+        #self.url = "http://"+server_ip+":"+server_port+"/getView/"
+        self.url = 'http://10.26.8.178:5000/getView/'
 
     def onLoad(self):
         pass
@@ -468,4 +472,4 @@ class MyClass(GeneratedClass):
             self.logger.warning("ALTabletService not found.")
 
         # Call onStopped to finish the behavior
-        self.onStopped()]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onMicOpen" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onMicClosed" type="1" type_size="1" nature="2" inner="0" tooltip="" id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Link inputowner="6" indexofinput="2" outputowner="3" indexofoutput="6" /><Link inputowner="8" indexofinput="2" outputowner="6" indexofoutput="4" /><Link inputowner="2" indexofinput="2" outputowner="3" indexofoutput="7" /><Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" /><Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="7" indexofinput="2" outputowner="8" indexofoutput="4" /><Link inputowner="3" indexofinput="4" outputowner="7" indexofoutput="4" /><Link inputowner="4" indexofinput="2" outputowner="7" indexofoutput="5" /><Link inputowner="5" indexofinput="2" outputowner="4" indexofoutput="4" /><Link inputowner="1" indexofinput="2" outputowner="5" indexofoutput="4" /><Link inputowner="3" indexofinput="4" outputowner="1" indexofoutput="4" /><Link inputowner="4" indexofinput="2" outputowner="1" indexofoutput="5" /><Link inputowner="9" indexofinput="3" outputowner="0" indexofoutput="2" /><Link inputowner="9" indexofinput="2" outputowner="6" indexofoutput="4" /><Link inputowner="9" indexofinput="2" outputowner="4" indexofoutput="4" /><Link inputowner="9" indexofinput="3" outputowner="8" indexofoutput="4" /><Link inputowner="9" indexofinput="3" outputowner="5" indexofoutput="4" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
+        self.onStopped()]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onMicOpen" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onMicClosed" type="1" type_size="1" nature="2" inner="0" tooltip="" id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Link inputowner="6" indexofinput="2" outputowner="3" indexofoutput="6" /><Link inputowner="8" indexofinput="2" outputowner="6" indexofoutput="4" /><Link inputowner="2" indexofinput="2" outputowner="3" indexofoutput="7" /><Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" /><Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="7" indexofinput="2" outputowner="8" indexofoutput="4" /><Link inputowner="3" indexofinput="4" outputowner="7" indexofoutput="4" /><Link inputowner="4" indexofinput="2" outputowner="7" indexofoutput="5" /><Link inputowner="5" indexofinput="2" outputowner="4" indexofoutput="4" /><Link inputowner="1" indexofinput="2" outputowner="5" indexofoutput="4" /><Link inputowner="3" indexofinput="4" outputowner="1" indexofoutput="4" /><Link inputowner="4" indexofinput="2" outputowner="1" indexofoutput="5" /><Link inputowner="9" indexofinput="3" outputowner="0" indexofoutput="2" /><Link inputowner="9" indexofinput="3" outputowner="8" indexofoutput="4" /><Link inputowner="9" indexofinput="3" outputowner="5" indexofoutput="4" /><Link inputowner="9" indexofinput="3" outputowner="1" indexofoutput="6" /><Link inputowner="9" indexofinput="3" outputowner="7" indexofoutput="6" /><Link inputowner="9" indexofinput="2" outputowner="6" indexofoutput="4" /><Link inputowner="9" indexofinput="2" outputowner="4" indexofoutput="4" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>

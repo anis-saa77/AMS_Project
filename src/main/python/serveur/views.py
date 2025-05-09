@@ -157,9 +157,9 @@ def resources(filename):
 def get_view(listening):
     image = url_for('resources', filename=current_image)
     is_listening = listening.lower() == "true"
-    print("Current image:", current_image)
-    print("Image URL:", image)
-    print("Listening : ", is_listening)
+    # print("Current image:", current_image)
+    # print("Image URL:", image)
+    # print("Listening : ", is_listening)
     qrcode_url = "http://" + str(SERVER_IP) + ":" + str(PORT) + "/getQRCode/false"
     return render_template('current_image.html', image=image, listening=is_listening,
                            show_qr_button=show_qr_button,
@@ -167,7 +167,6 @@ def get_view(listening):
 
 @app.route('/getQRCode/<listening>', methods=['GET'])
 def get_qrcode(listening):
-    print("get_qrcode")
     global current_image, show_qr_button
     current_image, show_qr_button = "qrcode/qrcode.png", False
     return get_view(listening)
