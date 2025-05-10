@@ -5,8 +5,8 @@ from audio import transcribe_audio_data
 from pdf import *
 from config_agent import sendMessage, config
 from config_conv_model import sendConvMessage, configConv
-from model_conv import init_conversation
-from best_aid import best_aid_finder
+from conv_model import init_conversation
+from social_aid_tool import best_aid_finder
 from settings import *
 
 historic = []

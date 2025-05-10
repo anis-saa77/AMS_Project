@@ -1,5 +1,5 @@
 from state_conv import State
-from model_conv import prompt, model, trimmer, messages
+from conv_model import prompt, model, trimmer, messages
 
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver

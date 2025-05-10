@@ -2,7 +2,7 @@ from config_agent import sendMessage, config
 from settings import TEST_FILE_PATH, TEST_OUTPUT_PATH, LOG_FILE_PATH
 import time
 import sys
-from best_aid import best_aid_finder
+from social_aid_tool import best_aid_finder
 # TODO Modifier le threa_id pour ignorer la mémoire ?
 
 if __name__ == '__main__':
@@ -10,15 +10,15 @@ if __name__ == '__main__':
 
     tool_not_used = 0
     start_time = time.time()
+    LIMIT = 6  # Limite le nombre de phrases à tester (et de requêtes à l'api)
+
     with open(TEST_FILE_PATH, "r", encoding="utf-8") as input_file:
         #with open(TEST_OUTPUT_PATH, "w", encoding="utf-8") as output_file:
         for index, line in enumerate(input_file, start=1):
             message = line.strip()  # Enlever les espaces blancs en début et fin de ligne
             if message:
                 try:
-                    # Appeler la fonction sendMessage pour obtenir la réponse
-                    # TODO Modifier config
-                    #config = {"configurable": {"thread_id": "abc123"}}
+                    # Génération de la réponse
                     config['configurable']["thread_id"] = f"abc{index}"
                     ai_message, tool_name, entity = sendMessage(message, "French", config)
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
                     # En cas d'erreur, afficher l'indice de l'itération et l'exception
                     sys.stderr.write(f"Erreur lors du traitement de la ligne {index}: {e}\n")
                     exit(0)
-            if index == 6:
+            if index == LIMIT:
                 break
 
     with open(LOG_FILE_PATH, "w", encoding="utf-8") as log_file:
